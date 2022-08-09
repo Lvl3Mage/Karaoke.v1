@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const {VueLoaderPlugin} = require('vue-loader')
 let mode = 'development'
 if (process.env.NODE_ENV === 'production') {
     mode = 'production'
@@ -47,6 +47,15 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loader: {
+                        scss: 'vue-style-loader!css-loader!sass-loader'
+                    }
+                }
+            },
             {
                 test: /\.html$/i,
                 use: ['html-loader', 'template-ejs-loader'],
@@ -102,7 +111,13 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias: {
+            //'vue$': 'vue/dist/vue.cjs.js'
+        }
+    },
     plugins: [
+        new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             //filename: `${PATHS.css}[name].[contenthash].css`
             filename: `${PATHS.css}[name].css`
