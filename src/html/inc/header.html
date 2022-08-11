@@ -5,68 +5,111 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,900;1,400&family=PT+Sans:wght@700&family=Playfair+Display:wght@700&family=Roboto:wght@400;700;900&display=swap"
+		rel="stylesheet">
 	<title>melemele</title>
 </head>
 
 <body>
-	<aside class="header">
-		<div class="sidebar__social-links">
-			<div class="social-links__wrap">
-				<ul class="social-links__list">
-					<li class="social-links__item">
-						<a class="social-links__link" href="">
+	<header class="header">
+		<aside class="sidebar">
+			<div class="sidebar__wrap">
+				<div class="sidebar__social-links">
+					<div class="social-links__wrap">
+						<ul class="social-links__list">
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-tiktok"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-instagram"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-facebook"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="sidebar-list__button-wrap">
+					<div class="burger">
+						<svg class="svg-wrap svg-wrap--burger">
+							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-burger"></use>
+						</svg>
+					</div>
+				</div>
+				<div class="sidebar-contacts">
+					<div class="contacts__wrap">
+						<a class="contacts__link" href="tel:#">
 							<svg class="svg-wrap">
-								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-tiktok"></use>
+								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-phone"></use>
 							</svg>
 						</a>
+						<a class="contacts__link" href="mail:#">
+							<svg class="svg-wrap">
+								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-mail"></use>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar-lang">
+				<div class="sidebar-lang__current"></div>
+				<ul class="sidebar-lang__list">
+					<li class="sidebar-lang__item">
+						<a class="sidebar-lang__link" href="">EN</a>
+						<svg class="svg-wrap--lang">
+							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-down"></use>
+						</svg>
 					</li>
-					<li class="social-links__item">
-						<a class="social-links__link" href="">
-							<svg class="svg-wrap">
-								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-instagram"></use>
-							</svg>
-						</a>
-					</li>
-					<li class="social-links__item">
-						<a class="social-links__link" href="">
-							<svg class="svg-wrap">
-								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-facebook"></use>
-							</svg>
-						</a>
+					<li class="sidebar-lang__item">
+						<a class="sidebar-lang__link" href="">AR</a>
+						<svg class="svg-wrap--lang">
+							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-up"></use>
+						</svg>
 					</li>
 				</ul>
 			</div>
-		</div>
-		<div class="sidebar-list__button-wrap">
-			<div class="burger">
-				<svg class="svg-wrap svg-wrap--burger">
-					<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-burger"></use>
-				</svg>
+		</aside>
+		<section class="navigation">
+			<div class="navigation__wrap">
+				<ul class="navigation__list">
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Home</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">About us</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Rooms</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Gallery</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Menu</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Contacts</a>
+					</li>
+				</ul>
 			</div>
-		</div>
-		<div class="sidebar-contacts">
-			<div class="contacts__wrap">
-				<a href="tel:#">
-					<svg class="svg-wrap">
-						<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-phone"></use>
-					</svg>
-				</a>
-				<a href="mail:#">
-					<svg class="svg-wrap">
-						<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-mail"></use>
-					</svg>
-				</a>
-			</div>
-		</div>
-		<div class="sidebar-lang">
-			<svg class="svg-wrap--lang">
-				<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-eng"></use>
-			</svg>
-			<svg class="svg-wrap--lang">
-				<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-arabic"></use>
-			</svg>
-		</div>
-	</aside>
+		</section>
+	</header>
+
 
 </body>
 

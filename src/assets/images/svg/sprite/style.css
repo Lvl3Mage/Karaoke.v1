@@ -15,6 +15,14 @@ Single-colored icons can be modified like so:
 }
 ========================================== */
 
+.icon-down {
+  width: 1.75em;
+}
+
+.icon-up {
+  width: 1.75em;
+}
+
 .icon-arabic {
   width: 2.125em;
 }

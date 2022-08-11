@@ -4,6 +4,92 @@
     {
       "icon": {
         "paths": [
+          "M128 128l768 768 768-768"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(255, 255, 255)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 256
+          }
+        ],
+        "width": 1792,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "down"
+        ]
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 256
+        }
+      ],
+      "properties": {
+        "order": 26,
+        "id": 1,
+        "name": "down",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M1664 896l-768-768-768 768"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(255, 255, 255)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 256
+          }
+        ],
+        "width": 1792,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "up"
+        ]
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 256
+        }
+      ],
+      "properties": {
+        "order": 27,
+        "id": 0,
+        "name": "up",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
           "M300.833 265.083l-165 502.917h-132.917l225.417-606.667h84.583l-12.083 103.75zM437.918 768l-165.418-502.917-13.333-103.75h85.417l226.668 606.667h-133.333zM430.417 542.165v97.92h-320.417v-97.92h320.417zM627.499 161.333h226.253c46.387 0 86.246 6.944 119.582 20.833 33.613 13.889 59.443 34.444 77.5 61.667s27.085 60.695 27.085 100.417c0 32.5-5.555 60.417-16.67 83.748-10.833 23.057-26.249 42.364-46.246 57.92-19.725 15.275-42.918 27.499-69.585 36.663l-39.582 20.834h-196.668l-0.832-97.498h146.249c21.943 0 40.141-3.891 54.583-11.669 14.443-7.776 25.276-18.609 32.499-32.498 7.501-13.889 11.251-30 11.251-48.334 0-19.444-3.614-36.25-10.833-50.417-7.223-14.167-18.197-25-32.917-32.5-14.724-7.5-33.195-11.25-55.415-11.25h-101.252v508.75h-125.001v-606.667zM966.665 768l-138.33-270.417 132.083-0.832 139.998 265.417v5.833h-133.751z",
           "M1920 640l-256-256-256 256"
         ],
@@ -47,7 +133,7 @@
         "name": "arabic",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 0
     },
@@ -123,7 +209,7 @@
         "name": "burger",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 1
     },
@@ -155,7 +241,7 @@
         "name": "close",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 2
     },
@@ -205,7 +291,7 @@
         "name": "eng",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 3
     },
@@ -238,7 +324,7 @@
         "name": "facebook",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 4
     },
@@ -270,7 +356,7 @@
         "name": "instagram",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 5
     },
@@ -303,7 +389,7 @@
         "name": "mail",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 6
     },
@@ -335,7 +421,7 @@
         "name": "phone",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 7
     },
@@ -368,7 +454,7 @@
         "name": "tiktok",
         "prevSize": 32
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 8
     }
