@@ -14,6 +14,16 @@
 </head>
 
 <body>
+	<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+		<linearGradient id="hover" x2="0" y2="1">
+			<stop offset="0%" stop-color="#FEE159" />
+			<stop offset="100%" stop-color="#F569A3" />
+		</linearGradient>
+		<linearGradient id="active">
+			<stop offset="0%" stop-color="#9747FF" />
+			<stop offset="100%" stop-color="#F569A3" />
+		</linearGradient>
+	</svg>
 	<header class="header">
 		<aside class="sidebar">
 			<div class="sidebar__wrap">
@@ -45,10 +55,13 @@
 					</div>
 				</div>
 				<div class="sidebar-list__button-wrap">
-					<div class="burger">
-						<svg class="svg-wrap svg-wrap--burger">
+					<div class="burger-btn">
+						<span></span>
+						<span></span>
+						<span></span>
+						<!-- <svg class="svg-wrap svg-wrap--burger">
 							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-burger"></use>
-						</svg>
+						</svg> -->
 					</div>
 				</div>
 				<div class="sidebar-contacts">
@@ -70,7 +83,8 @@
 				<div class="sidebar-lang__current"></div>
 				<ul class="sidebar-lang__list">
 					<li class="sidebar-lang__item">
-						<a class="sidebar-lang__link" href="">EN</a>
+						<a class="sidebar-lang__link" href="">
+							EN</a>
 						<svg class="svg-wrap--lang">
 							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-down"></use>
 						</svg>
@@ -86,6 +100,31 @@
 		</aside>
 		<section class="navigation">
 			<div class="navigation__wrap">
+				<div class="social-links__mobile">
+					<ul class="social-links__list">
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-tiktok"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-instagram"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-facebook"></use>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
 				<ul class="navigation__list">
 					<li class="navigation__item">
 						<a href="index.html#" class="navigation__link">Home</a>
@@ -106,6 +145,21 @@
 						<a href="index.html#" class="navigation__link">Contacts</a>
 					</li>
 				</ul>
+				<div class="contacts__wrap--mobile">
+					<div class="contacts__wrap">
+						<a class="contacts__link" href="tel:#">
+							<svg class="svg-wrap">
+								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-phone"></use>
+							</svg>
+						</a>
+						<a class="contacts" href="mail:#">
+							<svg class="svg-wrap">
+								<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-mail"></use>
+							</svg>
+						</a>
+					</div>
+				</div>
+
 			</div>
 		</section>
 	</header>
