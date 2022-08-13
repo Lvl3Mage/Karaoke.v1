@@ -2,3 +2,36 @@
 @import '../../../node_modules/modern-normalize/modern-normalize.css';
 @import './utils/vars';
 @import './utils/utils-collection';
+
+@import './header';
+
+
+
+body{
+    display: flex;
+    flex-direction: row;
+}
+button:hover,
+button:focus {
+	cursor: pointer;
+}
+button:active{
+	background: #B94C40;
+}
+* {
+	box-sizing: border-box;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+  color: inherit;
+  &:not(.def-link){
+  	text-decoration: inherit; /* no underline */
+  }
+}
+

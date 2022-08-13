@@ -2,10 +2,13 @@
   ========================================================================== */
 
 // Font
-$mainFont                : Helvetica, sans-serif;
+$mainFont                : Chivo, sans-serif;
+$headFont                : PlayfairDisplay, serif;
+$roomFont                : PT Sans, sans-serif;
+$secondFont              : Roboto, sans-serif;
 
 // Size
-$mainFontColor           : #00205B;
+$mainFontColor           : #ffffff;
 $mainFontSize            : 16px;
 $mainFontWeight          : 400;
 $mainLineHeight          : 1.4;
@@ -23,22 +26,19 @@ $smPhoneWidth            : 320px;
 */
 
 // Main color
-$default-color           : #ffffff;
-$primary-color           : #444ce0;
-$success-color           : #26de81;
-$danger-color            : #fc5c65;
-$warning-color           : #fed330;
-$light-color             : #999999;
-$purple-color            : #8854d0;
+$background-color        : #232020;
+$pop-up-color            : rgba(255, 255, 255, 0.9);
+$hover-color             : linear-gradient(180deg, #FEE159 0%, #F569A3 100%);
+$active-color            : linear-gradient(90.48deg, #9747FF 0.45%, #F569A3 99.63%);
+$default-color           : #979797;
 
 // Neutral Color
-$neutral-primary         : #303133;
-$neutral-regular         : #606266;
-$neutral-secondary       : #909399;
-$neutral-placeholder     : #C0C4CC;
+$hula-color              : #902FDC;
+$party-color             : #1D4ED8;
+$ukulele-color           : #FEE159;
+$flamingo-color          : #F569A3;
+$packages-color          : #FC4F53;
+
 
 // Border Color
-$border-base             : #DCDFE6;
-$border-light            : #E4E7ED;
-$border-lighter          : #EBEEF5;
-$border-lightex          : #F2F6FC;
+$border-base             : #FFFFFF;
