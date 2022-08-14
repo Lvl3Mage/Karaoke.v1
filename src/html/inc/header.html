@@ -15,14 +15,16 @@
 
 <body>
 	<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
-		<linearGradient id="hover" x2="0" y2="1">
-			<stop offset="0%" stop-color="#FEE159" />
-			<stop offset="100%" stop-color="#F569A3" />
-		</linearGradient>
-		<linearGradient id="active">
-			<stop offset="0%" stop-color="#9747FF" />
-			<stop offset="100%" stop-color="#F569A3" />
-		</linearGradient>
+		<defs>
+			<linearGradient id="hover-svg-gradient" x2="0" y2="1">
+				<stop offset="0%" stop-color="#FEE159" />
+				<stop offset="100%" stop-color="#F569A3" />
+			</linearGradient>
+			<linearGradient id="active-svg-gradient">
+				<stop offset="0%" stop-color="#9747FF" />
+				<stop offset="100%" stop-color="#F569A3" />
+			</linearGradient>
+		</defs>
 	</svg>
 	<header class="header">
 		<aside class="sidebar">
