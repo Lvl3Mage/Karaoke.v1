@@ -27,6 +27,7 @@ $smPhoneWidth            : 320px;
 
 // Main color
 $background-color        : #232020;
+$mobile-background-color : rgba(35, 32, 32, 0.9);
 $pop-up-color            : rgba(255, 255, 255, 0.9);
 $hover-color             : linear-gradient(180deg, #FEE159 0%, #F569A3 100%);
 $active-color            : linear-gradient(90.48deg, #9747FF 0.45%, #F569A3 99.63%);
@@ -42,3 +43,13 @@ $packages-color          : #FC4F53;
 
 // Border Color
 $border-base             : #FFFFFF;
+
+// // SVG Gradient Colors 
+#hover{
+  --color-stop-1: #FEE159;
+  --color-stop-2: #F569A3;
+}
+#active{
+  --color-stop-1: #9747FF;
+  --color-stop-2: #F569A3;
+}
