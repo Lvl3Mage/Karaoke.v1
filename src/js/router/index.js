@@ -8,20 +8,21 @@ import BookingStep0View from '../views/BookingStep0View.vue'
 
 
 const router = createRouter({
+	base: '/app',
 	history: createWebHistory(),
 	routes: [
 		{	
-			path: '/booking',
+			path: '/app/booking/:roomID',
 			name: 'booking',
 			component: BookingView,
 			children: [
 				{
 					path: '',
-					redirect: '/booking/0', // default child path
+					redirect: { name: 'booking-step-0' }, // default child path
 				},
 				{ 
 					path: '0',
-					name: 'booking0',
+					name: 'booking-step-0',
 					component: BookingStep0View,
 					meta: {
 						bookingStep: 0
@@ -29,7 +30,7 @@ const router = createRouter({
 				},
 				{ 
 					path: '1',
-					name: 'booking1',
+					name: 'booking-step-1',
 					component: BookingStep0View,
 					meta: {
 						bookingStep: 1
@@ -37,7 +38,7 @@ const router = createRouter({
 				},
 				{ 
 					path: '2',
-					name: 'booking2',
+					name: 'booking-step-2',
 					component: BookingStep0View,
 					meta: {
 						bookingStep: 2
@@ -50,6 +51,7 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
+
 		},
 	]
 });

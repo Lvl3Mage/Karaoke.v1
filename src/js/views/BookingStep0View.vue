@@ -8,5 +8,8 @@
 	}
 </script>
 <template>
-	<RouterLink class="" to="/booking">next-booking</RouterLink>
+
 </template>
+<style scoped>
+	
+</style>

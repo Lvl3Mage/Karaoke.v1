@@ -5,6 +5,7 @@ const useBookingStore = defineStore({
 	id: 'BookingStore',
 	state: () => ({
 		bookingStep: 0,
+		selectedRoomID: '',
 
 	}),
 	getters: {

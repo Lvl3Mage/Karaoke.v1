@@ -1,0 +1,59 @@
+.text{
+	//Think of a proper way to insert fonts that are set in vars (maybe think of proper var names eg: primaryTextFont, primaryTitleFont, secondaryTextFont, secondaryTitleFont etc)
+	&--300{
+		font-weight: 400;
+	}
+	&--400{
+		font-weight: 400;
+	}
+	&--500{
+		font-weight: 500;
+	}
+	&--700{
+		font-weight: 700;
+	}
+	&--uppercase{
+		text-transform: uppercase;
+	}
+}
+
+//input
+input{
+	&:not(.input--styled){
+		color: inherit !important;
+		font-family: inherit !important;
+		font-size: inherit !important;
+		line-height: inherit !important;
+		font-weight: inherit !important;
+	}
+	&:not(.input--placeholder-styled){
+		&::placeholder{
+			color: inherit !important;
+			font-family: inherit !important;
+			font-size: inherit !important;
+			line-height: inherit !important;
+			font-weight: inherit !important;
+			opacity: 0.6;
+		}
+	}
+}
+select{
+	&:not(.select--styled){
+		color: inherit !important;
+		font-family: inherit !important;
+		font-size: inherit !important;
+		line-height: inherit !important;
+		font-weight: inherit !important;
+	}
+	&:not(.select--placeholder-styled){
+		&::placeholder{
+			color: inherit !important;
+			font-family: inherit !important;
+			font-size: inherit !important;
+			line-height: inherit !important;
+			font-weight: inherit !important;
+			opacity: 0.6;
+		}
+		
+	}
+}

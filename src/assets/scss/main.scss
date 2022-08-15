@@ -1,22 +1,20 @@
 @use 'sass:math';
 @import '../../../node_modules/modern-normalize/modern-normalize.css';
 @import './utils/vars';
+@import './utils/vars';
 @import './utils/utils-collection';
-
+@import './utils/presets';
+@import './utils/container';
 @import './header';
-
+@import './fonts';
 
 
 body{
-    display: flex;
-    flex-direction: row;
+
 }
 button:hover,
 button:focus {
 	cursor: pointer;
-}
-button:active{
-	background: #B94C40;
 }
 * {
 	box-sizing: border-box;

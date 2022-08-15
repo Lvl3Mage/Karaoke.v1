@@ -1,0 +1,31 @@
+.container{
+  box-sizing: border-box;
+  width: calc(1320px - 120px);
+  margin: 0 auto;
+}
+@media screen and (max-width: $desktopWidth) {
+  .container{
+    width: calc(1140px - 120px);
+  }
+}
+@media screen and (max-width: $smDesktopWidth) {
+  .container{
+    width: calc(960px) - 120px;
+  }
+}
+@media screen and (max-width: $tabletWidth) {
+  .container{
+    width: calc(720px) - 120px;
+  }
+}
+@media screen and (max-width: $smTabletWidth) {
+  .container{
+    width: calc(540px) - 120px;
+  }
+}
+@media screen and (max-width: $phoneWidth) { 
+  .container{
+    width: 100%;
+    padding: 0 6px;
+  }
+} 
