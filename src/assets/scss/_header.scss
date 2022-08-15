@@ -223,6 +223,7 @@
 }
 
 .navigation {
+	z-index: 1;
 	position: fixed;
 	top:0;
 	left: 120px;
@@ -313,4 +314,8 @@
 	position: relative;
 	top: 0;
 	left: 120px;
+	@media screen and (max-width:480px){
+		top: 60px;
+		left: 0;
+	}
 }
