@@ -5,13 +5,6 @@ $('.burger-btn').on('click', function(){
 	$('.navigation').toggleClass('active');
 	$('.sidebar').toggleClass('active');
 });
-// let burgerBtn = document.querySelector('.burger-btn');
-// let nav = document.querySelector('.navigation');
-
-// burgerBtn.addEventListener('click', function(){
-// 	burgerBtn.classList.toggle('active');
-// 	nav.classList.toggle('active');
-// })
 function ibg(){
 	$.each($('.ibg'), function(index, val) {
 	if($(this).find('img').length>0){

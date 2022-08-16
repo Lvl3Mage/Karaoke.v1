@@ -7,7 +7,8 @@
 @import './utils/container';
 @import './header';
 @import './fonts';
-
+@import './section-main';
+@import './section-about';
 
 body{
 
@@ -46,20 +47,30 @@ a {
 			left: 0;
 			right: 0;
 		}
+		scrollbar-width: thin;
 		&::-webkit-scrollbar {
-			width: 10px;
+			width: 15px;
 		}
 
 		&::-webkit-scrollbar-track {
-			background-clip: padding-box;
 			background-color: $background-color;
 			border-radius: 5px;
+			
+			
+
 				// background-color: darkgrey;
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background: #555;
-			border-radius: 2px;
+			background-color: #555;
+	    border: 3px solid transparent;
+	    border-radius: 5px;
+	    background-clip: content-box;
+			// background-clip: content-box;
+			// border-left: 10px solid red;
+  		// 	border-right: 10px solid transparent;
+			// background: #555;
+			// border-radius: 2px;
 				// box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 		}
 	}
