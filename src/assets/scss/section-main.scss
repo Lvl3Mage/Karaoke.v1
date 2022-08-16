@@ -1,0 +1,75 @@
+.main-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 10;
+    width: calc(100vw - 120px);
+    height: 100vh; 
+    background-size: cover;
+    background-position: center;
+    background-image: url(../images/main.jpg);
+
+    @media screen and (max-width: 480px){
+        width: 100vw;
+        height: calc(100vh - 60px);
+    }
+}
+.main-logo {
+    flex: 0 0 50%;
+}
+.logo {
+    width: 300px;
+    height: 300px;
+    @media screen and (max-width: 768px){
+        width: 200px;
+        height: 200px;
+    }
+    @media screen and (max-width: 480px){
+        width: 150px;
+        height: 150px;
+    }
+}
+.main-btn {
+    flex: 0 0 50%;
+    justify-self: center;
+}
+.booking-btn {
+    width: 247px;
+    height: 66px;
+    background: $border-base;
+    border-radius: 8px;
+    text-transform: uppercase;
+    border: none;
+
+    font-family: $secondFont;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 42px;
+    color: $background-color;
+    &:hover{
+        background: $hover-color;
+        color: $mainFontColor;
+    }
+    &:active{
+        background: $active-color;
+        color: $mainFontColor;
+    }
+    &:disabled{
+        background: $default-color;
+        color: $mainFontColor;
+    }
+    @media screen and (max-width: 768px){
+        width: 226px;
+        height: 62px;
+        font-size: 32px;
+        line-height: 38px;
+    }
+    @media screen and (max-width: 480px){
+        width: 185px;
+        height: 52px;
+        font-size: 24px;
+        line-height: 28px;
+    }
+}
