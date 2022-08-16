@@ -26,7 +26,7 @@
 					<span>Book me</span>
 				</div>	
 			</div>
-			<div class="booking__steps-wrapper">
+			<div class="booking__steps-wrapper m--b-45">
 				<div class="booking__steps">
 					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
 						<div class="booking__step-circle">

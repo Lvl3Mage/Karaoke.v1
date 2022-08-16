@@ -2,6 +2,7 @@
 	display: flex;	
 }
 .sidebar {
+	z-index: 50;
 	position: fixed;
 	top:0;
 	left: 0;
@@ -9,11 +10,16 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	border-right: 1px dashed #FFFFFF;
+	border-right: 1px dashed rgba(255,255,255,1);
+	transition: all 0.75s;
+	// transition: all 0.5s;
+	&.active{
+		border-right: 1px dashed rgba(255,255,255,0);
+	}
     height: 100vh;
     width: 120px;
     background: $background-color;
-	@media screen and (max-width: 480px){
+	@media screen and (max-width: $phoneWidth){
 		border: none;
 	}
 		&__wrap {
@@ -23,7 +29,7 @@
 			align-items: center;
 			justify-content: space-between;
 			margin-top: 50px;
-			@media screen and (max-width: 480px){
+			@media screen and (max-width: $phoneWidth){
 				margin: 0;
 				flex: none;
 
@@ -32,11 +38,11 @@
 		// .sidebar__social-links
 
 		&__social-links {
-			@media screen and (max-width:480px){
+			@media screen and (max-width:$phoneWidth){
 				display: none;
 			}
 		}
-		@media screen and (max-width: 480px) {
+		@media screen and (max-width: $phoneWidth) {
 			width: 100%;
 			height: 60px;
 			flex-direction: row-reverse;
@@ -46,7 +52,7 @@
 }
 .social-links {
 		&__mobile{
-			@media screen and (min-width:480px){
+			@media screen and (min-width:$phoneWidth){
 				display: none;
 			}
 		}
@@ -95,6 +101,7 @@
 		}
 }
 .burger-btn{
+	cursor: pointer;
 	width: 32px;
 	height: 32px;
 	position: relative;
@@ -118,7 +125,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: $mainFontColor;
-	transition: all 0.75s;
+	transition: all 0.3s ease-in-out;
 	
 }
 
@@ -129,18 +136,18 @@
 	top: calc(50% + 12px);
 }
 .burger-btn.active span:nth-of-type(1) {
-	display: none;
+	opacity: 0;
 }
 .burger-btn.active span:nth-of-type(2) {
 	top: 50%;
-  	transform: translate(-50%, 0%) rotate(45deg); 
+  	transform: translate(-50%, 0%) rotate(135deg); 
 }
 .burger-btn.active span:nth-of-type(3) {
 	top: 50%;
-  	transform: translate(-50%, 0%) rotate(-45deg); 
+  	transform: translate(-50%, 0%) rotate(-135deg); 
 }
 .sidebar-contacts {
-	@media screen and (max-width: 480px){
+	@media screen and (max-width: $phoneWidth){
 		display: none;
 	}
 }
@@ -157,7 +164,7 @@
 			flex-direction: column;
 			&--mobile{
 				align-self: flex-end;
-				@media screen and (min-width:480px){
+				@media screen and (min-width:$phoneWidth){
 				display: none;
 				
 			}
@@ -168,7 +175,7 @@
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 50px;
-	@media screen and (max-width:480px){
+	@media screen and (max-width:$phoneWidth){
 		margin: 0;
 	}
 	&__current{
@@ -223,9 +230,10 @@
 }
 
 .navigation {
+	z-index: 40;
 	position: fixed;
 	top:0;
-	left: 120px;
+	left: -160px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -234,9 +242,13 @@
     width: 280px;
 	height: 100vh;
     background: $background-color;
-	transform: translateX(-150%);
+	// transform: translateX(-100%);
 	transition: transform 0.75s;
-	@media screen and (max-width: 480px){
+
+	&.active{
+		transform: translateX(100%);
+	}
+	@media screen and (max-width: $phoneWidth){
 		top: 60px;
 		left: 0;
 		width: 100%;
@@ -244,19 +256,17 @@
 		border: none;
 		background: $mobile-background-color;
 		transform: translateY(-150%);
-		&:active{
+		&.active{
 			transform: translateY(0);
 		}
 	}
-	&.active{
-		transform: translateX(0);
-	}
+	
 	
 
 		// .navigation__wrap
 
 		&__wrap {
-			@media screen and (max-width:480px){
+			@media screen and (max-width:$phoneWidth){
 				display: flex;
 				width: 100%;
 				padding: 0 20px;
@@ -280,11 +290,11 @@
 			line-height: 40px;
 			&:not(:last-child) {
 				margin-bottom: 36px;
-				@media screen and (max-width: 480px){
+				@media screen and (max-width: $phoneWidth){
 					margin-bottom: 14px;
 				}
 			}
-			@media screen and (max-width: 480px){
+			@media screen and (max-width: $phoneWidth){
 				text-align: center;
 				font-weight: 600;
 				font-size: 20px;

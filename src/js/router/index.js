@@ -12,7 +12,7 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{	
-			path: '/app/booking/:roomID',
+			path: '/app/booking',
 			name: 'booking',
 			component: BookingView,
 			children: [
@@ -21,7 +21,7 @@ const router = createRouter({
 					redirect: { name: 'booking-step-0' }, // default child path
 				},
 				{ 
-					path: '0',
+					path: 'step0',
 					name: 'booking-step-0',
 					component: BookingStep0View,
 					meta: {
@@ -29,7 +29,7 @@ const router = createRouter({
 					}
 				},
 				{ 
-					path: '1',
+					path: 'step1',
 					name: 'booking-step-1',
 					component: BookingStep0View,
 					meta: {
@@ -37,7 +37,7 @@ const router = createRouter({
 					}
 				},
 				{ 
-					path: '2',
+					path: 'step2',
 					name: 'booking-step-2',
 					component: BookingStep0View,
 					meta: {
@@ -48,9 +48,8 @@ const router = createRouter({
 		},
 		
 		{
-			path: '/',
-			name: 'home',
-			component: HomeView,
+			path: '/app/booking/:roomID/',
+			component: BookingView,
 
 		},
 	]

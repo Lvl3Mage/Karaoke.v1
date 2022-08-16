@@ -5,3 +5,4 @@ import './assets/scss/main.scss'
 
 // JS
 import './js/main.js'
+import './js/VueSetup.js'
