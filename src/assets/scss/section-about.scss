@@ -23,19 +23,11 @@
 		// .about__img
 
 		&__img {
-            width: 635px;
-            height: 600px;
+            width: 100%;
             border-radius: 10px;
             
             @media screen and (max-width: $desktopWidth){
                   flex: 0 0 60%;
-            }
-            @media screen and (max-width: $smDesktopWidth){
-                  height: 480px;
-            }
-            @media screen and (max-width: $tabletWidth){
-                  width: 457px;
-                  height: 432px;
             }
 		}
 

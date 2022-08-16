@@ -172,26 +172,38 @@
 		}
 }
 .sidebar-lang {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 50px;
-	@media screen and (max-width:$phoneWidth){
-		margin: 0;
+	display: none;
+	&--current{
+		display: block;
 	}
+	&__wrap{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 50px;
+		@media screen and (max-width:$phoneWidth){
+			margin: 0;
+		}
+	}
+	
 	&__current{
 
 	}
 	&__list{
-
+		display: none;
+		position: absolute;
 	}
 	&__item{
-		display: flex;
-		align-items: center;
+		color: #FFFFFF;
 		&:hover{
-			color:  $hover-color ;
+			background:  $hover-color ;
+			-webkit-background-clip: text;
+  			-webkit-text-fill-color: transparent;
 		}
 		&:active{
-			color:  $active-color ;
+			background: $active-color;
+			-webkit-background-clip: text;
+  			-webkit-text-fill-color: transparent;
 		}
 	}
 	&__link{
