@@ -1,4 +1,5 @@
-.text{
+
+.font{
 	&--prim-text{
 		font-family: $primaryTextFont;
 	}
@@ -11,6 +12,8 @@
 	&--sec-title{
 		font-family: $secondaryTitleFont;
 	}
+}
+.text{
 	&--300{
 		font-weight: 400;
 	}
@@ -23,45 +26,45 @@
 	&--700{
 		font-weight: 700;
 	}
-	&-col{
-		&--primary{
+	&--col{
+		&-primary{
 			color: $fontColorPrimary;
 		}
-		&--inv-primary{
+		&-inv-primary{
 			color: $fontColorPrimaryInv;
 		}
 	}
-	&-XXL{
+	&--XXL{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeXXL_desktop, $fontSizeXXL_mobile);
 		&--static{
 			font-size: $fontSizeXXL_desktop;
 		}
 	}
-	&-XL{
+	&--XL{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeXL_desktop, $fontSizeXL_mobile);
 		&--static{
 			font-size: $fontSizeXL_desktop;
 		}
 	}
-	&-L{
+	&--L{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeL_desktop, $fontSizeL_mobile);
 		&--static{
 			font-size: $fontSizeL_desktop;
 		}
 	}
-	&-M{
+	&--M{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeM_desktop, $fontSizeM_mobile);
 		&--static{
 			font-size: $fontSizeM_desktop;
 		}
 	}
-	&-S{
+	&--S{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeS_desktop, $fontSizeS_mobile);
 		&--static{
 			font-size: $fontSizeS_desktop;
 		}
 	}
-	&-XS{
+	&--XS{
 		@include fSize($tabletWidth, $phoneWidth, $fontSizeXS_desktop, $fontSizeXS_mobile);
 		&--static{
 			font-size: $fontSizeXS_desktop;

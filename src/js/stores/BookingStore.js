@@ -10,17 +10,17 @@ const useBookingStore = defineStore({
 		{
 			'room1': {
 				primaryColor: '#FAA',
-				name: 'room1',
+				name: 'Room 1',
 				previewImage: '' // link
 			},
 			'room2': {
 				primaryColor: '#FA0',
-				name: 'room2',
+				name: 'Room 2',
 				previewImage: ''
 			},
 			'room3': {
 				primaryColor: '#AAF',
-				name: 'room3',
+				name: 'Room 3',
 				previewImage: ''
 			}
 		},

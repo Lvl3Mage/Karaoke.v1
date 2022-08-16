@@ -25,9 +25,9 @@
 </script>
 <template>
 	<div class="container">
-		<span class="">
+		<div class="font--prim-text text--400 m--b-25 text--S">
 			Please select one of the rooms and the time period you would like to reserve
-		</span>
+		</div>
 		
 		<div class="booking">
 		<div class="booking__rooms">
@@ -35,7 +35,7 @@
 				<div class="booking__room-image ibg ibg--cover">
 					<img src="/assets/images/main.jpg" alt="">
 				</div>
-				<div class="booking__room-title">
+				<div class="booking__room-title font--prim-title text--700 text--L">
 					{{value.name}}
 				</div>
 			</div>
@@ -85,11 +85,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-
-			font-family: 'PT Sans';
-			font-style: normal;
-			font-weight: 700;
-			font-size: 30px;
 			border-radius: 0 0 5px 5px;
 		}
 	}
