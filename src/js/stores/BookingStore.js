@@ -22,6 +22,11 @@ const useBookingStore = defineStore({
 				primaryColor: '#AAF',
 				name: 'Room 3',
 				previewImage: ''
+			},
+			'room4': {
+				primaryColor: '#AFA',
+				name: 'Room 4',
+				previewImage: ''
 			}
 		},
 		scheduleData:{
