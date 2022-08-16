@@ -52,8 +52,10 @@
 </template>
 <style scoped lang="scss">
 	.booking {
+		display: flex;
 		&__rooms {
 			height: 500px;
+			flex: 0 0 30%;
 			display: flex;
 			flex-direction: column;
 		}
@@ -64,9 +66,15 @@
 			transition: all 0.4s;
 			filter: grayscale(1);
 			cursor: pointer;
+			.booking__room-title{
+				background: #3A3838;;
+			}
 			&:hover{
 				flex: 6 1 0;
 				filter: grayscale(0);
+				.booking__room-title{
+					background: var(--roomColor);
+				}
 			}
 			&.open{
 				filter: grayscale(0);
@@ -81,11 +89,11 @@
 		}
 		&__room-title {
 			flex: 0 0 50px;
-			background: var(--roomColor);
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			border-radius: 0 0 5px 5px;
+			transition: all 0.5s;
 		}
 	}
 </style>

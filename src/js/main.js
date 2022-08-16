@@ -15,6 +15,33 @@ function ibg(){
 	}
 	});
 }
+function RatioW(){
+	$.each($('.ratio-w'), function(index, val) {
+		var ratioMultiplier = parseFloat($(this).data("ratio-multiplier"));
+		if(ratioMultiplier == "undefined"){
+			ratioMultiplier = 1;
+		}
+		console.log(ratioMultiplier);
+		$(this).css("height", (parseFloat($(this).css("width")) * ratioMultiplier).toString() + "px");
+	});
+}
+function RatioH(){
+	$.each($('.ratio-h'), function(index, val) {
+		var ratioMultiplier = parseFloat($(this).data("ratio-multiplier"));
+		if(ratioMultiplier == "undefined"){
+			ratioMultiplier = 1;
+		}
+		console.log(ratioMultiplier);
+		$(this).css("width", (parseFloat($(this).css("height")) * ratioMultiplier).toString() + "px");
+	});
+}
 $(document).ready(function(){
 	ibg();
+	RatioW();
+	RatioH();
+});
+
+$(window).resize(function(){
+	RatioW();
+	RatioH();
 });
