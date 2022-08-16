@@ -1,5 +1,16 @@
 .text{
-	//Think of a proper way to insert fonts that are set in vars (maybe think of proper var names eg: primaryTextFont, primaryTitleFont, secondaryTextFont, secondaryTitleFont etc)
+	&--prim-text{
+		font-family: $primaryTextFont;
+	}
+	&--sec-text{
+		font-family: $secondaryTextFont;
+	}
+	&--prim-title{
+		font-family: $primaryTitleFont;
+	}
+	&--sec-title{
+		font-family: $secondaryTitleFont;
+	}
 	&--300{
 		font-weight: 400;
 	}
@@ -12,6 +23,51 @@
 	&--700{
 		font-weight: 700;
 	}
+	&-col{
+		&--primary{
+			color: $fontColorPrimary;
+		}
+		&--inv-primary{
+			color: $fontColorPrimaryInv;
+		}
+	}
+	&-XXL{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeXXL_desktop, $fontSizeXXL_mobile);
+		&--static{
+			font-size: $fontSizeXXL_desktop;
+		}
+	}
+	&-XL{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeXL_desktop, $fontSizeXL_mobile);
+		&--static{
+			font-size: $fontSizeXL_desktop;
+		}
+	}
+	&-L{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeL_desktop, $fontSizeL_mobile);
+		&--static{
+			font-size: $fontSizeL_desktop;
+		}
+	}
+	&-M{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeM_desktop, $fontSizeM_mobile);
+		&--static{
+			font-size: $fontSizeM_desktop;
+		}
+	}
+	&-S{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeS_desktop, $fontSizeS_mobile);
+		&--static{
+			font-size: $fontSizeS_desktop;
+		}
+	}
+	&-XS{
+		@include fSize($tabletWidth, $phoneWidth, $fontSizeXS_desktop, $fontSizeXS_mobile);
+		&--static{
+			font-size: $fontSizeXS_desktop;
+		}
+	}
+
 	&--uppercase{
 		text-transform: uppercase;
 	}

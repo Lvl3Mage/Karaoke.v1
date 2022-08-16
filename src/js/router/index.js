@@ -12,14 +12,11 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{	
-			path: '/app/booking',
+			path: '/app/booking/',
 			name: 'booking',
+			redirect: { name: 'booking-step-0' },
 			component: BookingView,
 			children: [
-				{
-					path: '',
-					redirect: { name: 'booking-step-0' }, // default child path
-				},
 				{ 
 					path: 'step0',
 					name: 'booking-step-0',

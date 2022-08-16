@@ -1,0 +1,9 @@
+@mixin fSize($wmax, $wmin, $fmax, $fmin){
+  font-size: calc((100vw - #{$wmin}px)/(#{$wmax} - #{$wmin})*(#{$fmax} - #{$fmin}) + #{$fmin}px);
+  @media screen and (min-width: #{$wmax}px) {
+    font-size: #{$fmax}px;
+  }
+  @media screen and (max-width: #{$wmin}px) {
+    font-size: #{$fmin}px;
+  }
+}

@@ -1,5 +1,33 @@
 /* Vars:
   ========================================================================== */
+//Def font vars
+$primaryTextFont         : Chivo, sans-serif;
+$secondaryTextFont       : Roboto, sans-serif;
+$primaryTitleFont        : PlayfairDisplay, serif;
+$secondaryTitleFont      : PT Sans, sans-serif;
+//Def font colors
+$fontColorPrimary        : #fff;
+$fontColorPrimaryInv     : #232020;
+
+//Def font sizes
+$fontSizeXXL_desktop     : 64px:
+$fontSizeXXL_mobile      : 32px:
+
+$fontSizeXL_desktop      : 48px;
+$fontSizeXL_mobile       : 32px;
+
+$fontSizeL_desktop       : 32px;
+$fontSizeL_mobile        : 16px;
+
+$fontSizeM_desktop       : 20px;
+$fontSizeM_mobile        : 16px;
+
+$fontSizeS_desktop       : 16px;
+$fontSizeS_mobile        : 16px;
+
+$fontSizeXS_desktop      : 14px;
+$fontSizeXS_mobile       : 14px;
+
 
 // Font
 $mainFont                : Chivo, sans-serif;
@@ -16,7 +44,7 @@ $mainLineHeight          : 1.4;
 $desktopWidth            : 1440px;
 $smDesktopWidth          : 1200px;
 $tabletWidth             : 992px;
-$smTabletWidth            : 768px;
+$smTabletWidth           : 768px;
 $phoneWidth              : 576px;
 $smPhoneWidth            : 320px;
 

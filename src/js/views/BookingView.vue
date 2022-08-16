@@ -11,7 +11,20 @@
 			}
 		},
 		mounted(){
-			this.bookingStore.selectedRoomID = this.$route.params.roomID
+			if(this.$route.params.roomID){
+				this.bookingStore.selectedRoomID = this.$route.params.roomID;
+				this.$router.replace({ name: 'booking'  })
+			}
+			
+		},
+		methods: {
+			selectedRoomColor: function(){
+				if(this.bookingStore.selectedRoomID != ''){
+					return this.bookingStore.roomData[this.bookingStore.selectedRoomID].primaryColor;
+				}
+				return '#979797';
+				 
+			}
 		}
 	}
 </script>
@@ -26,7 +39,7 @@
 					<span>Book me</span>
 				</div>	
 			</div>
-			<div class="booking__steps-wrapper m--b-45">
+			<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
 				<div class="booking__steps">
 					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
 						<div class="booking__step-circle">
@@ -110,7 +123,7 @@
 			position: relative;
 			&.active{
 				.booking__step-circle{
-					background: #902FDC;
+					background: var(--roomColor);
 					border: 1px solid #FFFFFF;
 					color: #FFFFFF;
 					box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.9);
@@ -166,7 +179,7 @@
 			z-index: -5;
 			transition: all 0.5s;
 			&.active{
-				border: 1px dashed #902FDC;
+				border: 1px dashed var(--roomColor);
 				box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.9);
 
 			}

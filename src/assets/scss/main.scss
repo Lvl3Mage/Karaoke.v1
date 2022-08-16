@@ -1,5 +1,6 @@
 @use 'sass:math';
 @import '../../../node_modules/modern-normalize/modern-normalize.css';
+@import 'utils/mixins';
 @import './utils/vars';
 @import './utils/vars';
 @import './utils/utils-collection';
@@ -32,6 +33,16 @@ a {
   &:not(.def-link){
   	text-decoration: inherit; /* no underline */
   }
+}
+.ibg{
+	background-position: center;
+	background-repeat: no-repeat;
+	&--contain{
+		background-size: contain;
+	}
+	&--cover{
+		background-size: cover;
+	}
 }
 .page-content-wrapper{
 		position: fixed;
