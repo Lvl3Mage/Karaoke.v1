@@ -1,9 +1,10 @@
 .section-wrapper {
-    width: 100%;
-    // width: calc(100vw - 120px);
-    height: 100vh;
-    background-size: cover;
-    background-image: url(../images/back-down.jpg);
+      display: flex;
+      width: 100%;
+      // width: calc(100vw - 120px);
+      
+      background-size: cover;
+      background-image: url(../images/back-down.jpg);
 }
 .about {
 
@@ -14,30 +15,49 @@
             flex-direction: row;
             align-items: center;
             padding: 100px 105px;
+            @media screen and (max-width: $smDesktopWidth){
+                padding: 55px;  
+            }
 		}
 
 		// .about__img
 
 		&__img {
-            flex: 0 0 50%;
+            width: 635px;
+            height: 600px;
+            border-radius: 10px;
+            
+            @media screen and (max-width: $desktopWidth){
+                  flex: 0 0 60%;
+            }
+            @media screen and (max-width: $smDesktopWidth){
+                  height: 480px;
+            }
+            @media screen and (max-width: $tabletWidth){
+                  width: 457px;
+                  height: 432px;
+            }
 		}
 
 		// .about__description
 
 		&__description {
-            margin-left: -150px;
+            flex: 0 0 50%;
+            @media screen and (max-width: $desktopWidth){
+                  flex: 0 0 40%;
+            }
 		}
 }
 .img-about {
-    // width: 635px;
-    // height: 600px;
-    border-radius: 10px;
+    width: 100%;
 }
 .description {
     flex: 0 0 50%;
 		// .description__border
 
 		&__border {
+                  width: 100%;
+                  border: 1px dashed #FFFFFF;
 		}
 
 		// .description__title
@@ -51,6 +71,11 @@
             padding: 40px 35px;
             background: #3A3838;
             border-radius: 8px;
+            margin-left: -150px;
+            margin-bottom: 45px;
+            @media screen and (max-width: $tabletWidth){
+                  
+            }
 		}
 
 		// .description__text
@@ -60,13 +85,13 @@
 		}
 }
 .title {
-    font-family: $headFont;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 64px;
-    line-height: 40px;
-    color: $mainFontColor;
-    margin: 0;
+      font-family: $headFont;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 40px;
+      color: $mainFontColor;
+      margin: 0;
 }
 .text {
     font-family: $mainFont;
