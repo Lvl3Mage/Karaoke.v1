@@ -173,10 +173,26 @@
 }
 .sidebar-lang {
 	display: none;
-	&--current{
+	text-align: center;
+	&.active{
 		display: block;
 	}
+	&>span{
+		cursor: pointer;
+		color: #FFFFFF;
+		&:hover {
+			background: $hover-color;
+			-webkit-background-clip: text;
+  			-webkit-text-fill-color: transparent;
+		}
+		&:active{
+			background: $active-color;
+			-webkit-background-clip: text;
+  			-webkit-text-fill-color: transparent;
+		}
+	}
 	&__wrap{
+		padding: 0 15px;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -192,8 +208,24 @@
 	&__list{
 		display: none;
 		position: absolute;
+		bottom: -15px;
+		left: -25px;
+		right: -25px;
+		margin: auto;
+		gap:15px;
+
+		&.active{
+			display: flex;
+		}
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 15px;
+		border-radius: 5px;
+		background: #111;
 	}
 	&__item{
+		cursor: pointer;
 		color: #FFFFFF;
 		&:hover{
 			background:  $hover-color ;
@@ -205,20 +237,13 @@
 			-webkit-background-clip: text;
   			-webkit-text-fill-color: transparent;
 		}
-	}
-	&__link{
-		margin-right: 5px;
-		color: #FFFFFF;
-		&:hover {
-			background: $hover-color;
+		&.selected{
+			background:  $hover-color ;
 			-webkit-background-clip: text;
   			-webkit-text-fill-color: transparent;
+  			order: 99;
 		}
-		&:active{
-			background: $active-color;
-			-webkit-background-clip: text;
-  			-webkit-text-fill-color: transparent;
-		}
+		
 	}
 }
 .svg-wrap{

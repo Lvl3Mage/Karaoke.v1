@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import {useBookingStore} from '../stores/BookingStore.js'
-import HomeView from '../views/HomeView.vue'
 import BookingView from '../views/BookingView.vue'
 
 import BookingStep0View from '../views/BookingStep0View.vue'

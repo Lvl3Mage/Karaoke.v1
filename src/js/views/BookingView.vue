@@ -12,8 +12,11 @@
 		},
 		mounted(){
 			if(this.$route.params.roomID){
-				this.bookingStore.selectedRoomID = this.$route.params.roomID;
-				this.$router.replace({ name: 'booking'  })
+				if(this.$route.params.roomID in this.bookingStore.roomData){
+					this.bookingStore.selectedRoomID = this.$route.params.roomID;
+				}
+				this.$router.replace({ name: 'booking'  })	
+				
 			}
 			
 		},

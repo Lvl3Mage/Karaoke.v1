@@ -45,3 +45,20 @@ $(window).resize(function(){
 	RatioW();
 	RatioH();
 });
+$('.sidebar-lang').on('click', function(e){
+	$('.sidebar-lang__list').addClass('active');
+	e.stopPropagation();
+	// $('#'+$(this).data('lang-id')).
+});
+$('.sidebar-lang__item').on('click', function() {
+
+	$('.sidebar-lang__item').removeClass('selected');
+	$(this).addClass('selected');
+
+	$('.sidebar-lang').removeClass('active');
+	$('#'+$(this).data('lang-id')).addClass('active');
+});
+
+$(document).on('click', function(){
+	$('.sidebar-lang__list').removeClass('active');
+});
