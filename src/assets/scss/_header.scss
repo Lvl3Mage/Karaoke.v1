@@ -246,25 +246,6 @@
 		
 	}
 }
-.svg-wrap{
-	width: 24px;
-	height: 24px;
-	fill: #FFFFFF;
-	&--burger{
-		width: 48px;
-		height: 48px;
-	}
-	&--lang{
-		width: 12px;
-		height: 6px;
-	}
-	&:hover{
-		fill: url(#hover-svg-gradient) #FEE159;
-	}
-	&:active{
-		fill: url(#active-svg-gradient) #9747FF;
-	}
-}
 
 .navigation {
 	z-index: 40;
