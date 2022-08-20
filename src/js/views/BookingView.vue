@@ -1,6 +1,31 @@
-<script>
-	import {useBookingStore} from '../stores/BookingStore.js'
 
+<script>
+
+	const APIRoomData = 
+	{
+		'room1': {
+			primaryColor: '#FAA',
+			name: 'Room 1',
+			previewImage: '' // link
+		},
+		'room2': {
+			primaryColor: '#FA0',
+			name: 'Room 2',
+			previewImage: ''
+		},
+		'room3': {
+			primaryColor: '#AAF',
+			name: 'Room 3',
+			previewImage: ''
+		},
+		'room4': {
+			primaryColor: '#AFA',
+			name: 'Room 4',
+			previewImage: ''
+		}
+	};
+	import {useBookingStore} from '../stores/BookingStore.js'
+	import {axios, api} from '../App.vue';
 	export default{
 		setup(){
 			const bookingStore = useBookingStore()
@@ -11,13 +36,38 @@
 			}
 		},
 		mounted(){
-			if(this.$route.params.roomID){
-				if(this.$route.params.roomID in this.bookingStore.roomData){
-					this.bookingStore.selectedRoomID = this.$route.params.roomID;
-				}
-				this.$router.replace({ name: 'booking'  })	
+			// let data = new FormData();
+
+
+				// data.append('username', this.log);
+
+
+			// axios
+			// 	.post(api.baseURL + "/api-token-auth/",data)
+			// 	.then(function(response){
+			// 		this.bookingStore.roomData = response.roomData;
+			// 		if(this.roomID in this.bookingStore.roomData){
+			// 			this.bookingStore.selectedRoomID = this.roomID;
+			// 		}
+			// 		else{
+			// 			//if not room is selected select the default room
+			// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
+			// 		}
+			// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
+
+			this.bookingStore.roomData = APIRoomData;
+
+
+			if(this.$route.params.roomID in this.bookingStore.roomData){
+				this.bookingStore.selectedRoomID = this.$route.params.roomID;
+			}
+			else{
+				//if not room is selected select the first room
+				this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
 				
 			}
+
+			this.$router.replace({ name: 'booking'  });
 			
 		},
 		methods: {
