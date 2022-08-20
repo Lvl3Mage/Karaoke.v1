@@ -11,6 +11,7 @@
 @import './fonts';
 @import './section-main';
 @import './section-about';
+@import './section-rooms';
 
 body{
 
@@ -35,6 +36,16 @@ a {
   	text-decoration: inherit; /* no underline */
   }
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
 .ibg{
 	background-position: center;
 	background-repeat: no-repeat;
@@ -44,10 +55,17 @@ a {
 	&--cover{
 		background-size: cover;
 	}
+	&--gray{
+		filter: grayscale(1);
+		background-position: 15%;
+		&:hover{
+			filter: grayscale(0);
+			
+		}
+	}
 }
 .page-content-wrapper{
 		position: fixed;
-		/*width: 100%;*/
 		left: 120px;
 		right: 0;
 		height: 100%;
@@ -85,4 +103,64 @@ a {
 			// border-radius: 2px;
 				// box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 		}
+}
+.section-wrapper {
+      display: flex;
+      width: 100%;
+      // width: calc(100vw - 120px);
+      background-position: center;
+      background-size: cover;
+      background-image: url(../images/back-down.jpg);
+      @media screen and (max-width:$smTabletWidth){
+            height: 100%;
+      }
+      @media screen and (max-width:$phoneWidth){
+            background-position: right;
+      }
+}
+.svg-wrap{
+	width: 24px;
+	height: 24px;
+	fill: #FFFFFF;
+	&--image{
+		width: 60px;
+		height: 60px;
+		@media screen and (max-width:$tabletWidth){
+			width: 38px;
+			height: 38px;
+		}
+		@media screen and (max-width:$phoneWidth){
+			width: 24px;
+			height: 24px;
+		}
 	}
+	&:hover{
+		fill: url(#hover-svg-gradient) #FEE159;
+	}
+	&:active{
+		fill: url(#active-svg-gradient) #9747FF;
+	}
+}
+.title {
+      font-family: $headFont;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 40px;
+      color: $mainFontColor;
+}
+.title-rooms{
+	font-family: $roomFont;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 65px;
+	color: #FFFFFF;
+	
+}
+.text {
+    font-family: $mainFont;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: $mainFontColor;
+}
