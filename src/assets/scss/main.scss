@@ -71,11 +71,15 @@ p {
 		height: 100%;
 		overflow-x: auto;
 		background: $background-color;
+		@media screen and (max-width: $tabletWidth) {
+			left: 100px;
+		}
 		@media screen and (max-width: $phoneWidth){
 			top: 60px;
 			bottom: 0;
 			left: 0;
 			right: 0;
+			height: auto;
 		}
 		scrollbar-width: thin;
 		&::-webkit-scrollbar {

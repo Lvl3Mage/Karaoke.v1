@@ -168,6 +168,7 @@
 <style lang="scss" scoped>
 @import 'styles/utils/vars.scss'; // for width vars
 
+
 .noise-overlay{
 	position: absolute;
 	background-image: url("../../assets/images/noise.png");
@@ -196,7 +197,7 @@
 		cursor: pointer;
 	}
 
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0.55%, rgba(255, 255, 255, 0) 100%);
+	background: linear-gradient(180deg, #7b7979 0.55%, #232020 100%);
 	border-radius: 8px;
 	margin-bottom: 30px;
 	width: 100%;
@@ -208,7 +209,7 @@
 .calendar {
 	position: relative;
 	width: 100%;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0.55%, rgba(255, 255, 255, 0) 100%);
+	background: linear-gradient(180deg, #7b7979 0.55%, #232020 100%);
 
 	border-radius: 8px;
 	padding: 10px 15px;

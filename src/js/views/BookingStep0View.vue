@@ -166,7 +166,11 @@
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
-								"state": "booked",// available/booked/reserved
+								"state": "available",// available/booked/reserved
+								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+							},
+							{
+								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
@@ -174,23 +178,19 @@
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
-								"state": "booked",// available/booked/reserved
+								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
-								"state": "reserved",// available/booked/reserved
+								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
-								"state": "booked",// available/booked/reserved
+								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 							{
-								"state": "reserved",// available/booked/reserved
-								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-							},
-							{
-								"state": "booked",// available/booked/reserved
+								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
 							},
 
@@ -210,7 +210,7 @@
 				// await this.delay(1000);
 				//data assignment
 				// setTimeout(() => {  
-				await delay(1000);
+				// await delay(1000);
 				for(var date in response) {
 					this.bookingStore.scheduleData[date] = response[date];
 				}
@@ -228,7 +228,7 @@
 	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 </script>
 <template>
-	<div class="container">
+	<div class="wide-container">
 		<div class="font--prim-text text--400 m--b-25 text--S" v-if="bookingDataAvailable">
 			Please select one of the rooms and the time period you would like to reserve
 		</div>
@@ -248,8 +248,7 @@
 				<Calendar :highlightColor="selectedRoomColor()" :defaultDate="bookingStore.selectedDate" @date-changed="updateDate"></Calendar>
 			</div>
 			<div class="booking__time-selector">
-				{{bookingStore.scheduleData[bookingStore.selectedDate.toLocaleDateString('en-GB')][bookingStore.selectedRoomID]}}
-				<!-- <TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="occupancyData" :openTime="bookingStore.openTime"></TimeRangeSelector> -->
+				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="bookingStore.scheduleData[bookingStore.formatedSelectedDate][bookingStore.selectedRoomID].occupancyData" :openTime="bookingStore.scheduleData[bookingStore.formatedSelectedDate][bookingStore.selectedRoomID].openTime"></TimeRangeSelector>
 			</div>
 		</div>
 		<div class="loader" v-if="!bookingDataAvailable">
@@ -259,14 +258,37 @@
 	
 </template>
 <style scoped lang="scss">
+	@import 'styles/utils/vars.scss';
+	.wide-container{
+		max-width: 1440px;
+		margin: auto;
+		padding: 0 50px;
+		@media screen and (max-width: $tabletWidth) {
+			padding: 0 15px;
+		}
+	}
 	.booking {
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
+		@media screen and (max-width: $tabletWidth) {
+			flex-wrap: wrap;
+		}
+		
 		&__rooms {
 			height: 500px;
-			flex: 0 0 25%;
+			flex: 0 0 190px;
 			display: flex;
 			flex-direction: column;
+			margin-right: 50px;
+			@media screen and (max-width: $smDesktopWidth) {
+				margin-right: 15px;
+			}
+			@media screen and (max-width: $tabletWidth) {
+				flex: 0 0 100%;
+				margin: 0;
+				margin-bottom: 75px;
+			}
+
 		}
 		&__room {
 			display: flex;
@@ -315,10 +337,27 @@
 		}
 
 		&__callendar-column {
-			flex: 0 0 30%;
+			flex: 0 0 255px;
+			margin-right: 50px;
+			@media screen and (max-width: $smDesktopWidth) {
+				margin-right: 15px;
+			}
+			@media screen and (max-width: $tabletWidth) {
+				margin: 0 auto;
+			}
+			@media screen and (max-width: $smTabletWidth) {
+				flex: 0 0 100%;
+			}
 		}
 		&__time-selector {
-			flex: 0 0 40%;
+			flex: 1 0 0;
+			max-width: 500px;
+			
+			@media screen and (max-width: $tabletWidth) {
+				margin: auto;
+				padding: 0 15px;
+    			max-width: 425px;
+			}
 		}
 	}
 

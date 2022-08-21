@@ -82,49 +82,52 @@
 	}
 </script>
 <template>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="booking">
-			<div class="booking__top-bar">
-				<div class="booking__logo">
-					<img src="/assets/images/logo.png" alt="">
+			<div class="container">
+				<div class="booking__top-bar">
+					<div class="booking__logo">
+						<img src="/assets/images/logo.png" alt="">
+					</div>
+					<div class="booking__title-wrapper">
+						<span>Book me</span>
+					</div>	
 				</div>
-				<div class="booking__title-wrapper">
-					<span>Book me</span>
+				<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
+					<div class="booking__steps">
+						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
+							<div class="booking__step-circle">
+								<span>1</span>
+							</div>
+							<div class="booking__step-text">
+								<span>RESERVE</span>
+							</div>
+						</div>
+						<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 0}"></div>
+						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 1}">
+							<div class="booking__step-circle">
+								<span>2</span>
+							</div>
+							<div class="booking__step-text">
+								<span>RESERVE</span>
+							</div>
+						</div>
+						<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 1}"></div>
+						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 2}">
+							<div class="booking__step-circle">
+								<span>3</span>
+							</div>
+							<div class="booking__step-text">
+								<span>RESERVE</span>
+							</div>
+						</div>
+					</div>
 				</div>	
 			</div>
-			<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
-				<div class="booking__steps">
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
-						<div class="booking__step-circle">
-							<span>1</span>
-						</div>
-						<div class="booking__step-text">
-							<span>RESERVE</span>
-						</div>
-					</div>
-					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 0}"></div>
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 1}">
-						<div class="booking__step-circle">
-							<span>2</span>
-						</div>
-						<div class="booking__step-text">
-							<span>RESERVE</span>
-						</div>
-					</div>
-					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 1}"></div>
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 2}">
-						<div class="booking__step-circle">
-							<span>3</span>
-						</div>
-						<div class="booking__step-text">
-							<span>RESERVE</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<router-view></router-view>
 		</div>
-	</div>
+	<!-- </div> -->
 	
 	
 </template>

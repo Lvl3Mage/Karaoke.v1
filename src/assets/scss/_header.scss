@@ -18,6 +18,9 @@
 	}
     height: 100vh;
     width: 120px;
+    @media screen and (max-width: $tabletWidth) {
+		width: 100px;
+	}
     background: $background-color;
 	@media screen and (max-width: $phoneWidth){
 		border: none;
@@ -258,6 +261,9 @@
 	align-items: center;
 	border-right: 1px dashed #FFFFFF;
     width: 280px;
+    @media screen and (max-width: $tabletWidth) {
+		width: 260px;
+	}
 	height: 100vh;
     background: $background-color;
 	// transform: translateX(-100%);
