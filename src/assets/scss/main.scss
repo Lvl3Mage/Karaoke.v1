@@ -82,14 +82,8 @@ p {
 		@media screen and (max-width: $tabletWidth) {
 			left: 100px;
 		}
-<<<<<<< Updated upstream
 		@media screen and (max-width: $roomsWidth) {
 			left: 90px;
-=======
-		@media screen and (max-width:$tabletWidth){
-			left: 90px;
-
->>>>>>> Stashed changes
 		}
 		@media screen and (max-width: $phoneWidth){
 			top: 60px;
