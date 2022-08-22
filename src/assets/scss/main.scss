@@ -7,6 +7,7 @@
 @import './utils/presets';
 @import './utils/text-styles';
 @import './utils/container';
+@import './utils/swiper';
 @import './header';
 @import './fonts';
 @import './section-main';
@@ -15,6 +16,9 @@
 
 body{
 
+}
+body.lock{
+	overflow: hidden;
 }
 button:hover,
 button:focus {
@@ -60,7 +64,11 @@ p {
 		background-position: 15%;
 		&:hover{
 			filter: grayscale(0);
-			
+		}
+	}
+	&--p-top{
+		@media screen and (max-width:$roomsWidth){
+			background-position-y: top;
 		}
 	}
 }
@@ -71,8 +79,13 @@ p {
 		height: 100%;
 		overflow-x: auto;
 		background: $background-color;
+<<<<<<< Updated upstream
 		@media screen and (max-width: $tabletWidth) {
 			left: 100px;
+=======
+		@media screen and (max-width:$tabletWidth){
+			left: 90px;
+>>>>>>> Stashed changes
 		}
 		@media screen and (max-width: $phoneWidth){
 			top: 60px;
@@ -97,9 +110,9 @@ p {
 
 		&::-webkit-scrollbar-thumb {
 			background-color: #555;
-	    border: 3px solid transparent;
-	    border-radius: 5px;
-	    background-clip: content-box;
+			border: 3px solid transparent;
+			border-radius: 5px;
+			background-clip: content-box;
 			// background-clip: content-box;
 			// border-left: 10px solid red;
   		// 	border-right: 10px solid transparent;
@@ -138,6 +151,14 @@ p {
 			height: 24px;
 		}
 	}
+	&--person{
+		width: 32px;
+		height: 32px;
+		@media screen and (max-width:$phoneWidth){
+			width: 24px;
+			height: 24px;
+		}
+	}
 	&:hover{
 		fill: url(#hover-svg-gradient) #FEE159;
 	}
@@ -159,7 +180,11 @@ p {
 	font-size: 50px;
 	line-height: 65px;
 	color: #FFFFFF;
-	
+	@media screen and (max-width:$tabletWidth){
+		font-size: 32px;
+		line-height: 41px;
+	}
+
 }
 .text {
     font-family: $mainFont;
