@@ -1,0 +1,16 @@
+/* Vars:
+  ========================================================================== */
+/*
+  All colors taken from:
+  https://github.com/vedees/uimini
+*/
+#hover {
+  --color-stop-1: #FEE159;
+  --color-stop-2: #F569A3;
+}
+
+#active {
+  --color-stop-1: #9747FF;
+  --color-stop-2: #F569A3;
+}
+/*# sourceMappingURL=vars.css.map */

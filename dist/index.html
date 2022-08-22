@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,900;1,400&family=PT+Sans:wght@700&family=Playfair+Display:wght@700&family=Roboto:wght@400;700;900&display=swap"
+		rel="stylesheet">
+	<title>melemele</title>
+<script defer src="/js/vendors-node_modules_axios_index_js-node_modules_jquery_dist_jquery_js-node_modules_pinia_dis-437891.js"></script><script defer src="/js/main.js"></script><link href="/css/main.css" rel="stylesheet"></head>
+
+<body>
+	<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+		<defs>
+			<linearGradient id="hover-svg-gradient" x2="0" y2="1">
+				<stop offset="0%" stop-color="#FEE159" />
+				<stop offset="100%" stop-color="#F569A3" />
+			</linearGradient>
+			<linearGradient id="active-svg-gradient">
+				<stop offset="0%" stop-color="#9747FF" />
+				<stop offset="100%" stop-color="#F569A3" />
+			</linearGradient>
+		</defs>
+	</svg>
+	<header class="header">
+		<aside class="sidebar">
+			<div class="sidebar__wrap">
+				<div class="sidebar__social-links">
+					<div class="social-links__wrap">
+						<ul class="social-links__list">
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="/assets/fonts/symbol-defs.svg#icon-tiktok"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="/assets/fonts/symbol-defs.svg#icon-instagram"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="social-links__item">
+								<a class="social-links__link" href="">
+									<svg class="svg-wrap">
+										<use href="/assets/fonts/symbol-defs.svg#icon-facebook"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="sidebar-list__button-wrap">
+					<div class="burger-btn">
+						<span></span>
+						<span></span>
+						<span></span>
+						<!-- <svg class="svg-wrap svg-wrap--burger">
+							<use href="../assets/images/svg/sprite/symbol-defs.svg#icon-burger"></use>
+						</svg> -->
+					</div>
+				</div>
+				<div class="sidebar-contacts">
+					<div class="contacts__wrap">
+						<a class="contacts__link" href="tel:#">
+							<svg class="svg-wrap">
+								<use href="/assets/fonts/symbol-defs.svg#icon-phone"></use>
+							</svg>
+						</a>
+						<a class="contacts__link" href="mail:#">
+							<svg class="svg-wrap">
+								<use href="/assets/fonts/symbol-defs.svg#icon-mail"></use>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar-lang__wrap">
+				<div class="sidebar-lang active" id="lang-en">
+					<span>EN</span>
+				</div>
+				<div class="sidebar-lang" id="lang-ar">
+					<span>AR</span>
+				</div>
+				<div class="sidebar-lang__list">
+					<div class="sidebar-lang__item selected" data-lang-id="lang-en">EN</div>
+					<div class="sidebar-lang__item" data-lang-id="lang-ar">AR</div>
+				</div>
+			</div>
+		</aside>
+		<section class="navigation">
+			<div class="navigation__wrap">
+				<div class="social-links__mobile">
+					<ul class="social-links__list">
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="/assets/fonts/symbol-defs.svg#icon-tiktok"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="/assets/fonts/symbol-defs.svg#icon-instagram"></use>
+								</svg>
+							</a>
+						</li>
+						<li class="social-links__item">
+							<a class="social-links__link" href="">
+								<svg class="svg-wrap">
+									<use href="/assets/fonts/symbol-defs.svg#icon-facebook"></use>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<ul class="navigation__list">
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Home</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">About us</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Rooms</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Gallery</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Menu</a>
+					</li>
+					<li class="navigation__item">
+						<a href="index.html#" class="navigation__link">Contacts</a>
+					</li>
+				</ul>
+				<div class="contacts__wrap--mobile">
+					<div class="contacts__wrap">
+						<a class="contacts__link" href="tel:#">
+							<svg class="svg-wrap">
+								<use href="/assets/fonts/symbol-defs.svg#icon-phone"></use>
+							</svg>
+						</a>
+						<a class="contacts" href="mail:#">
+							<svg class="svg-wrap">
+								<use href="/assets/fonts/symbol-defs.svg#icon-mail"></use>
+							</svg>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</section>
+	</header>
+    <div class="page-content-wrapper">
+        <!-- Main section -->
+        <!-- <section class="main-picture">
+            <div class="main-logo">
+                <img src="../assets/images/logo.png" alt="logo" class="logo">
+            </div>
+            <div class="main-btn">
+                <button class="booking-btn">Book now</button>
+            </div>
+        </section> -->
+        <!-- Section About US -->
+        <!-- <section class="section-wrapper">
+            <div class="about__wrap">
+                <div class="description__title--mobile m--b-35">
+                    <h1 class="title text--XL">About us</h1>
+                </div>
+                <div class="about__img ibg ibg--cover ratio-w" data-ratio-multiplier="1">
+                    <img src="../assets/images/about.jpg" alt="about" class="img-about">
+                </div>
+                <div class="about__description">
+                    <div class="description__border m--b-45"></div>
+                    <div class="description__item">
+                        <div class="description__title">
+                            <h1 class="title text--XL">About us</h1>
+                        </div>
+                        <div class="description__text">
+                            <p class="text text--S">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra in auctor nibh risus
+                                sit. Rutrum quam urna nibh et,
+                                aliquet gravida velit proin consequat. Commodo arcu cras tellus massa aenean volutpat,
+                                a, erat. Viverra morbi nibh urna
+                                sed at in elementum ac nunc. Turpis iaculis interdum mattis arcu scelerisque mi egestas
+                                mi.
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="description__border"></div>
+                </div>
+            </div>
+        </section> -->
+        <!-- Section Rooms -->
+        <section class="section-sbg">
+            <div class="content-wrap">
+                <div class="content-title">
+                    <h1 class="title text--XL">Rooms</h1>
+                </div>
+                <div class="content">
+                    <div class="content__card">
+                        <a href="#">
+                            <div class="content__item ibg ibg--cover ibg--gray ibg--p-top">
+                                <img src="/assets/img/hula.jpg" alt="hula">
+                                <div class="item__upstair">
+                                    <div class="upstair-svg">
+                                        <svg class="svg-wrap svg-wrap--person">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-person">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                    <div class="upstair-text text--M text--M">
+                                        <p>2 - 5 pers.</p>
+                                    </div>
+                                </div>
+                                <div class="item__downstair">
+                                    <div class="item__text">
+                                        <h2 class="title-rooms">Hula</h2>
+                                    </div>
+                                    <div class="item__icon">
+                                        <svg class="svg-wrap svg-wrap--image popup-link" href="#popup">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-image">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="content__card">
+                        <a href="#">
+                            <div class="content__item ibg ibg--cover ibg--gray ibg--p-top">
+                                <img src="/assets/img/party.jpg" alt="party">
+                                <div class="item__upstair item__upstair--party">
+                                    <div class="upstair-svg">
+                                        <svg class="svg-wrap svg-wrap--person">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-person">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                    <div class="upstair-text text--M">
+                                        <p>5 - 10 pers.</p>
+                                    </div>
+                                </div>
+                                <div class="item__downstair">
+                                    <div class="item__text">
+                                        <h2 class="title-rooms">Party</h2>
+                                    </div>
+                                    <div class="item__icon">
+                                        <svg class="svg-wrap svg-wrap--image popup-link" href="#popup">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-image">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="content__card">
+                        <a href="#">
+                            <div class="content__item ibg ibg--cover ibg--gray ibg--p-top">
+                                <img src="/assets/img/ukulele.jpg" alt="ukulele">
+                                <div class="item__upstair">
+                                    <div class="upstair-svg">
+                                        <svg class="svg-wrap svg-wrap--person">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-person">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                    <div class="upstair-text text--M">
+                                        <p>4 - 8 pers.</p>
+                                    </div>
+                                </div>
+                                <div class="item__downstair">
+                                    <div class="item__text">
+                                        <h2 class="title-rooms">Ukulele</h2>
+                                    </div>
+                                    <div class="item__icon">
+                                        <svg class="svg-wrap svg-wrap--image popup-link" href="#popup">
+                                            <use href="/assets/fonts/symbol-defs.svg#icon-image">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- <div class="content__card">
+                        <a href="#">
+                            <div class="content__item ibg ibg--cover ibg--gray ibg--p-top">
+                                <img src="../assets/images/flamingo.jpg" alt="flamingo">
+                                <div class="item__upstair">
+                                    <div class="upstair-svg">
+                                        <svg class="svg-wrap svg-wrap--person">
+                                            <use href="../assets/images/svg/sprite/symbol-defs.svg#icon-person">
+                                            </use>
+                                        </svg>
+                                    </div>
+                                    <div class="upstair-text text--M">
+                                        <p>2 - 5 pers.</p>
+                                    </div>
+                                </div>
+                                <div class="item__downstair">
+                                    <div class="item__text">
+                                        <h2 class="title-rooms">Flamingo</h2>
+                                    </div>
+                                    <div class="item__icon">
+                                        <a href="#popup" class="popup-link">
+                                            <svg class="svg-wrap svg-wrap--image">
+                                                <use href="../assets/images/svg/sprite/symbol-defs.svg#icon-image">
+                                                </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> -->
+                </div>
+                <div class="popup" id="popup">
+                    <div class="popup__body">
+                        <div class="popup__content">
+                            <svg class="popup__close close-popup svg-wrap">
+                                +
+                            </svg>
+                            <div class="swiper-container">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    <div class="swiper-slide">
+                                        <div class="swiper-slide__image">
+                                            <!-- <img src="" alt="foto"> -->
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="swiper-slide__image">
+                                            <!-- <img src="" alt="foto"> -->
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="swiper-slide__image">
+                                            <!-- <img src="" alt="foto"> -->
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="swiper-slide__image">
+                                            <!-- <img src="" alt="foto"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- If we need navigation buttons -->
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                                <!-- If we need scrollbar -->
+                                <div class="swiper-scrollbar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    
+        </body>
+
+        </html>
