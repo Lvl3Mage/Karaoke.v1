@@ -21,10 +21,10 @@
     @media screen and (max-width: $tabletWidth) {
 		width: 100px;
 	}
-    background: $background-color;
-	@media screen and (max-width: $tabletWidth){
+	@media screen and (max-width: $roomsWidth) {
 		width: 90px;
 	}
+    background: $background-color;
 	@media screen and (max-width: $phoneWidth){
 		border: none;
 	}
@@ -257,7 +257,7 @@
 	z-index: 40;
 	position: fixed;
 	top:0;
-	left: -190px;
+	left: -160px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -266,6 +266,9 @@
     width: 280px;
     @media screen and (max-width: $tabletWidth) {
 		width: 260px;
+	}
+	@media screen and (max-width: $roomsWidth) {
+		left: -170px;
 	}
 	height: 100vh;
     background: $background-color;
