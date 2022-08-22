@@ -22,6 +22,9 @@
 		width: 100px;
 	}
     background: $background-color;
+	@media screen and (max-width: $tabletWidth){
+		width: 90px;
+	}
 	@media screen and (max-width: $phoneWidth){
 		border: none;
 	}
@@ -254,7 +257,7 @@
 	z-index: 40;
 	position: fixed;
 	top:0;
-	left: -160px;
+	left: -190px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
