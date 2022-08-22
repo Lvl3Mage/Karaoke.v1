@@ -6,18 +6,22 @@
 				
 				:class="{
 					'selected': isSelected(index),
-					'highlighted': isHighlighted(index),
+					'border': isBorder(index),
+					'border--start': isStart(index),
+					'border--end': isEnd(index),
 					'booked': isBooked(index),
-					'unavailable': !isAvailable(index) && dragging,
+					'expandable': isExpandable(index),
 				}"
-				@mousedown="BeginDrag(index)"
-				@mouseover="dragOver(index)"
+				@click="segmentClick(index)"
 				class="time-selector__sector"
 			>
 				{{tConvert(timeSegment.startTime)}} - {{tConvert(timeSegment.endTime)}}
 			</div>	
 		</div>
-		
+		<!-- @touchstart="BeginDrag(index)"
+				v-touch:rollover="LogIndex(index)"
+				@mousedown="BeginDrag(index)"
+				@mouseover="dragOver(index)" -->
 	</div>
 </template>
 <script setup>
@@ -36,21 +40,15 @@
 		},
 		watch: {
 			occupancyData: function(val){
-				let oldStart = this.startIndex;
-				let oldEnd = this.endIndex;
-				this.startIndex = null;
-				this.endIndex = null;
-
-				this.BeginDrag(oldStart);
-				if(this.startIndex == null){
-					this.dragging = false;
+				if(this.startIndex == null || this.endIndex == null){
 					return;
 				}
-				this.dragOver(oldEnd);
-				this.dragging = false;
-				if(this.endIndex == null){
-					this.startIndex = null;
-					return;
+				for (var i = this.startIndex; i <= this.endIndex; i++) {
+					if(this.isBooked(i)){
+						this.startIndex = null;
+						this.endIndex = null;
+						return;
+					}
 				}
 			}
 		},
@@ -65,34 +63,39 @@
 				// console.log('down');
 			},
 			mouseUp: function(){
-				this.dragging = false;
+				// this.dragging = false;
 			},
-			BeginDrag: function(index){
-				if(this.isBooked(index)){
-					return;
-				}
-				this.dragStartIndex = index;
-				this.startIndex = index;
-				this.endIndex = null;
-				this.dragging = true;
-			},
-			dragOver: function(index){
-				if(!this.dragging){
-					return;
-				}
-				if(this.isAvailable(index)){
-					if(index >= this.dragStartIndex){
-						this.startIndex = this.dragStartIndex;
-						this.endIndex = index;
-					}
-					else{
-						this.startIndex = index;
-						this.endIndex = this.dragStartIndex;
-					}
+			// BeginDrag: function(index){
+			// 	if(this.dragging){
+			// 		this.dragging = false;
+			// 		return;
+			// 	}
+			// 	if(this.isBooked(index)){
+			// 		return;
+			// 	}
+			// 	this.dragStartIndex = index;
+			// 	this.startIndex = index;
+			// 	this.endIndex = null;
+			// 	this.dragging = true;
+			// },
+			// dragOver: function(index){
+			// 	console.log(index);
+			// 	if(!this.dragging){
+			// 		return;
+			// 	}
+			// 	if(this.isAvailable(index)){
+			// 		if(index >= this.dragStartIndex){
+			// 			this.startIndex = this.dragStartIndex;
+			// 			this.endIndex = index;
+			// 		}
+			// 		else{
+			// 			this.startIndex = index;
+			// 			this.endIndex = this.dragStartIndex;
+			// 		}
 					
 
-				}
-			},
+			// 	}
+			// },
 			tConvert: function(totalMinutes){ // converts a time in total minutes from midnight to a regular24 hour time
 				totalMinutes = totalMinutes % 1440; // ensures the time is limited to 1 day
 
@@ -114,46 +117,87 @@
 				// let resultString = strMinutes + ":" + strHours;
 				return strHours + ":" + strMinutes;
 			},
+			segmentClick: function(index){
+				if(this.isBooked(index)){
+					return;
+				}
+				if(this.startIndex == null && this.endIndex == null){
+					this.startIndex = index;
+					this.endIndex = index;
+					return;
+				}
+				if(index == this.startIndex && index == this.endIndex){
+					this.startIndex = null;
+					this.endIndex = null;
+					return;
+				}
+				if(index == this.startIndex){
+					this.startIndex++;
+					return;
+				}
+				if(index == this.endIndex){
+					this.endIndex--;
+					return;
+				}
+
+				if(this.isExpandable(index)){
+
+					if(index < this.startIndex){
+						this.startIndex--;
+					}
+					else if(this.endIndex < index){
+
+						this.endIndex++;
+					}
+				}
+			},
 			setStart: function(newStart){
 				this.startIndex = newStart;
 			},
 			setEnd: function(newEnd){
-				if(newEnd < this.startIndex){
-					this.endIndex = this.startIndex;
-					this.startIndex = newEnd;
-				}
-				else{
-					this.endIndex = newEnd;
-				}
-				
+				this.endIndex = newEnd;
 			},
 			isSelected: function(index){
 				if(this.startIndex == null || this.endIndex == null){ // null returns false on number comparisons
-					return this.isHighlighted(index);
+					return false;
 				}
 				return this.startIndex <= index && index <= this.endIndex;
 			},
-			isHighlighted: function(index){
-				return index == this.startIndex || index == this.endIndex;
+			isBorder: function(index){
+				return this.startIndex == index || index == this.endIndex;
 			},
-			isAvailable: function(index){
-				if(this.startIndex == null){
+			isStart: function(index){
+				return this.startIndex == index && index != this.endIndex;
+			},
+			isEnd: function(index){
+				return this.endIndex == index && index != this.startIndex;
+			},
+			isExpandable: function(index){
+				if(this.startIndex == null && this.endIndex == null && !this.isBooked(index)){
 					return true;
 				}
-				let from = Math.min(index, this.startIndex);
-				let to = Math.max(index, this.startIndex);
-				for (var i = from; i <= to; i++) {
-					if(this.isBooked(i)){ // if any inbetweens are booked -> not available
-						return false;
-					}
+				return !this.isBooked(index) && (index == (this.startIndex - 1) || index == (this.endIndex + 1));
+			},
+			isAvailable: function(index){
+				if(this.isBooked(index)){
+					return false;
 				}
-				return true; // if no inbetweens are booked -> available
+				return this.startIndex == null && this.endIndex == null || this.isExpandable(index) || this.isBorder;
+				//
+					// let from = Math.min(index, this.startIndex);
+					// let to = Math.max(index, this.startIndex);
+					// for (var i = from; i <= to; i++) {
+					// 	if(this.isBooked(i)){ // if any inbetweens are booked -> not available
+					// 		return false;
+					// 	}
+					// }
+					// return true; // if no inbetweens are booked -> available
+				//
 			},
 			isBooked: function(index){
 				let occupancy = this.occupancyData[index];
 				return occupancy.state != "available";
-			}
-			
+			},			
 		},
 		computed: {
 			timeSegments: function(){
@@ -188,26 +232,44 @@
 <style lang="scss" scoped>
 @import 'styles/utils/vars.scss'; // for width vars
 .time-selector {
+	// pointer-events:none;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	&__content-wrapper{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+		width: 100%;
+		display: grid;
+		grid-gap: 7px;
+		grid-template-columns: repeat(auto-fit, 120px);
+		@media screen and (max-width:$smDesktopWidth) {
+			grid-template-columns: repeat(auto-fit, 100px);
+		}
+		@media screen and (max-width:1052px) {
+			grid-gap: 4px;
+			grid-template-columns: repeat(auto-fit, 86px);
+		}
+		
+		justify-items: center;
+		justify-content: center;
+		padding: initial;
+		// display: flex;
+		// flex-wrap: wrap;
+		// justify-content: start;
 	}
 	&__sector {
+		transition: all 0.5s;
+		// pointer-events: auto; 
 		-webkit-user-select: none; /* Safari */        
 		-moz-user-select: none; /* Firefox */
 		-ms-user-select: none; /* IE10+/Edge */
 		user-select: none; /* Standard */
-		cursor: pointer;
+		cursor: default;
 		padding: 10px 10px;
 		width: 120px;
 		text-align: center;
 		border: 1px solid #FFFFFF;
 		border-radius: 8px;
-		margin: 7px;
+		// margin: 7px;
 
 		font-family: 'Roboto';
 		font-style: normal;
@@ -222,19 +284,31 @@
 			width: 86px;
 			font-size: 11px;
 			padding: 7px 0;
-			margin: 4px;
+			// margin: 4px;
 		}
+		opacity: 0.2;
 
 		&.selected{
+			opacity: 0.6;
 			background: var(--roomColor);
 		}
-		&.highlighted{
+		&.border{
+			opacity: 1;
+			background: var(--roomColor);
 			filter: drop-shadow(0px 0px 10px var(--roomColor));
+			cursor: pointer;
+			position: relative;
+			&--start{
+				border-radius: 1px 8px 8px 1px;
+			}	
+			&--end{
+				border-radius: 8px 1px 1px 8px;
+			}
 			// background: darken(var(--roomColor), 10%);
 		}
-		&.unavailable{
-			opacity: 0.8;
-			cursor: default;
+		&.expandable{
+			opacity: 1;
+			cursor: pointer;
 		}
 		&.booked{
 			opacity: 1;
@@ -244,5 +318,4 @@
 
 	}
 }
-
 </style>

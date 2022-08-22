@@ -62,3 +62,6 @@ $('.sidebar-lang__item').on('click', function() {
 $(document).on('click', function(){
 	$('.sidebar-lang__list').removeClass('active');
 });
+// $(document).on('tap',document, function(){
+// 	console.log('move');
+// });

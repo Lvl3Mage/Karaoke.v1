@@ -207,7 +207,7 @@
 					console.log(response);
 
 				//ajax request with dates
-				// await this.delay(1000);
+				await this.delay(1000);
 				//data assignment
 				// setTimeout(() => {  
 				// await delay(1000);
@@ -243,7 +243,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="booking__callendar-column">
+			<div class="booking__calendar-column">
 				<div class="font--prim-text text--700 text--S m--b-10 text--center">Date</div>
 				<Calendar :highlightColor="selectedRoomColor()" :defaultDate="bookingStore.selectedDate" @date-changed="updateDate"></Calendar>
 			</div>
@@ -336,7 +336,8 @@
 			transition: all 0.5s;
 		}
 
-		&__callendar-column {
+		&__calendar-column {
+			z-index: 5;
 			flex: 0 0 255px;
 			margin-right: 50px;
 			@media screen and (max-width: $smDesktopWidth) {
@@ -351,12 +352,12 @@
 		}
 		&__time-selector {
 			flex: 1 0 0;
-			max-width: 500px;
+			max-width: 540px;
 			
 			@media screen and (max-width: $tabletWidth) {
 				margin: auto;
 				padding: 0 15px;
-    			max-width: 425px;
+    			max-width: 410px;
 			}
 		}
 	}
