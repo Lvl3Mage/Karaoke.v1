@@ -1,48 +1,27 @@
-.popup {
-    position: fixed;
-    width: 100%;
+.image-slider {
+    width: 600px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition: all 0.8s ease 0s;
-		// .popup__body
+    overflow: hidden;
+		// .image-slider__wrapper
 
-		&__body {
-            min-height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center; 
-            padding: 220px 150px;
+		&__wrapper {
 		}
 
-		// .popup__content
+		// .image-slider__slide
 
-		&__content {
-            padding: 42px 50px;
-            background-color: #fff;
-            color: black;
-            max-width: 885px;
+		&__slide {
 		}
 
-		// .popup__close
+		// .image-slider__image
 
-		&__close {
+		&__image{
+            
+            &>img{
+                border-radius: 8px;
+                background-size: contain;
+                max-width: 100%;
+            }
 		}
-}
-.popup.open {
-    opacity: 1;
-    visibility: visible;
-} 
-.popup.open .popup__content{
-    transform: perspective(600px) translate(0px, 0%) rotate(0deg);
-    opacity: 1;
-}
-.svg-wrap {
 }
 .swiper-container {
 }
@@ -55,9 +34,11 @@
 		&__image {
 		}
 }
-.swiper-button-prev {
-}
+.swiper-button-prev,
 .swiper-button-next {
+    color: $mainFontColor;
 }
-.swiper-scrollbar {
+.swiper-scrollbar-drag {
+    background-color: $mainFontColor;
 }
+
