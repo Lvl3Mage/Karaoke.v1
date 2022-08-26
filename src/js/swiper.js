@@ -42,3 +42,47 @@ new Swiper('.image-slider', {
         draggable: true,
     },
 });
+
+new Swiper('.image-slider-gallery', {
+    navigation: {
+        nextEl: '.slider-button-next',
+        prevEl: '.slider-button-prev'
+    },
+    grabCursor: true,
+    // Change slide by click on
+    slideToClickedSlides: true,
+    keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+        pageUpDown: true,
+    },
+    
+    watchOverFlow: true,
+    
+    speed: 850,
+    autoHeight: false,
+    pagination: {
+        el: '.swiper-pagination',
+      clickable: true,  
+    },
+    breakpoints: {
+        250: {
+            slidesPerView: 1,
+            grid: {
+                rows: 4,
+            },
+        },
+        320: {
+            slidesPerView: 2,
+            grid: {
+                rows: 4,
+            },
+        },
+        768: {
+            slidesPerView: 4,
+            grid: {
+                rows:2,
+            },
+        }
+    },
+});
