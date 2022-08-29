@@ -1,141 +1,63 @@
 <script setup>
 	import Calendar from '../components/Calendar.vue'
 	import TimeRangeSelector from '../components/TimeRangeSelector.vue'
+	import PeopleCountSelector from '../components/PeopleCountSelector.vue'
 	const bookingStore = useBookingStore()
 </script>
 <script>
-	const APIScheduleData = 
-	{
-		"19/08/2022": {
-			"room1": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-			"room2": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-			"room3": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-		},
-		"20/08/2022": {
-			"room1": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "booked",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-			"room2": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "booked",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-			"room3": {
-				"occupancyData": [
-					{
-						"state": "available",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					{
-						"state": "booked",// available/booked/reserved
-						"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
-					},
-					//....
-				],
-				"openTime": 720,//mins since midnight
-			},
-		}
-	};
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 
 	export default{
 		data() {
+			let pendingDateRequests = {};
+			let roomNames = Object.keys(this.bookingStore.roomData);
+
+			for (let roomName of roomNames) {
+				pendingDateRequests[roomName] = {};
+			}
+
+
 			return {
+				pendingDateRequests:pendingDateRequests,
 			}
 		},
+		watch: {
+
+		},
 		mounted(){
-			// console.log(this.bookingStore.selectedDate);
-			// axios
-			// 	.post(api.baseURL + "/api-token-auth/",data)
-			// 	.then(function(response){
-			// 		this.bookingStore.roomData = response.roomData;
-			// 		if(this.roomID in this.bookingStore.roomData){
-			// 			this.bookingStore.selectedRoomID = this.roomID;
-			// 		}
-			// 		else{
-			// 			//if not room is selected select the default room
-			// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
-			// 		}
-			// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
-			this.loadSelectedDateSchedule();
-			// this.bookingStore.scheduleData = APIScheduleData;
+			// AXIOS
+				// axios
+				// 	.post(api.baseURL + "/api-token-auth/",data)
+				// 	.then(function(response){
+				// 		this.bookingStore.roomData = response.roomData;
+				// 		if(this.roomID in this.bookingStore.roomData){
+				// 			this.bookingStore.selectedRoomID = this.roomID;
+				// 		}
+				// 		else{
+				// 			//if not room is selected select the default room
+				// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
+				// 		}
+				// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
+			// this.loadSelectedDateSchedule();
+			this.requestSelectedSchedule();
 		},
 		methods: {
 			dayRefreshCycle: async function(){
 
 			},
-			loadSelectedDateSchedule: function(){
-				let selectedDate = this.bookingStore.selectedDate;
+			loadNearbySchedule: function(targetDate, targetRoom){
 				let dates = []
 				for (var i = -5; i <= 5; i++) {
-					let date = new Date(selectedDate);
-					date.setDate(selectedDate.getDate() + i);
+					let date = new Date(targetDate);
+					date.setDate(targetDate.getDate() + i);
 					dates.push(date);
 				}
-				this.loadScheduleForDates(dates);
+				this.loadScheduleForDates(dates, targetDate, targetRoom);
 			},
 			selectRoom: function(roomID){
 				this.bookingStore.selectedRoomID = roomID;
+				this.requestSelectedSchedule();
 			},
 			selectedRoomColor: function(){
 				if(this.bookingStore.selectedRoomID != ''){
@@ -146,82 +68,107 @@
 			},
 			updateDate: function(newDate){
 				this.bookingStore.selectedDate = newDate;
-				this.loadSelectedDateSchedule();
-				//load
+				this.requestSelectedSchedule();
 			},
-			loadScheduleForDates: async function(dates){
+			updateRange: function(newRange){
+				this.bookingStore.selectedRange = newRange;
+			},
+			loadScheduleForDates: async function(dates, targetDate, targetRoom){
+				this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)] = "pending";
+
 				//Data generation (remove when making the ajax request)
 					let data = {
 						"occupancyData": [
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "booked",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 							{
 								"state": "available",// available/booked/reserved
 								"tokens": "TOKEN",//Token sent on request, only needed if states is "reserved"
+								"cost": 15,
 							},
 
 							//....
 						],
 						"openTime": 720,//mins since midnight
 					}
-					let genericResponse = {"room1": data,"room2": data,"room3": data,"room4": data,};
-
 					let response = {};
 					for (var i = 0; i < dates.length; i++) {
-						response[dates[i].toLocaleDateString('en-GB')] = genericResponse;
+						response[dates[i].toLocaleDateString('en-GB')] = data;
 					}
-					console.log(response);
+					
 
-				//ajax request with dates
+				console.log(response);
 				await this.delay(1000);
-				//data assignment
-				// setTimeout(() => {  
-				// await delay(1000);
+				delete this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)];
 				for(var date in response) {
-					this.bookingStore.scheduleData[date] = response[date];
+					this.bookingStore.roomData[targetRoom].scheduleData[date] = response[date];
 				}
-				// }, 2000);
 					
 			},
-			//method for loading dates near the current one
+			requestSelectedSchedule: function(){
+				if(this.bookingStore.formatedSelectedDate in this.pendingDateRequests[this.bookingStore.selectedRoomID]){
+					return;
+				}
+				this.loadNearbySchedule(this.bookingStore.selectedDate, this.bookingStore.selectedRoomID);
+				
+			}
 		},
+
 		computed: {
+			scheduleData: function(){
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].scheduleData;
+			},
+			selectedSchedule: function(){
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].scheduleData[this.bookingStore.formatedSelectedDate];
+			},
+			selectedOccupancyData: function(){
+				return this.selectedSchedule.occupancyData;
+			},
 			bookingDataAvailable: function(){
-				return this.bookingStore.selectedRoomID in this.bookingStore.roomData && this.bookingStore.formatedSelectedDate in this.bookingStore.scheduleData; // checks if undefined at the same time
+				return this.bookingStore.formatedSelectedDate in this.scheduleData;
 			}
 		}
 	}
@@ -248,7 +195,8 @@
 				<Calendar :highlightColor="selectedRoomColor()" :defaultDate="bookingStore.selectedDate" @date-changed="updateDate"></Calendar>
 			</div>
 			<div class="booking__time-selector">
-				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="bookingStore.scheduleData[bookingStore.formatedSelectedDate][bookingStore.selectedRoomID].occupancyData" :openTime="bookingStore.scheduleData[bookingStore.formatedSelectedDate][bookingStore.selectedRoomID].openTime"></TimeRangeSelector>
+				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" @range-change="updateRange"></TimeRangeSelector>
+				<!-- <PeopleCountSelector :minCount="5" :maxCount="10" :highlightColor="selectedRoomColor()"></PeopleCountSelector> -->
 			</div>
 		</div>
 		<div class="loader" v-if="!bookingDataAvailable">

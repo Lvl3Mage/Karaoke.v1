@@ -6,22 +6,30 @@
 		'room1': {
 			primaryColor: '#FAA',
 			name: 'Room 1',
-			previewImage: '' // link
+			previewImage: '', // link
+			minPeople: 5,
+			maxPeople: 10,
 		},
 		'room2': {
 			primaryColor: '#FA0',
 			name: 'Room 2',
-			previewImage: ''
+			previewImage: '',
+			minPeople: 5,
+			maxPeople: 10,
 		},
 		'room3': {
 			primaryColor: '#AAF',
 			name: 'Room 3',
-			previewImage: ''
+			previewImage: '',
+			minPeople: 5,
+			maxPeople: 10,
 		},
 		'room4': {
 			primaryColor: '#AFA',
 			name: 'Room 4',
-			previewImage: ''
+			previewImage: '',
+			minPeople: 5,
+			maxPeople: 10,
 		}
 	};
 	import {useBookingStore} from '../stores/BookingStore.js'
@@ -36,26 +44,36 @@
 			}
 		},
 		mounted(){
-			// let data = new FormData();
+			//
+				// let data = new FormData();
 
 
-				// data.append('username', this.log);
+					// data.append('username', this.log);
+
+				// axios
+				// 	.post(api.baseURL + "/api-token-auth/",data)
+				// 	.then(function(response){
+				// 		this.bookingStore.roomData = response.roomData;
+				// 		if(this.roomID in this.bookingStore.roomData){
+				// 			this.bookingStore.selectedRoomID = this.roomID;
+				// 		}
+				// 		else{
+				// 			//if not room is selected select the default room
+				// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
+				// 		}
+				// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
+			let response = APIRoomData;
+			let roomNames = Object.keys(response);
+			for (let roomName of roomNames) {
+				let room = response[roomName];
+
+				room.scheduleData = {
+					occupancyData:{}
+				};
 
 
-			// axios
-			// 	.post(api.baseURL + "/api-token-auth/",data)
-			// 	.then(function(response){
-			// 		this.bookingStore.roomData = response.roomData;
-			// 		if(this.roomID in this.bookingStore.roomData){
-			// 			this.bookingStore.selectedRoomID = this.roomID;
-			// 		}
-			// 		else{
-			// 			//if not room is selected select the default room
-			// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
-			// 		}
-			// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
-
-			this.bookingStore.roomData = APIRoomData;
+				this.bookingStore.roomData[roomName] = room;
+			}
 
 
 			if(this.$route.params.roomID in this.bookingStore.roomData){
@@ -78,56 +96,62 @@
 				return '#979797';
 				 
 			}
+		},
+		computed: {
+			bookingDataAvailable: function(){
+				return this.bookingStore.selectedRoomID in this.bookingStore.roomData;
+			}
 		}
 	}
 </script>
 <template>
-	<!-- <div class="container"> -->
-		<div class="booking">
-			<div class="container">
-				<div class="booking__top-bar">
-					<div class="booking__logo">
-						<img src="/assets/images/logo.png" alt="">
-					</div>
-					<div class="booking__title-wrapper">
-						<span>Book me</span>
-					</div>	
+	<div class="booking" v-if="bookingDataAvailable">
+		<div class="container">
+			<div class="booking__top-bar">
+				<div class="booking__logo">
+					<img src="/assets/images/logo.png" alt="">
 				</div>
-				<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
-					<div class="booking__steps">
-						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
-							<div class="booking__step-circle">
-								<span>1</span>
-							</div>
-							<div class="booking__step-text">
-								<span>RESERVE</span>
-							</div>
-						</div>
-						<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 0}"></div>
-						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 1}">
-							<div class="booking__step-circle">
-								<span>2</span>
-							</div>
-							<div class="booking__step-text">
-								<span>RESERVE</span>
-							</div>
-						</div>
-						<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 1}"></div>
-						<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 2}">
-							<div class="booking__step-circle">
-								<span>3</span>
-							</div>
-							<div class="booking__step-text">
-								<span>RESERVE</span>
-							</div>
-						</div>
-					</div>
+				<div class="booking__title-wrapper">
+					<span>Book me</span>
 				</div>	
 			</div>
-			
-			<router-view></router-view>
+			<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
+				<div class="booking__steps">
+					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
+						<div class="booking__step-circle">
+							<span>1</span>
+						</div>
+						<div class="booking__step-text">
+							<span>RESERVE</span>
+						</div>
+					</div>
+					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 0}"></div>
+					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 1}">
+						<div class="booking__step-circle">
+							<span>2</span>
+						</div>
+						<div class="booking__step-text">
+							<span>RESERVE</span>
+						</div>
+					</div>
+					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 1}"></div>
+					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 2}">
+						<div class="booking__step-circle">
+							<span>3</span>
+						</div>
+						<div class="booking__step-text">
+							<span>RESERVE</span>
+						</div>
+					</div>
+				</div>
+			</div>	
 		</div>
-	<!-- </div> -->
+		
+		<router-view ></router-view>
+	</div>
+	<div class="loader" v-if="!bookingDataAvailable">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
 	
 	
 </template>
@@ -241,5 +265,94 @@
 			}
 		}
 	}
-
+	.loader{
+		display: flex;
+		min-height: 50vh;
+		justify-content: center;
+		align-items: center;
+		.lds-roller {
+		  display: inline-block;
+		  position: relative;
+		  width: 80px;
+		  height: 80px;
+		}
+		.lds-roller div {
+		  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		  transform-origin: 40px 40px;
+		}
+		.lds-roller div:after {
+		  content: " ";
+		  display: block;
+		  position: absolute;
+		  width: 7px;
+		  height: 7px;
+		  border-radius: 50%;
+		  background: #fff;
+		  margin: -4px 0 0 -4px;
+		}
+		.lds-roller div:nth-child(1) {
+		  animation-delay: -0.036s;
+		}
+		.lds-roller div:nth-child(1):after {
+		  top: 63px;
+		  left: 63px;
+		}
+		.lds-roller div:nth-child(2) {
+		  animation-delay: -0.072s;
+		}
+		.lds-roller div:nth-child(2):after {
+		  top: 68px;
+		  left: 56px;
+		}
+		.lds-roller div:nth-child(3) {
+		  animation-delay: -0.108s;
+		}
+		.lds-roller div:nth-child(3):after {
+		  top: 71px;
+		  left: 48px;
+		}
+		.lds-roller div:nth-child(4) {
+		  animation-delay: -0.144s;
+		}
+		.lds-roller div:nth-child(4):after {
+		  top: 72px;
+		  left: 40px;
+		}
+		.lds-roller div:nth-child(5) {
+		  animation-delay: -0.18s;
+		}
+		.lds-roller div:nth-child(5):after {
+		  top: 71px;
+		  left: 32px;
+		}
+		.lds-roller div:nth-child(6) {
+		  animation-delay: -0.216s;
+		}
+		.lds-roller div:nth-child(6):after {
+		  top: 68px;
+		  left: 24px;
+		}
+		.lds-roller div:nth-child(7) {
+		  animation-delay: -0.252s;
+		}
+		.lds-roller div:nth-child(7):after {
+		  top: 63px;
+		  left: 17px;
+		}
+		.lds-roller div:nth-child(8) {
+		  animation-delay: -0.288s;
+		}
+		.lds-roller div:nth-child(8):after {
+		  top: 56px;
+		  left: 12px;
+		}
+		@keyframes lds-roller {
+		  0% {
+		    transform: rotate(0deg);
+		  }
+		  100% {
+		    transform: rotate(360deg);
+		  }
+		}
+	}
 </style>

@@ -1,5 +1,38 @@
 <template>
 	<div class="time-selector" :style="'--roomColor:' + highlightColor">
+		<div class="time-selector__fields">
+			<div class="time-selector__field">
+				<div class="time-selector__field-description">
+					Start time
+				</div>
+				<div class="input-field">
+					<ph-clock :size="14" color="#fff" />
+					<span>
+						{{startTimeFormatted}}
+					</span>
+				</div>
+			</div>
+			<div class="time-selector__field">
+				<div class="time-selector__field-description">
+					End time
+				</div>
+				<div class="input-field">
+					<ph-clock :size="14" color="#fff" />
+					<span>
+						{{endTimeFormatted}}
+					</span>
+					
+				</div>
+			</div>
+			<div class="time-selector__field">
+				<div class="time-selector__field-description">
+					Total hours
+				</div>
+				<div class="input-field">
+					{{hourLength}}
+				</div>
+			</div>
+		</div>
 		<div class="time-selector__content-wrapper">
 			<div v-for="(timeSegment,index) in timeSegments" 
 				:key="timeSegment" 
@@ -18,10 +51,6 @@
 				{{tConvert(timeSegment.startTime)}} - {{tConvert(timeSegment.endTime)}}
 			</div>	
 		</div>
-		<!-- @touchstart="BeginDrag(index)"
-				v-touch:rollover="LogIndex(index)"
-				@mousedown="BeginDrag(index)"
-				@mouseover="dragOver(index)" -->
 	</div>
 </template>
 <script setup>
@@ -34,8 +63,6 @@
 				segmentLength: 60, // minutes
 				startIndex: null,
 				endIndex: null,
-				dragging: false,
-				dragStartIndex: null,
 			}
 		},
 		watch: {
@@ -53,49 +80,10 @@
 			}
 		},
 		created(){
-			onMouseDown = this.mouseDown;
-			onMouseUp = this.mouseUp;
 		},
 		mounted(){
 		},
 		methods: {
-			mouseDown: function(){
-				// console.log('down');
-			},
-			mouseUp: function(){
-				// this.dragging = false;
-			},
-			// BeginDrag: function(index){
-			// 	if(this.dragging){
-			// 		this.dragging = false;
-			// 		return;
-			// 	}
-			// 	if(this.isBooked(index)){
-			// 		return;
-			// 	}
-			// 	this.dragStartIndex = index;
-			// 	this.startIndex = index;
-			// 	this.endIndex = null;
-			// 	this.dragging = true;
-			// },
-			// dragOver: function(index){
-			// 	console.log(index);
-			// 	if(!this.dragging){
-			// 		return;
-			// 	}
-			// 	if(this.isAvailable(index)){
-			// 		if(index >= this.dragStartIndex){
-			// 			this.startIndex = this.dragStartIndex;
-			// 			this.endIndex = index;
-			// 		}
-			// 		else{
-			// 			this.startIndex = index;
-			// 			this.endIndex = this.dragStartIndex;
-			// 		}
-					
-
-			// 	}
-			// },
 			tConvert: function(totalMinutes){ // converts a time in total minutes from midnight to a regular24 hour time
 				totalMinutes = totalMinutes % 1440; // ensures the time is limited to 1 day
 
@@ -121,41 +109,58 @@
 				if(this.isBooked(index)){
 					return;
 				}
+
 				if(this.startIndex == null && this.endIndex == null){
-					this.startIndex = index;
-					this.endIndex = index;
+					this.setRange({start:index, end:index});
 					return;
 				}
 				if(index == this.startIndex && index == this.endIndex){
-					this.startIndex = null;
-					this.endIndex = null;
+					this.setRange({start:null, end:null});
 					return;
 				}
+
 				if(index == this.startIndex){
-					this.startIndex++;
+					this.setStart(this.startIndex+1);
 					return;
 				}
 				if(index == this.endIndex){
-					this.endIndex--;
+					this.setEnd(this.endIndex-1);
 					return;
 				}
 
 				if(this.isExpandable(index)){
-
 					if(index < this.startIndex){
-						this.startIndex--;
+						this.setStart(this.startIndex-1);
 					}
 					else if(this.endIndex < index){
-
-						this.endIndex++;
+						this.setEnd(this.endIndex+1);
 					}
 				}
 			},
+			setRange: function(range){
+				this.startIndex = range.start;
+				this.endIndex = range.end;
+				this.rangeChange();
+			},
 			setStart: function(newStart){
 				this.startIndex = newStart;
+				this.rangeChange();
 			},
 			setEnd: function(newEnd){
 				this.endIndex = newEnd;
+				this.rangeChange();
+			},
+			rangeChange: function(){
+				if(this.startIndex == null && this.endIndex == null){
+					this.$emit("range-change",null);
+					return;
+				}
+				this.$emit("range-change", {
+					startIndex:this.startIndex,
+					endIndex:this.endIndex,
+					startTime: this.tConvert(this.timeSegments[this.startIndex].startTime),
+					endTime: this.tConvert(this.timeSegments[this.endIndex].endTime)
+				});
 			},
 			isSelected: function(index){
 				if(this.startIndex == null || this.endIndex == null){ // null returns false on number comparisons
@@ -200,6 +205,24 @@
 			},			
 		},
 		computed: {
+			startTimeFormatted: function(){
+				if(this.startIndex == null){
+					return "--:--";
+				}
+				return this.tConvert(this.timeSegments[this.startIndex].startTime);
+			},
+			endTimeFormatted: function(){
+				if(this.endIndex == null){
+					return "--:--";
+				}
+				return this.tConvert(this.timeSegments[this.endIndex].endTime);
+			},
+			hourLength: function(){
+				if(this.startIndex == null){
+					return 0;
+				}
+				return this.endIndex - this.startIndex + 1;
+			},
 			timeSegments: function(){
 				let segments = [];
 				for (var i = 0; i < this.occupancyData.length; i++) {
@@ -211,31 +234,75 @@
 		}
 	}
 	export default Selector;
-	let onMouseDown;
-	let onMouseUp;
-	window.addEventListener('mouseup', 
-		function(e){
-			if(onMouseUp){
-				onMouseUp()
-			}
-			
-		}, false);
-	window.addEventListener('mousedown', 
-		function(e){
-			if(onMouseDown){
-				onMouseDown()
-			}
-			
-		}, false);
 
 </script>
 <style lang="scss" scoped>
 @import 'styles/utils/vars.scss'; // for width vars
+.cost{
+	border-top: 1px solid white;
+}
+.input-field{
+	cursor: default;
+	background: linear-gradient(180deg, #7b7979 0.55%, #232020 100%);
+	border-radius: 8px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	&>span{
+		margin-left: 8px;
+	}
+
+}
+.noise-overlay{
+	position: absolute;
+	background-image: url("../../assets/images/noise.png");
+	background-repeat: repeat;
+	background-size: var(--noise-size, 300px);
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: var(--noise-opacity, 0.4);
+	&__wrapper{
+		overflow: hidden;
+		position: relative;
+	}
+}
 .time-selector {
 	// pointer-events:none;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	&__fields {
+		display: flex;
+		width: 100%;
+		padding: 0 5%;
+		justify-content: space-around;
+		margin-bottom: 32px;
+		@media screen and (max-width: $phoneWidth) {
+			padding: 0;
+		}
+	}
+	&__field-description{
+		font-family: 'Chivo';
+		font-style: normal;
+		font-weight: 900;
+		font-size: 14px;
+		margin-bottom: 15px;
+	}
+	&__field {
+		flex: 0 0 33%;
+		padding: 5px;
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 14px;
+	}
 	&__content-wrapper{
 		width: 100%;
 		display: grid;
@@ -286,8 +353,8 @@
 			padding: 7px 0;
 			// margin: 4px;
 		}
+		overflow: hidden;
 		opacity: 0.2;
-
 		&.selected{
 			opacity: 0.6;
 			background: var(--roomColor);
@@ -313,7 +380,17 @@
 		&.booked{
 			opacity: 1;
 			background: #979797;
-			cursor: default;;
+			cursor: default;
+			.cost{
+				color: #fff;
+				background: #979797;
+			}
+			// .cost{
+			// 	display: none;
+			// }
+			// .time{
+			// 	height: 100%;
+			// }
 		}
 
 	}

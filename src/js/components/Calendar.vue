@@ -43,7 +43,12 @@
 				</div>
 			</div>
 			<div v-for="week in currentMonthWeeks" :key="week" class="calendar__days-row">
-				<div v-for="day in week" :key="day" @click="selectDate(day)" class="calendar__day" :class="{'disabled': day.getMonth() != selectedMonth.month, 'selected': sameDateDay(day,selectedDate)}">{{day.getDate()}}</div>
+				<div v-for="day in week" :key="day" @click="selectDate(day)" class="calendar__day" 
+					:class="{
+						'disabled': isPastDate(day),
+						'darkened': day.getMonth() != selectedMonth.month,
+						'selected': sameDateDay(day,selectedDate)
+					}">{{day.getDate()}}</div>
 			</div>
 		</div>
 	</div>
@@ -57,6 +62,7 @@
 		props: ['highlightColor', 'defaultDate'],
 		data() {
 			return {
+				currentDate: new Date(), // date at the moment of rendering
 				selectedDate: this.defaultDate ? this.defaultDate : new Date(),
 				selectedMonth: {month:this.defaultDate.getMonth(), year:this.defaultDate.getFullYear()},
 				calendarOpen: false, // only on mobile
@@ -114,8 +120,14 @@
     			dateA.getDate() === dateB.getDate();
 			},
 			selectDate(date){
+				if(this.isPastDate(date)){
+					return;
+				}
 				this.selectedDate = date;
 				this.$emit('date-changed', this.selectedDate);
+			},
+			isPastDate(date){
+				return date.setHours(0,0,0,0) < this.currentDate.setHours(0,0,0,0);
 			}
 		},
 		computed: {
@@ -300,8 +312,12 @@
 		font-weight: 400;
 		font-size: 14px;
 		transition: all 0.5s;
-		&.disabled {
+		&.darkened {
 			opacity: 0.5;
+		}
+		&.disabled {
+			opacity: 0.1;
+			cursor: default;
 		}
 		&.selected {
 			background: var(--highlightColor);
