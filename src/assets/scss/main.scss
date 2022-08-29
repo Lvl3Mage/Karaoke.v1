@@ -13,6 +13,8 @@
 @import './section-main';
 @import './section-about';
 @import './section-rooms';
+@import './section-follow';
+
 
 body{
 
@@ -124,6 +126,7 @@ p {
 	width: 24px;
 	height: 24px;
 	fill: #FFFFFF;
+	stroke: #FFFFFF;
 	&--image{
 		width: 60px;
 		height: 60px;
@@ -161,12 +164,22 @@ p {
 	&--nav-prev{
 		left: 2%;
 	}
+	&--follow{
+		width: 70px;
+		height: 70px;
+	}
+	&--heart{
+		width: 100px;
+		height: 100px;
+	}
 
 	&:hover{
 		fill: url(#hover-svg-gradient) #FEE159;
+		stroke: url(#hover-svg-gradient) #FEE159;
 	}
 	&:active{
 		fill: url(#active-svg-gradient) #9747FF;
+		stroke: url(#active-svg-gradient) #9747FF;
 	}
 }
 .title {

@@ -15,6 +15,10 @@ Single-colored icons can be modified like so:
 }
 ========================================== */
 
+.icon-heart {
+  width: 0.9892578125em;
+}
+
 .icon-down {
   width: 1.75em;
 }
