@@ -12,6 +12,7 @@ const useBookingStore = defineStore({
 		selectedRoomID: '',
 		roomData: {},
 		scheduleData: {},
+		selectedRange: null,
 
 
 	}),
@@ -21,6 +22,9 @@ const useBookingStore = defineStore({
 		}
 	},
 	actions: {
+		formatDate: function(date){
+			return date.toLocaleDateString('en-GB');
+		}
 	}
 });
 export {useBookingStore};
