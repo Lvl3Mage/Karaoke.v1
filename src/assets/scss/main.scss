@@ -14,6 +14,7 @@
 @import './section-about';
 @import './section-rooms';
 @import './section-follow';
+@import './section-menu';
 
 
 body{
@@ -67,6 +68,11 @@ p {
 		background-position: 15%;
 		&:hover{
 			filter: grayscale(0);
+		}
+	}
+	&--x-center{
+		@media screen and (max-width:$phoneWidth){
+			background-position-y: 70%;
 		}
 	}
 	&--p-top{

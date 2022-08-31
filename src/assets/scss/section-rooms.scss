@@ -11,6 +11,9 @@
 .content-title {
     margin-bottom: 60px;
     text-align: center;
+    @media screen and (max-width:$phoneWidth){
+        margin-bottom: 30px;
+    }
 }
 .content {
     position: relative;
