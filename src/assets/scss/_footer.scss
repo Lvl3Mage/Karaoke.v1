@@ -1,0 +1,131 @@
+.footer {
+
+		// .footer__wrapper
+
+		&__wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 300px;
+            background: $background-color;
+            border-top: 1px dashed $mainFontColor; 
+		}
+
+		// .footer__info
+
+		&__info {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding: 20px 200px;
+            @media screen and(max-width: $smDesktopWidth) {
+                padding: 20px 100px;
+            }
+            @media screen and(max-width: $tabletWidth) {
+                padding: 20px 50px;
+            }
+            @media screen and(max-width: $phoneWidth ) {
+                padding: 20px;
+            }
+             @media screen and(max-width: $smPhoneWidth ) {
+                padding: 20px 5px;
+            }
+		}
+
+		// .footer__logo
+
+		&__logo {
+            width: 200px;
+            height: 200px;
+            @media screen and(max-width: $tabletWidth) {
+                width: 150px;
+                height: 150px;
+            }
+		}
+
+		// .footer__nav
+
+		&__nav {
+            display: flex;
+            flex: 0 0 30%;
+            align-items: center;
+            justify-content: space-between;
+            @media screen and(max-width: 680px) {
+                flex: 0 0 45%;
+            }
+		}
+
+		// .footer__social
+
+		&__social {
+            @media screen and(max-width: 680px) {
+                display: none;
+            }
+         
+		}
+        &__text {
+            font-family: $mainFont;
+            font-style: normal;
+            font-weight: 900;  
+		}
+
+		// .footer__legacy
+
+		&__legacy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 80px;
+            font-family: $mainFont;
+            font-style: normal;
+            font-weight: 400;
+            color: #949494;
+            @media screen and(max-width: $phoneWidth ) {
+                padding: 0 5px;
+            }
+		}
+        &__legacy-link{
+            color: #E8E8EA;
+        }
+}
+.nav1 {
+}
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+		// .nav__link
+
+		&__link {
+
+            &:not(:last-child){
+                margin-bottom: 16px;
+            }
+		}
+}
+.nav2 {
+}
+.social {
+    
+		// .social__title
+
+		&__title {
+            margin-bottom: 16px;
+		}
+
+		// .social__list
+
+		&__list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+		}
+
+		// .social__link
+
+		&__link {
+		}
+}

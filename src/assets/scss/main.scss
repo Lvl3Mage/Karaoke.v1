@@ -9,12 +9,14 @@
 @import './utils/container';
 @import './utils/swiper';
 @import './header';
+@import './footer';
 @import './fonts';
-@import './section-main';
-@import './section-about';
-@import './section-rooms';
-@import './section-follow';
-@import './section-menu';
+@import './sections/section-main';
+@import './sections/section-about';
+@import './sections/section-rooms';
+@import './sections/section-follow';
+@import './sections/section-menu';
+@import './sections/section-contacts';
 
 
 body{
@@ -122,10 +124,11 @@ p {
       display: flex;
       width: 100%;
       @media screen and (max-width:$smTabletWidth){
-            height: 100%;
+            height: auto;
       }
       @media screen and (max-width:$phoneWidth){
             background-position: right;
+			height: auto;
       }
 }
 .svg-wrap{

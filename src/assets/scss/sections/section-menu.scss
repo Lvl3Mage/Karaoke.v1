@@ -36,11 +36,34 @@
 		// .menu__item
 
 		&__item {
-            width: 350px;
-            height: 525px;
             border-radius: 8px;
+            &:hover{
+                animation: shake 0.5s;
+
+            }
+            @keyframes shake {
+                0% { transform: translate(1px, 1px) rotate(0deg); }
+                10% { transform: translate(-1px, -2px) rotate(-1deg); }
+                20% { transform: translate(-3px, 0px) rotate(1deg); }
+                30% { transform: translate(3px, 2px) rotate(0deg); }
+                40% { transform: translate(1px, -1px) rotate(1deg); }
+                50% { transform: translate(-1px, 2px) rotate(-1deg); }
+                60% { transform: translate(-3px, 1px) rotate(0deg); }
+                70% { transform: translate(3px, 1px) rotate(-1deg); }
+                80% { transform: translate(-1px, -1px) rotate(1deg); }
+                90% { transform: translate(1px, 2px) rotate(0deg); }
+                100% { transform: translate(1px, -2px) rotate(-1deg); }
+            }
             &:not(:last-child) {
                margin-right: 10px; 
+            }
+            &--vertical{
+                width: 350px;
+                height: 525px;
+                @media screen and (max-width:$tabletWidth){
+                    width: 275px;
+                    height: 400px;
+                }
             }
             &--horizontal{
                 width: 540px;
@@ -50,10 +73,6 @@
                     height: 260px;
                 }
 		    }
-            @media screen and (max-width:$tabletWidth){
-                width: 275px;
-                height: 400px;
-            }
             @media screen and (max-width:$phoneWidth){
                 width: 100%;
                 height: 120px;
@@ -62,25 +81,25 @@
                 }
             }
         }
-        &__item-horizontal {
-            width: 540px;
-            height: 260px;
-            border-radius: 8px;
-            &:not(:last-child) {
-               margin-right: 10px; 
-            }
-            @media  screen and (max-width:$tabletWidth){
-                width: 427px;
-                height: 260px;
-            }
-            @media screen and (max-width:$phoneWidth){
-                width: 100%;
-                height: 120px;
-                &:not(:last-child){
-                    margin-bottom: 15px;
-                }
-            }
-        }
+        // &__item-horizontal {
+        //     width: 540px;
+        //     height: 260px;
+        //     border-radius: 8px;
+        //     &:not(:last-child) {
+        //        margin-right: 10px; 
+        //     }
+        //     @media  screen and (max-width:$tabletWidth){
+        //         width: 427px;
+        //         height: 260px;
+        //     }
+        //     @media screen and (max-width:$phoneWidth){
+        //         width: 100%;
+        //         height: 120px;
+        //         &:not(:last-child){
+        //             margin-bottom: 15px;
+        //         }
+        //     }
+        // }
             
             
 		// .menu__link
