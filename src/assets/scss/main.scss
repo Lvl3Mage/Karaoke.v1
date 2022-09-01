@@ -14,6 +14,7 @@
 @import './section-about';
 @import './section-rooms';
 @import './section-follow';
+@import './section-menu';
 
 
 body{
@@ -67,6 +68,11 @@ p {
 		background-position: 15%;
 		&:hover{
 			filter: grayscale(0);
+		}
+	}
+	&--x-center{
+		@media screen and (max-width:$phoneWidth){
+			background-position-y: 70%;
 		}
 	}
 	&--p-top{
@@ -167,10 +173,22 @@ p {
 	&--follow{
 		width: 70px;
 		height: 70px;
+		@media screen and (max-width:1280px){
+			width: 40px;
+			height: 40px;
+		}
+		@media screen and (max-width:576px){
+			width: 24px;
+			height: 24px;
+		}
 	}
 	&--heart{
 		width: 100px;
 		height: 100px;
+		@media screen and (max-width:1280px){
+			width: 75px;
+			height: 75px;
+		}
 	}
 
 	&:hover{

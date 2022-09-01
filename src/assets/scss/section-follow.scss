@@ -1,15 +1,20 @@
 .content__wrap{
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 90px 100px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    margin: 90px 100px;
+	@media screen and (max-width: 1050px){
+		flex-direction: column-reverse;
+		margin: 50px auto;
+	};
 }
 .follow-us {
 
 		// .follow-us__description
 
 		&__description {
-			flex: 0 0 60%;
+	
 		}
 
 		// .follow-us__wrapper
@@ -17,9 +22,13 @@
 		&__wrapper {
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			justify-content: space-around;
 			height: 250px;
 			position: relative;
+			margin-right: 10px;
+			@media screen and (max-width:1280px){
+			height: 220px;
+		}
 		}
 
 		// .follow-us__text
@@ -38,19 +47,24 @@
 
 		&__item1 {
 			position: absolute;
-			top: 25px;
+			top: 40px;
 			left: -50px;
 		}
 
 		// .follow-us__item2
 
 		&__item2 {
-
+			margin-top: -20px;
 		}
 
 		// .follow-us__item3
 
 		&__item3 {
+
+			margin-top: 30px;
+			@media screen and (max-width:1280px){
+			margin-top: 5px;
+		}
 		}
 
 		// .follow-us__item4
@@ -61,11 +75,16 @@
 		// .follow-us__item5
 
 		&__item5 {
+
 		}
 
 		// .follow-us__item6
 
 		&__item6 {
+			margin-top: -20px;
+			@media screen and (max-width:1280px){
+			margin-top: -10px;
+		}
 		}
 
 		// .follow-us__item7
@@ -76,12 +95,47 @@
 		// .follow-us__item8
 
 		&__item8 {
+			margin-top: -60px;
 		}
 
 		// .follow-us__imgs
 
 		&__imgs {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			@media screen and (max-width:1050px){
+				margin-bottom: 25px;
+				width: inherit;
+				justify-content: space-around;
+	}
 		}
 }
+
 .imgs-item {
+	width: 255px;
+	height: 386px;
+	border-radius: 8px;
+	@media screen and (max-width:1280px){
+		width: 210px;
+		height: 330px;
+	}
+	&--50{
+		margin-top: -50px;
+		@media screen and (max-width:1050px) {
+			margin: 0px;
+		};
+	}
+}
+.follow-title{
+	text-align-last: start;
+	@media screen and (max-width:1050px){
+		display: none;
+	}
+}
+.follow-title--adaptive{
+	display: none;
+	@media screen and(max-width:1050px){
+		display: block;
+	}
 }
