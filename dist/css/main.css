@@ -3893,86 +3893,86 @@ select:not(.select--placeholder-styled)::placeholder {
 @font-face {
   font-family: Roboto;
   font-weight: 300;
-  src: url(/assets/fonts/Roboto-Light.ttf);
+  src: url(assets/fonts/Roboto-Light.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 400;
-  src: url(/assets/fonts/Roboto-Regular.ttf);
+  src: url(assets/fonts/Roboto-Regular.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 500;
-  src: url(/assets/fonts/Roboto-Medium.ttf);
+  src: url(assets/fonts/Roboto-Medium.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 700;
-  src: url(/assets/fonts/Roboto-Bold.ttf);
+  src: url(assets/fonts/Roboto-Bold.ttf);
 }
 @font-face {
   font-family: PTSans;
   font-weight: 400;
-  src: url(/assets/fonts/PTSans-Regular.ttf);
+  src: url(assets/fonts/PTSans-Regular.ttf);
 }
 @font-face {
   font-family: PTSans;
   font-weight: 700;
-  src: url(/assets/fonts/PTSans-Bold.ttf);
+  src: url(assets/fonts/PTSans-Bold.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 300;
   font-variation-settings: "wght" 300;
-  src: url(/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 400;
   font-variation-settings: "wght" 400;
-  src: url(/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 500;
   font-variation-settings: "wght" 500;
-  src: url(/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 700;
   font-variation-settings: "wght" 700;
-  src: url(/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 300;
-  src: url(/assets/fonts/Chivo-Light.ttf);
+  src: url(assets/fonts/Chivo-Light.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 400;
-  src: url(/assets/fonts/Chivo-Regular.ttf);
+  src: url(assets/fonts/Chivo-Regular.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 700;
-  src: url(/assets/fonts/Chivo-Bold.ttf);
+  src: url(assets/fonts/Chivo-Bold.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 400;
-  src: url(/assets/fonts/Poppins-Regular.ttf);
+  src: url(assets/fonts/Poppins-Regular.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 500;
-  src: url(/assets/fonts/Poppins-Medium.ttf);
+  src: url(assets/fonts/Poppins-Medium.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 700;
-  src: url(/assets/fonts/Poppins-Bold.ttf);
+  src: url(assets/fonts/Poppins-Bold.ttf);
 }
 .main-picture {
   display: flex;
@@ -5174,7 +5174,7 @@ p {
 }
 .noise-overlay[data-v-c2dc59ec] {
   position: absolute;
-  background-image: url(/assets/img/noise.png);
+  background-image: url(assets/img/noise.png);
   background-repeat: repeat;
   background-size: 300px;
   background-size: var(--noise-size, 300px);
@@ -5345,7 +5345,7 @@ p {
 }
 .noise-overlay[data-v-f6c0005a] {
   position: absolute;
-  background-image: url(/assets/img/noise.png);
+  background-image: url(assets/img/noise.png);
   background-repeat: repeat;
   background-size: 300px;
   background-size: var(--noise-size, 300px);
