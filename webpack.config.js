@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 //***********const paths section************
 const PATHS = {
 	src: path.join(__dirname, 'src'),
-	dist: path.join(__dirname, 'docs'),
+	dist: path.join(__dirname, 'dist'),
 	assets: 'assets/',
 	fonts: 'assets/fonts/',
 	images: 'assets/img/',
@@ -29,7 +29,7 @@ module.exports = {
 	output: {
 		path: PATHS.dist,
 		//filename: `${PATHS.js}[name].[contenthash].js`,
-		publicPath: (process.env.WEBPACK_SERVE) ? '/' : '', // process.env.WEBPACK_SERVE to check if the server is running
+		publicPath: (process.env.WEBPACK_SERVE) ? '/' : 'dist/', // process.env.WEBPACK_SERVE to check if the server is running
 		filename: `${PATHS.js}[name].js`,
 		clean: (mode === 'development') ? false : true,
 	},
