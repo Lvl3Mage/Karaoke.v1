@@ -29,7 +29,7 @@ module.exports = {
 	output: {
 		//path: PATHS.dist,
 		//filename: `${PATHS.js}[name].[contenthash].js`,
-		publicPath: '/',
+		publicPath: (process.env.WEBPACK_SERVE) ? '/' : '/dist/',
 		filename: `${PATHS.js}[name].js`,
 		clean: (mode === 'development') ? false : true,
 	},
