@@ -1,24 +1,49 @@
 <%- include('inc/header.html') %>
     <div class="page-content-wrapper">
-        <div class="main-logo">
-            <img src="../assets/images/logo.png" alt="logo" class="logo">
+        <div class="main-logo--menu ">
+            <img src="../assets/images/logo.png" alt="logo" class="logo--menu">
         </div>
         <section class="section-sbg">
-            <div class="menu-page__title--mobile m--b-35">
-                <h1 class="title text--XL">Menu</h1>
-            </div>
-            <div class="menu-page__chef">
-                <div class="chef__img">
-                    <img src="../assets/images/chef.jpg" alt="chef">
-                    <div class="chef__square square1"></div>
-                    <div class="chef__square square2"></div>
+            <section class="menu-section">
+                <div class="menu-page__title--mobile m--b-120">
+                    <h1 class="title text--XL">Menu</h1>
                 </div>
-                <div class="chef__word">
-                    <p class="word__pretitle">
+                <div class="menu-page__chef">
+                    <div class="chef__img">
+                        <img class="chef__img-foto" src="../assets/images/chef.jpg" alt="chef">
+                        <div class="chef__square square1"></div>
+                        <div class="chef__square square2"></div>
+                    </div>
+                    <div class="chef__description">
+                        <div class="chef__word">
+                            <span class="word__pretitle text--S">
+                                Chef's Word
+                            </span>
+                            <h4 class="chef__title text--XXL">
+                                What we believe in
+                            </h4>
+                            <span class="chef__speach text--S">
+                                <span class="speach__quotes">
+                                    <img src="../assets/images/quotesUp.png" alt="quotes">
+                                </span>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit auctor sit .
+                                auctor sit iaculis in arcu. Vulputate nulla lobortis mauris eget sit. Nulla scelerisque
+                                scelerisque congue ac consequat,
+                                aliquam molestie lectus eu. Congue iaculis integer curabitur semper sit nunc.
+                                <span class="speach__quotes">
+                                    <img src="../assets/images/quotesDown.png" alt="quotes">
+                                </span>
+                            </span>
+                            <span class="chef__data">
+                                <p class="chef__name text--L">Robert Fox</p>
+                                <p class="chef__speach text--S">Chef</p>
+                            </span>
+                            <span class="chef__sign text--XXL">Robert Fox</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    </p>
-                </div>
-            </div>
         </section>
         <%- include('inc/footer.html') %>
     </div>

@@ -1,0 +1,137 @@
+// chef section
+
+.menu-section {
+	padding: 0 120px;
+}
+.menu-page {
+
+		// .menu-page__title--mobile
+
+		&__title--mobile {
+		}
+
+		// .menu-page__chef
+
+		&__chef {
+			display: flex;
+			justify-content: space-between;
+			
+		}
+}
+.chef {
+
+		// .chef__img
+
+		&__img {
+			
+			width: 380px;
+			height: 470px;
+			position: relative;
+		}
+		&__img-foto {
+			object-fit: cover;
+			position: absolute;
+			z-index: 3;
+			width: 380px;
+			height: 470px;
+			border: none;
+			border-radius: 8px;
+		}
+
+		// .chef__square
+
+		&__square {
+			position: absolute;
+			width: 280px;
+			height: 280px;
+			background: #3A3838;
+			border: 1px dashed $mainFontColor;
+			box-shadow: 10px 10px 6px #000000;
+		}
+
+		// .chef__description
+
+		&__description {
+			flex: 0 0 60%;
+		}
+
+		// .chef__word
+
+		&__word {
+			margin-bottom: 20px;
+			font-family:$mainFont;
+			font-style: normal;
+			font-weight: 400;
+			color: $mainFontColor;
+		}
+
+		// .chef__title
+
+		&__title {
+			margin-bottom: 35px;
+			font-family: $headFont;
+			font-style: normal;
+			font-weight: 700;
+			color: $mainFontColor;
+		}
+
+		// .chef__speach
+
+		&__speach {
+			margin-bottom: 50px;
+			line-height: 2.25em;
+			font-family: $mainFont;
+			font-style: normal;
+			font-weight: 400;
+			color: #979797;
+		}
+
+		// .chef__data
+
+		&__data {
+			margin-bottom: 50px;
+		}
+
+		// .chef__name
+
+		&__name {
+			font-family: $headFont;
+			font-style: normal;
+			font-weight: 400;
+			color: #FEE159;
+		}
+
+		
+		// .chef__sign
+
+		&__sign {
+			font-family: 'Aguafina Script';
+			font-style: normal;
+			font-weight: 400;
+			color: #979797;
+		}
+}
+.square1 {
+	z-index: 1;
+	top: -16px;
+	right: -16px;
+}
+.square2 {
+	z-index: 2;
+	bottom: -16px;
+	left: -16px;
+}
+.word {
+
+		// .word__pretitle
+
+		&__pretitle {
+		}
+}
+.speach {
+
+		// .speach__quotes
+
+		&__quotes {
+		}
+}

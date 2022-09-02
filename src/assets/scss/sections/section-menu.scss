@@ -27,7 +27,7 @@
 
 		&__section {
             display: flex;
-            justify-content: space-between;
+            justify-content:space-evenly;
             @media screen and(max-width: $phoneWidth){
                 flex-direction: column;
             }
