@@ -27,9 +27,9 @@ module.exports = {
 	mode: mode,
 	entry: './src/index.js',
 	output: {
-		path: PATHS.dist,
+		// path: PATHS.dist,
 		//filename: `${PATHS.js}[name].[contenthash].js`,
-		publicPath: (process.env.WEBPACK_SERVE) ? '/' : 'dist/', // process.env.WEBPACK_SERVE to check if the server is running
+		publicPath: (process.env.WEBPACK_SERVE) ? '/' : '', // process.env.WEBPACK_SERVE to check if the server is running
 		filename: `${PATHS.js}[name].js`,
 		clean: (mode === 'development') ? false : true,
 	},
