@@ -2,12 +2,16 @@
 
 .menu-section {
 	padding: 0 120px;
+	@media screen and (max-width: $desktopWidth) {
+		padding: 0 50px;
+	}
 }
 .menu-page {
 
 		// .menu-page__title--mobile
 
 		&__title--mobile {
+			margin-bottom: 120px;
 		}
 
 		// .menu-page__chef
@@ -15,7 +19,9 @@
 		&__chef {
 			display: flex;
 			justify-content: space-between;
-			
+			@media screen and (max-width: $roomsWidth) {
+				flex-direction: column;
+			}
 		}
 }
 .chef {
@@ -23,10 +29,13 @@
 		// .chef__img
 
 		&__img {
-			
 			width: 380px;
 			height: 470px;
 			position: relative;
+			@media screen and (max-width: $smDesktopWidth) {
+				width: 255px;
+				height: 348px;
+			}
 		}
 		&__img-foto {
 			object-fit: cover;
@@ -36,23 +45,32 @@
 			height: 470px;
 			border: none;
 			border-radius: 8px;
+			@media screen and (max-width: $smDesktopWidth) {
+				width: 255px;
+				height: 348px;
+			}
 		}
 
 		// .chef__square
 
 		&__square {
-			position: absolute;
-			width: 280px;
-			height: 280px;
+			display: flex;
+			width: 251px;
+			height: 251px;
 			background: #3A3838;
 			border: 1px dashed $mainFontColor;
 			box-shadow: 10px 10px 6px #000000;
+			@media screen and (max-width: $smDesktopWidth) {
+				width: 180px;
+				height: 190px;
+			}
 		}
 
 		// .chef__description
 
 		&__description {
 			flex: 0 0 60%;
+			margin-left: 40px;
 		}
 
 		// .chef__word
@@ -73,6 +91,9 @@
 			font-style: normal;
 			font-weight: 700;
 			color: $mainFontColor;
+			@media screen and (max-width: $smDesktopWidth) {
+				font-size: 52px;
+			}
 		}
 
 		// .chef__speach
@@ -84,6 +105,9 @@
 			font-style: normal;
 			font-weight: 400;
 			color: #979797;
+			@media screen and (max-width: $smDesktopWidth){
+				margin-bottom: 20px;
+			}
 		}
 
 		// .chef__data
@@ -112,14 +136,14 @@
 		}
 }
 .square1 {
-	z-index: 1;
-	top: -16px;
-	right: -16px;
+	margin-left: 145px;
+	margin-top: -16px;
+	@media screen and (max-width: $smDesktopWidth) {
+				margin-left: 91px;
+			}
 }
 .square2 {
-	z-index: 2;
-	bottom: -16px;
-	left: -16px;
+	margin-left: -16px;
 }
 .word {
 
