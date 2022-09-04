@@ -3,10 +3,10 @@
     width: 100%;
     align-items: center;
     justify-content: space-around;
-    margin: 90px 100px;
+    padding: 90px 100px;
 	@media screen and (max-width: 1050px){
 		flex-direction: column-reverse;
-		margin: 50px auto;
+		padding: 50px 10px;
 	};
 }
 .follow-us {
@@ -14,7 +14,7 @@
 		// .follow-us__description
 
 		&__description {
-	
+			padding-left: 60px;
 		}
 
 		// .follow-us__wrapper
@@ -25,7 +25,7 @@
 			justify-content: space-around;
 			height: 250px;
 			position: relative;
-			margin-right: 10px;
+			padding: 10px;
 			@media screen and (max-width:1280px){
 			height: 220px;
 		}
@@ -34,6 +34,7 @@
 		// .follow-us__text
 
 		&__text {
+			margin-bottom: 25px;
 		}
 
 		// .follow-us__content
@@ -46,6 +47,7 @@
 		// .follow-us__item1
 
 		&__item1 {
+			
 			position: absolute;
 			top: 40px;
 			left: -50px;
@@ -60,11 +62,8 @@
 		// .follow-us__item3
 
 		&__item3 {
-
-			margin-top: 30px;
-			@media screen and (max-width:1280px){
-			margin-top: 5px;
-		}
+		
+		
 		}
 
 		// .follow-us__item4
@@ -75,7 +74,7 @@
 		// .follow-us__item5
 
 		&__item5 {
-
+			
 		}
 
 		// .follow-us__item6
@@ -90,6 +89,7 @@
 		// .follow-us__item7
 
 		&__item7 {
+			
 		}
 
 		// .follow-us__item8
@@ -108,7 +108,8 @@
 				margin-bottom: 25px;
 				width: inherit;
 				justify-content: space-around;
-	}
+			}
+			
 		}
 }
 
@@ -116,15 +117,35 @@
 	width: 255px;
 	height: 386px;
 	border-radius: 8px;
+	&:not(:last-child){
+		margin-right: 25px;
+	}
 	@media screen and (max-width:1280px){
 		width: 210px;
 		height: 330px;
 	}
+	@media  screen and (max-width:$phoneWidth) {
+		width: 180px;
+		height: 280px;
+	}
+	@media screen and (max-width:$smPhoneWidth){
+		width: 110px;
+		height: 168px;	
+	}
 	&--50{
 		margin-top: -50px;
 		@media screen and (max-width:1050px) {
-			margin: 0px;
+			margin: -20px;
 		};
+		@media  screen and (max-width:$phoneWidth) {
+		width: 210px;
+		height: 330px;
+		margin: 0px;
+	}
+		@media screen and (max-width:$smPhoneWidth){
+		width: 125px;
+		height: 190px;	
+	}
 	}
 }
 .follow-title{

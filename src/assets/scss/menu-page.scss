@@ -12,6 +12,9 @@
 
 		&__title--mobile {
 			margin-bottom: 120px;
+			@media screen and (max-width: $roomsWidth) {
+				margin-bottom: 50px;
+			}
 		}
 
 		// .menu-page__chef
@@ -19,8 +22,10 @@
 		&__chef {
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			@media screen and (max-width: $roomsWidth) {
 				flex-direction: column;
+				
 			}
 		}
 }
@@ -35,6 +40,10 @@
 			@media screen and (max-width: $smDesktopWidth) {
 				width: 255px;
 				height: 348px;
+			}
+			@media screen and (max-width: $roomsWidth) {
+				align-self: center;
+				margin-bottom: 35px;
 			}
 		}
 		&__img-foto {
@@ -71,6 +80,9 @@
 		&__description {
 			flex: 0 0 60%;
 			margin-left: 40px;
+			@media screen and (max-width: $roomsWidth) {
+				margin-left: 0;
+			}
 		}
 
 		// .chef__word
@@ -93,6 +105,21 @@
 			color: $mainFontColor;
 			@media screen and (max-width: $smDesktopWidth) {
 				font-size: 52px;
+			}
+			@media screen and (max-width: $roomsWidth) {
+				display: none;
+			}
+			&--mobile{
+				align-self: flex-start;
+				margin-bottom: 35px;
+				font-family: $headFont;
+				font-style: normal;
+				font-weight: 700;
+				color: $mainFontColor;
+				display: none;
+				@media screen and (max-width: $roomsWidth) {
+				display: flex;
+			}
 			}
 		}
 
@@ -118,21 +145,31 @@
 
 		// .chef__name
 
-		&__name {
+		&__data-name {
 			font-family: $headFont;
 			font-style: normal;
 			font-weight: 400;
 			color: #FEE159;
+		}
+		&__data-text {
+			font-family: $mainFont;
+			font-style: normal;
+			font-weight: 400;
+			color: #979797;
 		}
 
 		
 		// .chef__sign
 
 		&__sign {
+			display: flex;
 			font-family: $signFont;
 			font-style: normal;
 			font-weight: 400;
 			color: #979797;
+			@media screen and (max-width: $roomsWidth){
+				justify-content: flex-end;
+			}
 		}
 }
 .square1 {
@@ -150,12 +187,37 @@
 		// .word__pretitle
 
 		&__pretitle {
+			@media screen and (max-width: $roomsWidth) {
+				display: none;
+			}
+			&--mobile{
+				display: none;
+				@media screen and (max-width: $roomsWidth) {
+					display: flex;
+					align-self: flex-end;
+					justify-self: flex-end;
+				}
+			}
 		}
 }
 .speach {
-
+	display: flex;
+	flex-direction: row;
 		// .speach__quotes
 
 		&__quotes {
+			width: 30px;
+			height: 30px;
+			@media screen and (max-width: $tabletWidth) {
+				width: 24px;
+				height: 24px;
+			}
+			@media screen and (max-width: $phoneWidth){
+				width: 16px;
+				height: 16px;
+			}
 		}
+}
+.quotes2{
+	justify-content: flex-end;
 }
