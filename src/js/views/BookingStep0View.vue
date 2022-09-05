@@ -39,7 +39,6 @@
 				// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
 				// 		}
 				// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
-			// this.loadSelectedDateSchedule();
 			this.requestSelectedSchedule();
 		},
 		methods: {
@@ -154,22 +153,41 @@
 				}
 				this.loadNearbySchedule(this.bookingStore.selectedDate, this.bookingStore.selectedRoomID);
 				
+			},
+			updatePeopleCount: function(newCount){
+				this.bookingStore.selectedPeopleCount = newCount;
 			}
 		},
 
 		computed: {
+			selectedRoom: function(){
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
+			},
 			scheduleData: function(){
-				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].scheduleData;
+				return this.selectedRoom.scheduleData;
 			},
 			selectedSchedule: function(){
-				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].scheduleData[this.bookingStore.formatedSelectedDate];
+				return this.selectedRoom.scheduleData[this.bookingStore.formatedSelectedDate];
 			},
 			selectedOccupancyData: function(){
 				return this.selectedSchedule.occupancyData;
 			},
 			bookingDataAvailable: function(){
 				return this.bookingStore.formatedSelectedDate in this.scheduleData;
-			}
+			},
+			currentPrice: function(){
+				if(this.bookingStore.selectedRange == null){
+					return 0;
+				}
+				let startIndex = this.bookingStore.selectedRange.startIndex;
+				let endIndex = this.bookingStore.selectedRange.endIndex;
+				let totalPrice = 0;
+				for (var i = startIndex; i <= endIndex ; i++) {
+					totalPrice += this.selectedOccupancyData[i].cost * this.bookingStore.selectedPeopleCount;
+				}
+				return totalPrice;
+			},
+			
 		}
 	}
 	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -196,7 +214,14 @@
 			</div>
 			<div class="booking__time-selector">
 				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" @range-change="updateRange"></TimeRangeSelector>
-				<!-- <PeopleCountSelector :minCount="5" :maxCount="10" :highlightColor="selectedRoomColor()"></PeopleCountSelector> -->
+				<div class="booking__people-selector-row">
+					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor()" @count-change="updatePeopleCount"></PeopleCountSelector>
+					<div class="booking__price-wrapper">
+						<span>Price</span>
+						<div class="booking__price">{{currentPrice}}</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 		<div class="loader" v-if="!bookingDataAvailable">
@@ -307,6 +332,49 @@
 				padding: 0 15px;
     			max-width: 410px;
 			}
+		}
+		&__people-selector-row{
+			margin-top: 25px;
+			padding: 0 25px;
+			display: flex;
+			justify-content: space-between;
+			@media screen and (max-width: $phoneWidth) {
+				justify-content: center;
+				flex-direction: column;
+				align-items: center;
+				padding: 0;
+			}
+		}
+		&__price-wrapper {
+			align-self: start;
+			
+			font-family: 'Chivo';
+			font-style: normal;
+			font-weight: 900;
+			font-size: 14px;
+			line-height: 17px;
+			flex: 0 1 160px;
+			@media screen and (max-width: $phoneWidth) {
+				margin-top: 15px;
+				flex: auto;
+				width: 160px;
+			}
+		}
+		&__price {
+			width: 100%;
+			margin-top: 10px;
+			padding: 4px 0;
+			border: 1px solid #FFFFFF;
+			filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+			border-radius: 8px;
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 16px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 
