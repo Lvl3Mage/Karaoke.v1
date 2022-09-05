@@ -86,3 +86,51 @@ new Swiper('.image-slider-gallery', {
         }
     },
 });
+
+new Swiper('.image-slider-menu', {
+    navigation: {
+        nextEl: '.slider-button-next-menu',
+        prevEl: '.slider-button-prev-menu'
+    },
+    grabCursor: true,
+    // Change slide by click on
+    slideToClickedSlides: true,
+    keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+        pageUpDown: true,
+    },
+    
+    watchOverFlow: true,
+    
+    speed: 850,
+    autoHeight: false,
+    pagination: {
+        el: '.swiper-pagination-menu',
+        clickable: true,
+    },
+    spaceBetween: 30,
+    breakpoints: {
+        250: {
+            slidesPerView: 1,
+            grid: {
+                columns: 1,
+                rows: 2,
+            },
+        },
+        320: {
+            slidesPerView: 2,
+            grid: {
+                columns: 2,
+                rows: 2,
+            },
+        },
+        768: {
+            slidesPerView: 3,
+            grid: {
+                columns: 3,
+                rows:2,
+            },
+        }
+    },
+});

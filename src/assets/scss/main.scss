@@ -178,9 +178,9 @@ p {
 		z-index: 10;
 		width: 40px;
 		height: 40px;
-		// @media screen and (max-width:$smTabletWidth){
-		// 	top: 89%;
-		// }
+		&--menu{
+			position: relative;
+		}
 	}
 	&--nav-next{
 		right: 2%;

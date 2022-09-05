@@ -224,51 +224,52 @@
 
 // section cold-drinks
 
-.content-wrap {
-}
-.content-title {
-}
-.content {
-}
-.image-slider-menu {
+// .content-wrap {
+// }
+// .content-title {
+// }
+// .content {
+// }
+// .image-slider-menu {
 
-		// .image-slider-menu__wrapper
+// 		// .image-slider-menu__wrapper
 
-		&__wrapper {
-		}
+// 		&__wrapper {
+// 			width:1440px;
+// 		}
 
-		// .image-slider-menu__slide
+// 		// .image-slider-menu__slide
 
-		&__slide {
-			width: calc(100% / 3 + 30px);
-			aspect-ratio: 1;
-		}
+// 		&__slide {
+// 			width: calc(100% / 3 - 30px);
+// 			aspect-ratio: 1;
+// 		}
 
-		// .image-slider-menu__image
+// 		// .image-slider-menu__image
 
-		&__image {
-		}
+// 		&__image {
+// 		}
 
-		// .image-slider-menu__description
+// 		// .image-slider-menu__description
 
-		&__description {
-		}
+// 		&__description {
+// 		}
 
-		// .image-slider-menu__title
+// 		// .image-slider-menu__title
 
-		&__title {
-		}
+// 		&__title {
+// 		}
 
-		// .image-slider-menu__text
+// 		// .image-slider-menu__text
 
-		&__text {
-		}
+// 		&__text {
+// 		}
 
-		// .image-slider-menu__price
+// 		// .image-slider-menu__price
 
-		&__price {
-		}
-}
+// 		&__price {
+// 		}
+// }
 // .swiper-container {
 // }
 // .swiper-wrapper {
@@ -293,4 +294,3 @@
 // }
 // .swiper-pagination {
 // }
-
