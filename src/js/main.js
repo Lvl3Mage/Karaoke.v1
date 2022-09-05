@@ -4,7 +4,11 @@ $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
 	$('.navigation').toggleClass('active');
 	$('.sidebar').toggleClass('active');
+	$(this).toggleClass('lock');
+	$('.page-content-wrapper').toggleClass('lock');
 });
+
+
 function ibg(){
 	$.each($('.ibg'), function(index, val) {
 	if($(this).find('img').length>0){
@@ -91,7 +95,6 @@ $(document).on('mousedown touchstart', '.modal-bg, .modal-cross', function(event
 	$("body").css("overflow", "visible");
 	var modal = $(this).closest(".modal");
 	modal.removeClass("modal-active");
-
 });
 $(document).on('mousedown touchstart', '.modal-window', function(event) {
 	event.stopPropagation();

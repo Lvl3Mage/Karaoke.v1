@@ -29,20 +29,21 @@
 		&__section {
             display: flex;
             width: 100%;
-            justify-content:space-evenly;
+            justify-content:space-between;
             @media screen and(max-width: $phoneWidth){
-              
                 flex-direction: column;
             }
 		}
 
 		// .menu__item
 
-		&__item {position: relative;
+		&__item {
+            position: relative;
             border-radius: 8px;
-            &:hover {
-                transition: all 0.7s;
-                animation:pulse 2s ease-in-out;
+
+            &:hover>&--background{
+                transition: all 0.6s;
+                animation:pulse 0.75s ease-in-out;
             }
             // &::after,
             // &::before{
@@ -55,35 +56,41 @@
             //     top: -20px;
             //     bottom: -20px;
             //     border-radius: 50%;
+                
             // }
             // &::after{
             //     animation-delay: 1.25s;
             // }
             @keyframes pulse {
             0% {
-                transform: scale(0.5);
+                transform: scale(0.9);
                 opacity: 0;
             }
             50% {
                 opacity: 1;
             }
             100% {
-                transform: scale(1.2);
-                opacity: 0;
+                transform: scale(1.1);
+                opacity: 1;
             }
             }
 
-            &:not(:last-child) {
-               margin-right: 30px; 
-            }
+            // &:not(:last-child) {
+            //    margin-right: 30px; 
+            // }
             &--vertical{
-                width: calc(100% / 3 + 30px);
+                width: calc(100% / 3 - 15px);
                 aspect-ratio: 0.6;
             }
             &--horizontal{
-                width: calc(100%  / 2);
+                width: calc(100%  / 2 - 15px);
                 aspect-ratio: 2;
 		    }
+            &--background{
+                border-radius: 8px;
+                width: 100%;
+                height: 100%;
+            }
             @media screen and (max-width:$phoneWidth){
                 width: 100%;
                 height: 120px;
