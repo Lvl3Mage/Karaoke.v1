@@ -3392,7 +3392,7 @@ body {
   font-size: 20px;
 }
 .text--S {
-  font-size: calc((100vw - 576px)/(992 - 576)*(16 - 16) + 16px);
+  font-size: calc((100vw - 576px)/(992 - 576)*(16 - 14) + 14px);
 }
 @media screen and (min-width: 992px) {
   .text--S {
@@ -3401,14 +3401,14 @@ body {
 }
 @media screen and (max-width: 576px) {
   .text--S {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .text--S--static {
   font-size: 16px;
 }
 .text--XS {
-  font-size: calc((100vw - 576px)/(992 - 576)*(14 - 14) + 14px);
+  font-size: calc((100vw - 576px)/(992 - 576)*(14 - 12) + 12px);
 }
 @media screen and (min-width: 992px) {
   .text--XS {
@@ -3417,7 +3417,7 @@ body {
 }
 @media screen and (max-width: 576px) {
   .text--XS {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 .text--XS--static {
@@ -4014,86 +4014,91 @@ select:not(.select--placeholder-styled)::placeholder {
 @font-face {
   font-family: Roboto;
   font-weight: 300;
-  src: url(assets/fonts/Roboto-Light.ttf);
+  src: url(../assets/fonts/Roboto-Light.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 400;
-  src: url(assets/fonts/Roboto-Regular.ttf);
+  src: url(../assets/fonts/Roboto-Regular.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 500;
-  src: url(assets/fonts/Roboto-Medium.ttf);
+  src: url(../assets/fonts/Roboto-Medium.ttf);
 }
 @font-face {
   font-family: Roboto;
   font-weight: 700;
-  src: url(assets/fonts/Roboto-Bold.ttf);
+  src: url(../assets/fonts/Roboto-Bold.ttf);
 }
 @font-face {
   font-family: PTSans;
   font-weight: 400;
-  src: url(assets/fonts/PTSans-Regular.ttf);
+  src: url(../assets/fonts/PTSans-Regular.ttf);
 }
 @font-face {
   font-family: PTSans;
   font-weight: 700;
-  src: url(assets/fonts/PTSans-Bold.ttf);
+  src: url(../assets/fonts/PTSans-Bold.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 300;
   font-variation-settings: "wght" 300;
-  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 400;
   font-variation-settings: "wght" 400;
-  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 500;
   font-variation-settings: "wght" 500;
-  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: PlayfairDisplay;
   font-weight: 700;
   font-variation-settings: "wght" 700;
-  src: url(assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+  src: url(../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 300;
-  src: url(assets/fonts/Chivo-Light.ttf);
+  src: url(../assets/fonts/Chivo-Light.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 400;
-  src: url(assets/fonts/Chivo-Regular.ttf);
+  src: url(../assets/fonts/Chivo-Regular.ttf);
 }
 @font-face {
   font-family: Chivo;
   font-weight: 700;
-  src: url(assets/fonts/Chivo-Bold.ttf);
+  src: url(../assets/fonts/Chivo-Bold.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 400;
-  src: url(assets/fonts/Poppins-Regular.ttf);
+  src: url(../assets/fonts/Poppins-Regular.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 500;
-  src: url(assets/fonts/Poppins-Medium.ttf);
+  src: url(../assets/fonts/Poppins-Medium.ttf);
 }
 @font-face {
   font-family: Poppins;
   font-weight: 700;
-  src: url(assets/fonts/Poppins-Bold.ttf);
+  src: url(../assets/fonts/Poppins-Bold.ttf);
+}
+@font-face {
+  font-family: AguafinaScript;
+  font-weight: 400;
+  src: url(../assets/fonts/AguafinaScript-Regular.ttf);
 }
 .main-picture {
   display: flex;
@@ -4833,16 +4838,35 @@ select:not(.select--placeholder-styled)::placeholder {
 .menu-section {
   padding: 0 120px;
 }
+@media screen and (max-width: 1440px) {
+  .menu-section {
+    padding: 0 50px;
+  }
+}
 
+.menu-page__title--mobile {
+  margin-bottom: 120px;
+}
 .menu-page__chef {
   display: flex;
   justify-content: space-between;
+}
+@media screen and (max-width: 890px) {
+  .menu-page__chef {
+    flex-direction: column;
+  }
 }
 
 .chef__img {
   width: 380px;
   height: 470px;
   position: relative;
+}
+@media screen and (max-width: 1200px) {
+  .chef__img {
+    width: 255px;
+    height: 348px;
+  }
 }
 .chef__img-foto {
   -o-object-fit: cover;
@@ -4854,16 +4878,29 @@ select:not(.select--placeholder-styled)::placeholder {
   border: none;
   border-radius: 8px;
 }
+@media screen and (max-width: 1200px) {
+  .chef__img-foto {
+    width: 255px;
+    height: 348px;
+  }
+}
 .chef__square {
-  position: absolute;
-  width: 280px;
-  height: 280px;
+  display: flex;
+  width: 251px;
+  height: 251px;
   background: #3A3838;
   border: 1px dashed #ffffff;
   box-shadow: 10px 10px 6px #000000;
 }
+@media screen and (max-width: 1200px) {
+  .chef__square {
+    width: 180px;
+    height: 190px;
+  }
+}
 .chef__description {
   flex: 0 0 60%;
+  margin-left: 40px;
 }
 .chef__word {
   margin-bottom: 20px;
@@ -4879,6 +4916,11 @@ select:not(.select--placeholder-styled)::placeholder {
   font-weight: 700;
   color: #ffffff;
 }
+@media screen and (max-width: 1200px) {
+  .chef__title {
+    font-size: 52px;
+  }
+}
 .chef__speach {
   margin-bottom: 50px;
   line-height: 2.25em;
@@ -4886,6 +4928,11 @@ select:not(.select--placeholder-styled)::placeholder {
   font-style: normal;
   font-weight: 400;
   color: #979797;
+}
+@media screen and (max-width: 1200px) {
+  .chef__speach {
+    margin-bottom: 20px;
+  }
 }
 .chef__data {
   margin-bottom: 50px;
@@ -4897,22 +4944,24 @@ select:not(.select--placeholder-styled)::placeholder {
   color: #FEE159;
 }
 .chef__sign {
-  font-family: "Aguafina Script";
+  font-family: AguafinaScript, cursive;
   font-style: normal;
   font-weight: 400;
   color: #979797;
 }
 
 .square1 {
-  z-index: 1;
-  top: -16px;
-  right: -16px;
+  margin-left: 145px;
+  margin-top: -16px;
+}
+@media screen and (max-width: 1200px) {
+  .square1 {
+    margin-left: 91px;
+  }
 }
 
 .square2 {
-  z-index: 2;
-  bottom: -16px;
-  left: -16px;
+  margin-left: -16px;
 }
 
 body.lock {
@@ -5552,7 +5601,7 @@ p {
 }
 .noise-overlay[data-v-c2dc59ec] {
   position: absolute;
-  background-image: url(assets/img/noise.png);
+  background-image: url(../assets/img/noise.png);
   background-repeat: repeat;
   background-size: 300px;
   background-size: var(--noise-size, 300px);
@@ -5723,7 +5772,7 @@ p {
 }
 .noise-overlay[data-v-f6c0005a] {
   position: absolute;
-  background-image: url(assets/img/noise.png);
+  background-image: url(../assets/img/noise.png);
   background-repeat: repeat;
   background-size: 300px;
   background-size: var(--noise-size, 300px);
@@ -5878,8 +5927,50 @@ p {
   --color-stop-2: #F569A3;
 }
 .people-selector[data-v-b35233ba] {
+  width: 160px;
+}
+@media screen and (max-width: 576px) {
+.people-selector[data-v-b35233ba] {
+    width: 200px;
+}
+}
+.people-selector__text[data-v-b35233ba] {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 576px) {
+.people-selector__text[data-v-b35233ba] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+}
+.people-selector__title[data-v-b35233ba] {
+  margin-bottom: 15px;
+  font-family: "Chivo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+}
+.people-selector__description[data-v-b35233ba] {
+  font-family: "Chivo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+.people-selector__selector[data-v-b35233ba] {
   display: flex;
   flex-wrap: wrap;
+}
+.people-selector__icon[data-v-b35233ba] {
+  cursor: pointer;
+  width: 20%;
+}
+.people-selector__icon svg[data-v-b35233ba] {
+  width: 100%;
 }
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-2.use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/js/views/BookingStep0View.vue?vue&type=style&index=0&id=1856276e&scoped=true&lang=scss ***!
@@ -6009,6 +6100,52 @@ p {
     padding: 0 15px;
     max-width: 410px;
 }
+}
+.booking__people-selector-row[data-v-1856276e] {
+  margin-top: 25px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 576px) {
+.booking__people-selector-row[data-v-1856276e] {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+}
+.booking__price-wrapper[data-v-1856276e] {
+  align-self: start;
+  font-family: "Chivo";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 17px;
+  flex: 0 1 160px;
+}
+@media screen and (max-width: 576px) {
+.booking__price-wrapper[data-v-1856276e] {
+    margin-top: 15px;
+    flex: auto;
+    width: 160px;
+}
+}
+.booking__price[data-v-1856276e] {
+  width: 100%;
+  margin-top: 10px;
+  padding: 4px 0;
+  border: 1px solid #FFFFFF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 8px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .loader[data-v-1856276e] {
   display: flex;

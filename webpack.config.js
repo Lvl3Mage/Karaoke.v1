@@ -12,7 +12,7 @@ const PATHS = {
 	src: path.join(__dirname, 'src'),
 	dist: path.join(__dirname, 'dist'),
 	assets: 'assets/',
-	fonts: 'assets/fonts/',
+	fonts: './assets/fonts/',
 	images: 'assets/img/',
 	js: 'js/',
 	css: 'css/',
@@ -69,7 +69,12 @@ module.exports = {
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
-					MiniCssExtractPlugin.loader,
+			        {
+			            loader: MiniCssExtractPlugin.loader,
+			            options: {
+			                publicPath: '../',
+			            },
+			        },
 					"css-loader",
 					{
 						loader: "postcss-loader",
