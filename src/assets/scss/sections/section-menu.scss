@@ -17,6 +17,7 @@
 		&__wrap {
             display: flex;
             flex-direction: column;
+            align-items: center;
             row-gap: 30px;
             @media screen and(max-width: $phoneWidth){
                 row-gap: 15px;
@@ -27,51 +28,61 @@
 
 		&__section {
             display: flex;
+            width: 100%;
             justify-content:space-evenly;
             @media screen and(max-width: $phoneWidth){
+              
                 flex-direction: column;
             }
 		}
 
 		// .menu__item
 
-		&__item {
+		&__item {position: relative;
             border-radius: 8px;
-            &:hover{
-                animation: shake 0.5s;
+            &:hover {
+                transition: all 0.7s;
+                animation:pulse 2s ease-in-out;
+            }
+            // &::after,
+            // &::before{
+            //     content: '';
+            //     position: absolute;
+            //     border: 2px solid #3D64FF;
+            //     left: -20px;
+            //     opacity: 0;
+            //     right: -20px;
+            //     top: -20px;
+            //     bottom: -20px;
+            //     border-radius: 50%;
+            // }
+            // &::after{
+            //     animation-delay: 1.25s;
+            // }
+            @keyframes pulse {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            }
 
-            }
-            @keyframes shake {
-                0% { transform: translate(1px, 1px) rotate(0deg); }
-                10% { transform: translate(-1px, -2px) rotate(-1deg); }
-                20% { transform: translate(-3px, 0px) rotate(1deg); }
-                30% { transform: translate(3px, 2px) rotate(0deg); }
-                40% { transform: translate(1px, -1px) rotate(1deg); }
-                50% { transform: translate(-1px, 2px) rotate(-1deg); }
-                60% { transform: translate(-3px, 1px) rotate(0deg); }
-                70% { transform: translate(3px, 1px) rotate(-1deg); }
-                80% { transform: translate(-1px, -1px) rotate(1deg); }
-                90% { transform: translate(1px, 2px) rotate(0deg); }
-                100% { transform: translate(1px, -2px) rotate(-1deg); }
-            }
             &:not(:last-child) {
-               margin-right: 10px; 
+               margin-right: 30px; 
             }
             &--vertical{
-                width: 350px;
-                height: 525px;
-                @media screen and (max-width:$tabletWidth){
-                    width: 275px;
-                    height: 400px;
-                }
+                width: calc(100% / 3 + 30px);
+                aspect-ratio: 0.6;
             }
             &--horizontal{
-                width: 540px;
-                height: 260px;
-                @media  screen and (max-width:$tabletWidth){
-                    width: 427px;
-                    height: 260px;
-                }
+                width: calc(100%  / 2);
+                aspect-ratio: 2;
 		    }
             @media screen and (max-width:$phoneWidth){
                 width: 100%;
@@ -81,28 +92,6 @@
                 }
             }
         }
-        // &__item-horizontal {
-        //     width: 540px;
-        //     height: 260px;
-        //     border-radius: 8px;
-        //     &:not(:last-child) {
-        //        margin-right: 10px; 
-        //     }
-        //     @media  screen and (max-width:$tabletWidth){
-        //         width: 427px;
-        //         height: 260px;
-        //     }
-        //     @media screen and (max-width:$phoneWidth){
-        //         width: 100%;
-        //         height: 120px;
-        //         &:not(:last-child){
-        //             margin-bottom: 15px;
-        //         }
-        //     }
-        // }
-            
-            
-		// .menu__link
 
 		&__link {
             display: flex;
@@ -114,6 +103,8 @@
 		// .menu__title
 
 		&__title {
+            min-width: 150px;
+            text-align: center;
             text-transform: uppercase;
             font-family: $mainFont;
             font-style: normal;

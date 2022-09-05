@@ -14,3 +14,19 @@ Single-colored icons can be modified like so:
   color: red;
 }
 ========================================== */
+
+.icon-Vector-4 {
+  width: 3.1875em;
+}
+
+.icon-Vector-3 {
+  width: 7.6669921875em;
+}
+
+.icon-Vector-2 {
+  width: 3.3525390625em;
+}
+
+.icon-Vector-1 {
+  width: 0.4541015625em;
+}

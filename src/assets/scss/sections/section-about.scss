@@ -17,7 +17,7 @@
             }
             @media screen and (max-width:$phoneWidth){
                   justify-content: flex-start;
-                  padding: 30px;
+                  padding: 10px;
             }
 		}
 
@@ -91,12 +91,18 @@
              @media screen and (max-width:$smTabletWidth){
                 margin: 0;   
             }
+            @media screen and (max-width: $phoneWidth){
+                 padding: 15px;
+            }
 		}
 
 		// .description__text
 
 		&__text {
             margin-bottom: 10px;
+            @media screen and (max-width: $phoneWidth){
+                 margin-bottom: 0;
+            }
 		}
 }
 
