@@ -15,6 +15,9 @@
 	&.active{
 		display: block;
 	}
+	@media screen and (max-width: $phoneWidth){
+		left: 0;
+	}
 }
 .sidebar {
 	z-index: 50;

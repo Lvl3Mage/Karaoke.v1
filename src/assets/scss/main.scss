@@ -179,7 +179,17 @@ p {
 		width: 40px;
 		height: 40px;
 		&--menu{
+			width: 35px;
+			height: 35px;
 			position: relative;
+			@media screen and (max-width:$tabletWidth){
+				width: 24px;
+				height: 24px;
+			}
+			// @media screen and (max-width:$tabletWidth){
+			// 	width: 24px;
+			// 	height: 24px;
+			// }
 		}
 	}
 	&--nav-next{
