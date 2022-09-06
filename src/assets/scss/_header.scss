@@ -1,6 +1,21 @@
 .header{
 	display: flex;	
 }
+.sidebar-background{
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 39;
+	left: 120px;
+	background-color: rgb(50 50 50 / 60%);
+	opacity: 0,25;
+	overflow-y: hidden;
+	margin-right: 15px;
+	&.active{
+		display: block;
+	}
+}
 .sidebar {
 	z-index: 50;
 	position: fixed;
