@@ -4,8 +4,8 @@ $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
 	$('.navigation').toggleClass('active');
 	$('.sidebar').toggleClass('active');
-	$(this).toggleClass('lock');
-	$('.page-content-wrapper').toggleClass('lock');
+	$(this).toggleClass('active');
+	$('.sidebar-background').toggleClass('active');
 });
 
 
