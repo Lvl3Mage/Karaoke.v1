@@ -1497,6 +1497,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.burger-btn').on('click', functio
   jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).toggleClass('active');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.navigation').toggleClass('active');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sidebar').toggleClass('active');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).toggleClass('lock');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.page-content-wrapper').toggleClass('lock');
 });
 
 function ibg() {
@@ -1892,6 +1894,51 @@ new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.image-slider-gallery
     768: {
       slidesPerView: 4,
       grid: {
+        rows: 2
+      }
+    }
+  }
+});
+new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["default"]('.image-slider-menu', {
+  navigation: {
+    nextEl: '.slider-button-next-menu',
+    prevEl: '.slider-button-prev-menu'
+  },
+  grabCursor: true,
+  // Change slide by click on
+  slideToClickedSlides: true,
+  keyboard: {
+    enabled: true,
+    onlyInViewport: true,
+    pageUpDown: true
+  },
+  watchOverFlow: true,
+  speed: 850,
+  autoHeight: false,
+  pagination: {
+    el: '.swiper-pagination-menu',
+    clickable: true
+  },
+  spaceBetween: 30,
+  breakpoints: {
+    250: {
+      slidesPerView: 1,
+      grid: {
+        columns: 1,
+        rows: 2
+      }
+    },
+    320: {
+      slidesPerView: 2,
+      grid: {
+        columns: 2,
+        rows: 2
+      }
+    },
+    768: {
+      slidesPerView: 3,
+      grid: {
+        columns: 3,
         rows: 2
       }
     }
