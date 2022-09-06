@@ -5,6 +5,11 @@ $('.burger-btn').on('click', function(){
 	$('.navigation').toggleClass('active');
 	$('.sidebar').toggleClass('active');
 });
+$('.navigation__item').on('click', function() {
+	$('.burger-btn').removeClass('active');
+	$('.navigation').removeClass('active');
+	$('.sidebar').removeClass('active');
+});
 function ibg(){
 	$.each($('.ibg'), function(index, val) {
 	if($(this).find('img').length>0){

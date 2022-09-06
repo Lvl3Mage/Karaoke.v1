@@ -4,29 +4,29 @@
 	const APIRoomData = 
 	{
 		'room1': {
-			primaryColor: '#FAA',
-			name: 'Room 1',
+			primaryColor: '#902FDC',
+			name: 'Hula',
 			previewImage: '', // link
 			minPeople: 5,
 			maxPeople: 10,
 		},
 		'room2': {
-			primaryColor: '#FA0',
-			name: 'Room 2',
+			primaryColor: '#1D4ED8',
+			name: 'Party',
 			previewImage: '',
-			minPeople: 5,
+			minPeople: 2,
 			maxPeople: 10,
 		},
 		'room3': {
-			primaryColor: '#AAF',
-			name: 'Room 3',
+			primaryColor: '#FEE159',
+			name: 'Ukulele',
 			previewImage: '',
 			minPeople: 5,
-			maxPeople: 10,
+			maxPeople: 15,
 		},
 		'room4': {
-			primaryColor: '#AFA',
-			name: 'Room 4',
+			primaryColor: '#F569A3',
+			name: 'Flamingo',
 			previewImage: '',
 			minPeople: 5,
 			maxPeople: 10,
@@ -117,32 +117,32 @@
 			</div>
 			<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
 				<div class="booking__steps">
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 0}">
+					<router-link :to="{name: 'booking-step-1'}" class="booking__step" :class="{'active': bookingStore.openStep >= 1}">
 						<div class="booking__step-circle">
 							<span>1</span>
 						</div>
 						<div class="booking__step-text">
 							<span>RESERVE</span>
 						</div>
-					</div>
-					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 0}"></div>
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 1}">
+					</router-link>
+					<div class="booking__steps-line" :class="{'active': bookingStore.openStep >= 1}"></div>
+					<router-link :to="{name: 'booking-step-2'}" class="booking__step" :class="{'active': bookingStore.openStep >= 2}">
 						<div class="booking__step-circle">
 							<span>2</span>
 						</div>
 						<div class="booking__step-text">
 							<span>RESERVE</span>
 						</div>
-					</div>
-					<div class="booking__steps-line" :class="{'active': bookingStore.bookingStep >= 1}"></div>
-					<div class="booking__step" :class="{'active': bookingStore.bookingStep >= 2}">
+					</router-link>
+					<div class="booking__steps-line" :class="{'active': bookingStore.openStep >= 2}"></div>
+					<router-link :to="{name: 'booking-step-3'}" class="booking__step" :class="{'active': bookingStore.openStep >= 3}">
 						<div class="booking__step-circle">
 							<span>3</span>
 						</div>
 						<div class="booking__step-text">
 							<span>RESERVE</span>
 						</div>
-					</div>
+					</router-link>
 				</div>
 			</div>	
 		</div>
@@ -201,7 +201,9 @@
 		}
 		&__step {
 			position: relative;
+			cursor: default;
 			&.active{
+				cursor: pointer;
 				.booking__step-circle{
 					background: var(--roomColor);
 					border: 1px solid #FFFFFF;

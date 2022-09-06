@@ -4,8 +4,8 @@ import {axios} from '../App.vue';
 const useBookingStore = defineStore({
 	id: 'BookingStore',
 	state: () => ({
+		openStep: 0,
 		//client side data
-		bookingStep: 0,
 		selectedDate: new Date(),
 
 		//loaded data
@@ -18,12 +18,26 @@ const useBookingStore = defineStore({
 	getters: {
 		formatedSelectedDate: function(){
 			return this.selectedDate.toLocaleDateString('en-GB');
+		},
+		stepCompletion: function(){
+			if(this.selectedRange != null){
+				if(false){
+					if(false){
+						return 3;
+					}
+					return 2;
+				}
+				return 1;
+			}
+			return 0;
 		}
 	},
 	actions: {
 		formatDate: function(date){
 			return date.toLocaleDateString('en-GB');
-		}
+		},
+
+
 	}
 });
 export {useBookingStore};

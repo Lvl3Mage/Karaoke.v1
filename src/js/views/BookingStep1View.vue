@@ -20,10 +20,17 @@
 
 			return {
 				pendingDateRequests:pendingDateRequests,
+				nextRoute: {name:"booking-step-2"},
+				countAmogus: 0,
 			}
 		},
 		watch: {
-
+			selectedDate: function(){
+				this.requestSelectedSchedule();
+			},
+		},
+		created(){
+			this.bookingStore.openStep = 1;
 		},
 		mounted(){
 			// AXIOS
@@ -64,13 +71,6 @@
 				}
 				return '#979797';
 				 
-			},
-			updateDate: function(newDate){
-				this.bookingStore.selectedDate = newDate;
-				this.requestSelectedSchedule();
-			},
-			updateRange: function(newRange){
-				this.bookingStore.selectedRange = newRange;
 			},
 			loadScheduleForDates: async function(dates, targetDate, targetRoom){
 				this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)] = "pending";
@@ -140,7 +140,7 @@
 					
 
 				console.log(response);
-				await this.delay(1000);
+				// await this.delay(1000);
 				delete this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)];
 				for(var date in response) {
 					this.bookingStore.roomData[targetRoom].scheduleData[date] = response[date];
@@ -154,12 +154,22 @@
 				this.loadNearbySchedule(this.bookingStore.selectedDate, this.bookingStore.selectedRoomID);
 				
 			},
-			updatePeopleCount: function(newCount){
-				this.bookingStore.selectedPeopleCount = newCount;
-			}
+			nextView: function(){
+				if(this.isStepComplete){
+					this.$router.push(this.nextRoute);	
+				}
+				
+			},
 		},
 
 		computed: {
+			selectedDate: function(){
+				return this.bookingStore.selectedDate;
+			},
+			isStepComplete: function(){
+
+				return this.bookingStore.stepCompletion >= this.$router.resolve(this.nextRoute).meta.minCompletion;
+			},
 			selectedRoom: function(){
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
 			},
@@ -210,15 +220,20 @@
 			</div>
 			<div class="booking__calendar-column">
 				<div class="font--prim-text text--700 text--S m--b-10 text--center">Date</div>
-				<Calendar :highlightColor="selectedRoomColor()" :defaultDate="bookingStore.selectedDate" @date-changed="updateDate"></Calendar>
+				<Calendar :highlightColor="selectedRoomColor()" v-model="bookingStore.selectedDate" ></Calendar>
 			</div>
 			<div class="booking__time-selector">
-				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" @range-change="updateRange"></TimeRangeSelector>
+				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" v-model="bookingStore.selectedRange"></TimeRangeSelector>
 				<div class="booking__people-selector-row">
-					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor()" @count-change="updatePeopleCount"></PeopleCountSelector>
+					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor()" v-model="bookingStore.selectedPeopleCount"></PeopleCountSelector>
 					<div class="booking__price-wrapper">
 						<span>Price</span>
 						<div class="booking__price">{{currentPrice}}</div>
+					</div>
+				</div>
+				<div class="booking__next-button-wrapper">
+					<div class="booking__next-button" @click="nextView()" :class="{'disabled': !isStepComplete}" >
+						<span>Next</span>
 					</div>
 				</div>
 				
@@ -374,8 +389,34 @@
 			line-height: 16px;
 			display: flex;
 			justify-content: center;
-			align-items: center;
 		}
+		&__next-button-wrapper {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 15px;
+		}
+		&__next-button {
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 32px;
+			line-height: 38px;
+			color: #232020;
+			padding: 15px 50px;
+			background: #FFFFFF;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.3s;
+			@media screen and (max-width: $smTabletWidth) {
+				text-align: center;
+				width: 100%;
+			}
+			&.disabled{
+				cursor: default;
+				background: #777;
+			}
+		}
+
 	}
 
 	.loader{

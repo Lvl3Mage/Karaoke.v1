@@ -59,12 +59,12 @@
 <script>
 	import $ from "jquery";
 	export default{
-		props: ['highlightColor', 'defaultDate'],
+		props: ['highlightColor', 'modelValue'],
 		data() {
 			return {
 				currentDate: new Date(), // date at the moment of rendering
-				selectedDate: this.defaultDate ? this.defaultDate : new Date(),
-				selectedMonth: {month:this.defaultDate.getMonth(), year:this.defaultDate.getFullYear()},
+				selectedDate: this.modelValue,
+				selectedMonth: {month:this.modelValue.getMonth(), year:this.modelValue.getFullYear()},
 				calendarOpen: false, // only on mobile
 
 
@@ -88,6 +88,12 @@
 		},
 		mounted(){
 		},
+		watch:{
+			modelValue:function(val){
+				this.selectedDate = val;
+			},
+		},
+		emits: ['update:modelValue'],
 		methods: {
 			getDaysInMonth(month) {
 				var date = new Date(month.year, month.month, 1);
@@ -124,7 +130,7 @@
 					return;
 				}
 				this.selectedDate = date;
-				this.$emit('date-changed', this.selectedDate);
+				this.$emit('update:modelValue', this.selectedDate);
 			},
 			isPastDate(date){
 				return date.setHours(0,0,0,0) < this.currentDate.setHours(0,0,0,0);

@@ -57,15 +57,31 @@
 </script>
 <script>
 	let Selector = {
-		props: ['highlightColor', 'occupancyData', 'openTime'],
+		props: ['highlightColor', 'occupancyData', 'openTime', 'modelValue'],
 		data() {
+			let startIndex = null;
+			let endIndex = null;
+			if(this.modelValue != null){
+				startIndex = this.modelValue.startIndex;
+				endIndex = this.modelValue.endIndex;
+			}
 			return {
 				segmentLength: 60, // minutes
-				startIndex: null,
-				endIndex: null,
+				startIndex: startIndex,
+				endIndex: endIndex,
 			}
 		},
 		watch: {
+			modelValue:function(val){
+				if(val == null){
+					this.startIndex = null;
+					this.endIndex = null;
+				}
+				else{
+					this.startIndex = val.startIndex;
+					this.endIndex = val.endIndex;
+				}
+			},
 			occupancyData: function(val){
 				if(this.startIndex == null || this.endIndex == null){
 					return;
@@ -83,6 +99,7 @@
 		},
 		mounted(){
 		},
+		emits: ['update:modelValue'],
 		methods: {
 			tConvert: function(totalMinutes){ // converts a time in total minutes from midnight to a regular24 hour time
 				totalMinutes = totalMinutes % 1440; // ensures the time is limited to 1 day
@@ -152,10 +169,10 @@
 			},
 			rangeChange: function(){
 				if(this.startIndex == null && this.endIndex == null){
-					this.$emit("range-change",null);
+					this.$emit("update:modelValue",null);
 					return;
 				}
-				this.$emit("range-change", {
+				this.$emit("update:modelValue", {
 					startIndex:this.startIndex,
 					endIndex:this.endIndex,
 					startTime: this.tConvert(this.timeSegments[this.startIndex].startTime),

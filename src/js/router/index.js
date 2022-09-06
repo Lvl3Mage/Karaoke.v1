@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import {useBookingStore} from '../stores/BookingStore.js'
 import BookingView from '../views/BookingView.vue'
 
-import BookingStep0View from '../views/BookingStep0View.vue'
+import BookingStep1View from '../views/BookingStep1View.vue'
+import BookingStep2View from '../views/BookingStep2View.vue'
 
 
 const router = createRouter({
@@ -13,31 +14,31 @@ const router = createRouter({
 		{	
 			path: '/app/booking/',
 			name: 'booking',
-			redirect: { name: 'booking-step-0' },
+			redirect: { name: 'booking-step-1' },
 			component: BookingView,
 			children: [
 				{ 
-					path: 'step0',
-					name: 'booking-step-0',
-					component: BookingStep0View,
-					meta: {
-						bookingStep: 0
-					}
-				},
-				{ 
 					path: 'step1',
 					name: 'booking-step-1',
-					component: BookingStep0View,
+					component: BookingStep1View,
 					meta: {
-						bookingStep: 1
+						minCompletion: 0
 					}
 				},
 				{ 
 					path: 'step2',
 					name: 'booking-step-2',
-					component: BookingStep0View,
+					component: BookingStep2View,
 					meta: {
-						bookingStep: 2
+						minCompletion: 1
+					}
+				},
+				{ 
+					path: 'step3',
+					name: 'booking-step-3',
+					component: BookingStep2View,
+					meta: {
+						minCompletion: 2
 					}
 				},
 			],
@@ -52,9 +53,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-	if(to.meta.bookingStep){
+	if(to.meta.minCompletion){
 		const bookingStore = useBookingStore();
-		return bookingStore.bookingStep >= to.meta.bookingStep;
+		return bookingStore.stepCompletion >= to.meta.minCompletion;
 	}
 	return true;
 });

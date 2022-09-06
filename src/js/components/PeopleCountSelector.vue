@@ -20,13 +20,17 @@
 </script>
 <script>
 	export default {
-		props: ['highlightColor', 'minCount', 'maxCount'],
+		props: ['highlightColor', 'minCount', 'maxCount', 'modelValue'],
 		data() {
 			return {
-				count: this.minCount,
+				count: this.modelValue,
 			}
 		},
+		emits: ['update:modelValue'],
 		watch: {
+			modelValue:function(val){
+				this.count = val;
+			},
 			minCount: function(val){
 				this.changeCount(this.count); // min-max check
 			},
@@ -35,14 +39,15 @@
 			},
 		},
 		created(){
+			this.changeCount(this.count);
 		},
 		mounted(){
-			this.$emit("count-change", this.count);
+			
 		},
 		methods: {
 			changeCount(newCount){
 				this.count = Math.min(Math.max(newCount, this.minCount), this.maxCount);
-				this.$emit("count-change", this.count);
+				this.$emit("update:modelValue", this.count);
 			},
 		},
 		computed: {
