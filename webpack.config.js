@@ -12,8 +12,8 @@ const PATHS = {
 	src: path.join(__dirname, 'src'),
 	dist: path.join(__dirname, 'dist'),
 	assets: 'assets/',
-	fonts: './assets/fonts/',
-	images: 'assets/img/',
+	fonts: 'fonts/',
+	images: 'img/',
 	js: 'js/',
 	css: 'css/',
 }
@@ -27,9 +27,9 @@ module.exports = {
 	mode: mode,
 	entry: './src/index.js',
 	output: {
-		// path: PATHS.dist,
+		path: PATHS.dist,
 		//filename: `${PATHS.js}[name].[contenthash].js`,
-		publicPath: (process.env.WEBPACK_SERVE) ? '/' : '', // process.env.WEBPACK_SERVE to check if the server is running
+		publicPath: (process.env.WEBPACK_SERVE) ? '/' : 'auto', // process.env.WEBPACK_SERVE to check if the server is running
 		filename: `${PATHS.js}[name].js`,
 		clean: (mode === 'development') ? false : true,
 	},
@@ -72,7 +72,7 @@ module.exports = {
 			        {
 			            loader: MiniCssExtractPlugin.loader,
 			            options: {
-			                publicPath: '../',
+			                publicPath: '../../',
 			            },
 			        },
 					"css-loader",
@@ -99,7 +99,7 @@ module.exports = {
 				type: 'asset/resource',
 				exclude: `${PATHS.src}/${PATHS.fonts}`,
 				generator: {
-					filename: `${PATHS.images}[name][ext][query]`
+					filename: `${PATHS.assets}${PATHS.images}[name][ext][query]`
 				}
 			},
 			{
@@ -107,7 +107,7 @@ module.exports = {
 				type: 'asset/resource',
 				exclude: `${PATHS.src}/${PATHS.images}`,
 				generator: {
-					filename: `${PATHS.fonts}[name][ext][query]`
+					filename: `${PATHS.assets}${PATHS.fonts}[name][ext][query]`
 				}
 			},
 			{
@@ -132,7 +132,7 @@ module.exports = {
 		new VueLoaderPlugin(),
 		new MiniCssExtractPlugin({
 			//filename: `${PATHS.css}[name].[contenthash].css`
-			filename: `${PATHS.css}[name].css`
+			filename: `${PATHS.assets}${PATHS.css}[name].css`
 		}),
 		...PAGES.map(
 			page =>

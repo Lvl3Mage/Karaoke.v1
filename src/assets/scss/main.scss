@@ -21,10 +21,7 @@
 
 
 body{
-
-}
-body.lock{
-	overflow: hidden;
+	position: fixed;
 }
 button:hover,
 button:focus {
@@ -91,6 +88,13 @@ p {
 		height: 100%;
 		overflow-x: auto;
 		background: $background-color;
+		&.lock{
+		display: block;
+		position: fixed;
+		margin-right: 15px;
+		background-color: rgba(0,0,0,.4);
+		overflow-y: hidden;
+		}
 		@media screen and (max-width: $tabletWidth) {
 			left: 100px;
 		}
@@ -107,6 +111,9 @@ p {
 		scrollbar-width: thin;
 		&::-webkit-scrollbar {
 			width: 15px;
+			@media screen and (max-width: $phoneWidth){
+				width: 10px;
+			}
 		}
 
 		&::-webkit-scrollbar-track {
@@ -121,6 +128,7 @@ p {
 			background-clip: content-box;
 		}
 }
+
 .section-wrapper {
       display: flex;
       width: 100%;
@@ -170,9 +178,9 @@ p {
 		z-index: 10;
 		width: 40px;
 		height: 40px;
-		// @media screen and (max-width:$smTabletWidth){
-		// 	top: 89%;
-		// }
+		&--menu{
+			position: relative;
+		}
 	}
 	&--nav-next{
 		right: 2%;

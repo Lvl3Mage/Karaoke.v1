@@ -4,11 +4,13 @@ $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
 	$('.navigation').toggleClass('active');
 	$('.sidebar').toggleClass('active');
+	$('.sidebar-background').toggleClass('active');
 });
-$('.navigation__item').on('click', function() {
+$('.navigation__item, .sidebar-background').on('click', function() {
 	$('.burger-btn').removeClass('active');
 	$('.navigation').removeClass('active');
 	$('.sidebar').removeClass('active');
+	$('.sidebar-background').removeClass('active');
 });
 function ibg(){
 	$.each($('.ibg'), function(index, val) {
@@ -96,7 +98,6 @@ $(document).on('mousedown touchstart', '.modal-bg, .modal-cross', function(event
 	$("body").css("overflow", "visible");
 	var modal = $(this).closest(".modal");
 	modal.removeClass("modal-active");
-
 });
 $(document).on('mousedown touchstart', '.modal-window', function(event) {
 	event.stopPropagation();
