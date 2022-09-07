@@ -11,8 +11,8 @@ app.use(pinia);
 import router from './router'
 app.use(router);
 
-import PhosphorVue from "phosphor-vue";
-app.use(PhosphorVue);
+// import PhosphorVue from "phosphor-vue";
+// app.use(PhosphorVue);
 
 app.mount("#app");
 
