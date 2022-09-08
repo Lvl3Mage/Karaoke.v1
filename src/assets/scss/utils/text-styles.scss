@@ -80,7 +80,7 @@
 }
 
 //input
-input{
+.input{
 	&:not(.input--styled){
 		color: inherit !important;
 		font-family: inherit !important;
@@ -99,7 +99,7 @@ input{
 		}
 	}
 }
-select{
+.select{
 	&:not(.select--styled){
 		color: inherit !important;
 		font-family: inherit !important;

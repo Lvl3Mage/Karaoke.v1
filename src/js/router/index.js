@@ -30,7 +30,8 @@ const router = createRouter({
 					name: 'booking-step-2',
 					component: BookingStep2View,
 					meta: {
-						minCompletion: 1
+						minCompletion: 1,
+						prevStepRoute: {name:'booking-step-1'},
 					}
 				},
 				{ 
@@ -38,7 +39,8 @@ const router = createRouter({
 					name: 'booking-step-3',
 					component: BookingStep2View,
 					meta: {
-						minCompletion: 2
+						minCompletion: 2,
+						prevStepRoute: {name:'booking-step-2'},
 					}
 				},
 			],
@@ -55,7 +57,15 @@ const router = createRouter({
 router.beforeEach((to, from) => {
 	if(to.meta.minCompletion){
 		const bookingStore = useBookingStore();
-		return bookingStore.stepCompletion >= to.meta.minCompletion;
+		if(bookingStore.stepCompletion >= to.meta.minCompletion){
+			return true; 
+		}
+		else{
+			if(to.meta.prevStepRoute){ // if prev redirect exists
+				return to.meta.prevStepRoute; // redirect to prev step
+			}
+			return false;
+		}
 	}
 	return true;
 });

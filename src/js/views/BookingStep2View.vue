@@ -1,7 +1,44 @@
 <script setup>
 	const bookingStore = useBookingStore()
+	import Item from '../components/Item.vue'
 </script>
 <script>
+	let APIItemData = 
+	[
+		{
+			title: 'Desert',
+			items: [
+				{
+					innerID: "123231",
+					title: 'Good cake',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					maxCount: 15,
+					unit: 'unit',
+					description: true,
+					placeholder: 'write text here',
+				},
+				{
+					innerID: "232321",
+					title: 'Good cake 2',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					maxCount: 15,
+					unit: 'unit',
+					description: true,
+					placeholder: 'write text here',
+				},
+				{
+					innerID: "34534",
+					title: 'Good cake 3',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
+			],
+		}	
+	];
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 
@@ -15,46 +52,108 @@
 		},
 		created(){
 			this.bookingStore.openStep = 2;
+
+			//ajax request for data
+				this.bookingStore.itemData = APIItemData;
+
 		},
 		mounted(){
+
 		},
 		methods: {
+			addOrder: function(categoryID, itemID ,itemOrder){
+				console.log(itemOrder);
+				let item = this.bookingStore.itemData[categoryID].items[itemID];
+				let order = {
+					title: item.title,
+					innerID: item.innerID,
+					price: item.price,
+					unit: item.unit,
+					count: itemOrder.count,
+				};
+				if(itemOrder.description){
+					order.description = itemOrder.description;
+				}
+				if(!itemOrder.description){
+					//find item with same innerID
+					for (var i = 0; i < this.bookingStore.itemOrders.length; i++) {
+						if(this.bookingStore.itemOrders[i].innerID == order.innerID){
+							this.bookingStore.itemOrders[i].count += order.count;
+							return;
+						}
+						
+					}
+				}
+				this.bookingStore.itemOrders.push(order);
+			}
 		},
 
 		computed: {
-			
+			itemsLoaded: function(){
+				return this.bookingStore.itemData != null;
+			},
+			selectedRoomColor: function(){
+				return this.selectedRoom.primaryColor;
+				 
+			},
+			selectedRoom: function(){
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
+			},
 		}
 	}
 </script>
 <template>
-	<div class="item-select">
+	<div class="item-select" v-if="itemsLoaded">
 		<div class="item-select__item-window">
-			<div class="item-select__item-list">
-				<div class="item-select__item item">
-					<div class="item__image">
-						<img src="" alt="">
-					</div>
-					<div class="item__content">
-						<div class="item__title">
-							
-						</div>
-						<div class="item__price">
-							
-						</div>
-						<div class="item__count-selector">
-							
-						</div>
-					</div>
+			<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
+				<div class="item-select__item-list-category">
+					<span>{{category.title}}</span>
+				</div>
+				<div class="item-select__item-list">
+					<Item v-for="(item, j) in category.items" :key="j" 
+						:maxCount="item.maxCount ? item.maxCount : 10"
+						:description="item.description"
+						:placeholder="item.placeholder"
+						:imageLink="item.image"
+						:innerID="item.innerID"
+						:highlightColor="selectedRoomColor"
+						@order="addOrder(i,j,$event)"
+					>
+						<template v-slot:title>
+							{{item.title}}
+						</template>
+						<template v-slot:price>
+							{{item.price}} KD / 1 unit
+						</template>
+					</Item>
 				</div>
 			</div>
-		</div>
-		<div class="item-select__order-list-window">
 			
 		</div>
+		<div class="item-select__order-list-window">
+			<div class="" v-for="order in bookingStore.itemOrders" :key="order">
+				{{order}}
+			</div>
+		</div>
+	</div>
+	<div class="loader" v-if="!itemsLoaded">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	</div>
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.item-select {
+		&__item-window {}
+		&__item-list-wrapper {}
+		&__item-list-category {}
+		&__item-list {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: stretch;
+		}
+		&__order-list-window {}
+	}
 
 	.loader{
 		display: flex;

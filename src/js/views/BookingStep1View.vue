@@ -65,13 +65,7 @@
 				this.bookingStore.selectedRoomID = roomID;
 				this.requestSelectedSchedule();
 			},
-			selectedRoomColor: function(){
-				if(this.bookingStore.selectedRoomID != ''){
-					return this.bookingStore.roomData[this.bookingStore.selectedRoomID].primaryColor;
-				}
-				return '#979797';
-				 
-			},
+			
 			loadScheduleForDates: async function(dates, targetDate, targetRoom){
 				this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)] = "pending";
 
@@ -163,6 +157,10 @@
 		},
 
 		computed: {
+			selectedRoomColor: function(){
+				return this.selectedRoom.primaryColor;
+				 
+			},
 			selectedDate: function(){
 				return this.bookingStore.selectedDate;
 			},
@@ -211,7 +209,7 @@
 			<div class="booking__rooms">
 				<div class="booking__room" @click="selectRoom(key)" :class="{'open': key == bookingStore.selectedRoomID, 'closed': bookingStore.selectedRoomID != '' && key != bookingStore.selectedRoomID}" v-for="(value, key) in bookingStore.roomData" :key="value" :style="'--roomColor:'+ value.primaryColor">
 					<div class="booking__room-image">
-						<img src="/assets/images/main.jpg" alt="">
+						<img :src="selectedRoom.previewImage" alt="">
 					</div>
 					<div class="booking__room-title font--prim-title text--700 text--L">
 						{{value.name}}
@@ -220,12 +218,12 @@
 			</div>
 			<div class="booking__calendar-column">
 				<div class="font--prim-text text--700 text--S m--b-10 text--center">Date</div>
-				<Calendar :highlightColor="selectedRoomColor()" v-model="bookingStore.selectedDate" ></Calendar>
+				<Calendar :highlightColor="selectedRoomColor" v-model="bookingStore.selectedDate" ></Calendar>
 			</div>
 			<div class="booking__time-selector">
-				<TimeRangeSelector :highlightColor="selectedRoomColor()" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" v-model="bookingStore.selectedRange"></TimeRangeSelector>
+				<TimeRangeSelector :highlightColor="selectedRoomColor" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" v-model="bookingStore.selectedRange"></TimeRangeSelector>
 				<div class="booking__people-selector-row">
-					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor()" v-model="bookingStore.selectedPeopleCount"></PeopleCountSelector>
+					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor" v-model="bookingStore.selectedPeopleCount"></PeopleCountSelector>
 					<div class="booking__price-wrapper">
 						<span>Price</span>
 						<div class="booking__price">{{currentPrice}}</div>
