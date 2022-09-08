@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>melemele</title>
-<script defer src="js/vendors-node_modules_axios_index_js-node_modules_jquery_dist_jquery_js-node_modules_swiper_sw-8c9cb6.js"></script><script defer src="js/main.js"></script><link href="assets/css/vendors-node_modules_axios_index_js-node_modules_jquery_dist_jquery_js-node_modules_swiper_sw-8c9cb6.css" rel="stylesheet"><link href="assets/css/main.css" rel="stylesheet"></head>
+<script defer src="js/vendors-node_modules_axios_index_js-node_modules_jquery_dist_jquery_js-node_modules_swiper_sw-1f1a38.js"></script><script defer src="js/main.js"></script><link href="assets/css/vendors-node_modules_axios_index_js-node_modules_jquery_dist_jquery_js-node_modules_swiper_sw-1f1a38.css" rel="stylesheet"><link href="assets/css/main.css" rel="stylesheet"></head>
 
 <body>
 	<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
@@ -22,6 +22,7 @@
 		</defs>
 	</svg>
 	<header class="header">
+		<div class="sidebar-background"></div>
 		<aside class="sidebar">
 			<div class="sidebar__wrap">
 				<div class="sidebar__social-links">
@@ -118,19 +119,19 @@
 						<a href="index.html#main" class="navigation__link">Home</a>
 					</li>
 					<li class="navigation__item">
-						<a href="index.html#aboutus" class="navigation__link">About us</a>
+						<a href="index.html#aboutus" class="scroll-link navigation__link">About us</a>
 					</li>
 					<li class="navigation__item">
-						<a href="index.html#rooms" class="navigation__link">Rooms</a>
+						<a href="index.html#rooms" class="scroll-link navigation__link">Rooms</a>
 					</li>
 					<li class="navigation__item">
-						<a href="index.html#gallery" class="navigation__link">Gallery</a>
+						<a href="index.html#gallery" class="scroll-link navigation__link">Gallery</a>
 					</li>
 					<li class="navigation__item">
-						<a href="index.html#menu" class="navigation__link">Menu</a>
+						<a href="index.html#menu" class="scroll-link navigation__link">Menu</a>
 					</li>
 					<li class="navigation__item">
-						<a href="index.html#contacts" class="navigation__link">Contacts</a>
+						<a href="index.html#contacts" class="scroll-link navigation__link">Contacts</a>
 					</li>
 				</ul>
 				<div class="contacts__wrap--mobile">
@@ -150,11 +151,15 @@
 			</div>
 		</section>
 	</header>
+<style>
+html {
+  scroll-behavior: smooth; /* свойство scroll-behavior не наследуется, применяется к прокручиваемым блокам */ 
+}
+</style>
     <div class="page-content-wrapper">
 
         <!-- Main section -->
-        <a name="main"></a>
-        <section class="main-picture ibg ibg--cover">
+        <section id="main" class="main-picture ibg ibg--cover">
             <img src="assets/img/main.jpg" alt="main">
             <div class="main-logo">
                 <img src="assets/img/logo.png" alt="logo" class="logo">
@@ -165,8 +170,8 @@
         </section>
 
         <!-- Section About US -->
-        <a name="aboutus"></a>
-        <section class="section-wrapper ibg ibg--cover">
+        <!-- <a name="aboutus"></a> -->
+        <section id ="aboutus" class="section-wrapper ibg ibg--cover">
             <img src="assets/img/back-down.jpg" alt="back-down">
             <div class="about__wrap">
                 <div class="description__title--mobile m--b-35">
@@ -198,8 +203,7 @@
         </section>
 
         <!-- Section Rooms -->
-        <a name="rooms"></a>
-        <section class="section-sbg">
+        <section id="rooms" class="section-sbg">
             <div class="content-wrap">
                 <div class="content-title">
                     <h1 class="title text--XL">Rooms</h1>
@@ -527,8 +531,7 @@
         </section>
 
         <!-- Gallery section -->
-        <a name="gallery"></a>
-        <section class="section-sbg">
+        <section id="gallery" class="section-sbg">
             <div class="content-wrap">
                 <div class="content-title">
                     <h1 class="title text--XL">Gallery</h1>
@@ -634,8 +637,7 @@
         </section>
 
         <!-- Follow us -->
-        <a name="followus"></a>
-        <section class="section-wrapper--follow ibg ibg--cover ibg--x-center">
+        <section id="followus" class="section-wrapper--follow ibg ibg--cover ibg--x-center">
             <img src="assets/img/back-up.jpg" alt="foto">
             <div class="content__wrap">
                 <div class="follow-us__description">
@@ -715,8 +717,7 @@
         </section>
 
         <!-- Menu section -->
-        <a name="menu"></a>
-        <section class="section-sbg">
+        <section id="menu" class="section-sbg">
             <div class="content-wrap__menu">
                 <a href="./menu-page.html">
                     <div class="content-title">
@@ -783,8 +784,7 @@
         </section>
 
         <!-- Our contacts section-->
-        <a name="contacts"></a>
-        <section class="section-wrapper--contacts ibg ibg--cover">
+        <section id="contacts" class="section-wrapper--contacts ibg ibg--cover">
             <img src="assets/img/back-down.jpg" alt="foto">
             <div class="contacts-wrap">
                 <div class="content-title">

@@ -3408,11 +3408,11 @@ body {
   font-size: 16px;
 }
 .text--XS {
-  font-size: calc((100vw - 576px)/(992 - 576)*(14 - 10) + 10px);
+  font-size: calc((100vw - 576px)/(992 - 576)*(12 - 10) + 10px);
 }
 @media screen and (min-width: 992px) {
   .text--XS {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 576px) {
@@ -3421,7 +3421,7 @@ body {
   }
 }
 .text--XS--static {
-  font-size: 14px;
+  font-size: 12px;
 }
 .text--uppercase {
   text-transform: uppercase;
@@ -3584,6 +3584,7 @@ select:not(.select--placeholder-styled)::placeholder {
   height: 20px;
   border-radius: 50%;
   border: 1px solid #fff;
+  opacity: 1;
 }
 
 .swiper-pagination-bullet-active {
@@ -3592,8 +3593,26 @@ select:not(.select--placeholder-styled)::placeholder {
 }
 
 .content-menu {
-  margin: 0 120px;
+  display: flex;
+  justify-items: center;
+  margin: 0 auto;
+  padding: 0 28px;
   overflow: hidden;
+}
+@media screen and (min-width: 1440px) {
+  .content-menu {
+    width: calc(100% - 240px - 48px);
+  }
+}
+@media screen and (max-width: 1200px) {
+  .content-menu {
+    margin: 0 30px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .content-menu {
+    margin: 0;
+  }
 }
 
 .image-slider-menu {
@@ -3605,16 +3624,52 @@ select:not(.select--placeholder-styled)::placeholder {
 }
 @media screen and (max-width: 992px) {
   .image-slider-menu__wrapper {
-    height: 500px;
+    height: 600px;
   }
 }
 .image-slider-menu__slide, .image-slider-menu .swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   filter: drop-shadow(10px 10px 6px #000000);
   border-radius: 20px;
   height: calc((100% - 30px) / 2);
   overflow: hidden;
   margin-top: 0;
 }
+.image-slider-menu__description {
+  padding: 15px 20px;
+  width: 100%;
+  height: 118px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0px 0px 20px 20px;
+}
+.image-slider-menu__title {
+  font-family: PT Sans, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: #232020;
+}
+.image-slider-menu__text {
+  font-family: Chivo, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #3A3838;
+  margin-bottom: 5px;
+}
+[dir="ltr"] .image-slider-menu__price{
+  text-align: right;
+}
+[dir="rtl"] .image-slider-menu__price{
+  text-align: left;
+}
+.image-slider-menu__price {
+  font-family: PT Sans, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: #FC4F53;
+}
+
 .slider-button-prev-menu,
 .slider-button-next-menu {
   z-index: 40;
@@ -3622,12 +3677,37 @@ select:not(.select--placeholder-styled)::placeholder {
   top: 48%;
 }
 
+.slider-button-prev-menu {
+  left: -1%;
+}
+
 .slider-button-next-menu {
-  right: 0;
+  right: -1%;
 }
 
 .header {
   display: flex;
+}
+
+.sidebar-background {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 39;
+  left: 120px;
+  background-color: rgba(50, 50, 50, 0.6);
+  opacity: 0, 25;
+  overflow-y: hidden;
+  margin-right: 15px;
+}
+.sidebar-background.active {
+  display: block;
+}
+@media screen and (max-width: 576px) {
+  .sidebar-background {
+    left: 0;
+  }
 }
 
 .sidebar {
@@ -5270,7 +5350,15 @@ p {
   height: 40px;
 }
 .svg-wrap--nav-next--menu, .svg-wrap--nav-prev--menu {
+  width: 35px;
+  height: 35px;
   position: relative;
+}
+@media screen and (max-width: 992px) {
+  .svg-wrap--nav-next--menu, .svg-wrap--nav-prev--menu {
+    width: 24px;
+    height: 24px;
+  }
 }
 .svg-wrap--nav-next {
   right: 2%;
@@ -5563,6 +5651,10 @@ p {
 }
 .booking__step[data-v-3ba2f8f0] {
   position: relative;
+  cursor: default;
+}
+.booking__step.active[data-v-3ba2f8f0] {
+  cursor: pointer;
 }
 .booking__step.active .booking__step-circle[data-v-3ba2f8f0] {
   background: var(--roomColor);
@@ -6114,7 +6206,7 @@ p {
   width: 100%;
 }
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-2.use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/js/views/BookingStep0View.vue?vue&type=style&index=0&id=1856276e&scoped=true&lang=scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-2.use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/js/views/BookingStep1View.vue?vue&type=style&index=0&id=a6cad322&scoped=true&lang=scss ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* Vars:
   ========================================================================== */
@@ -6122,34 +6214,34 @@ p {
   All colors taken from:
   https://github.com/vedees/uimini
 */
-#hover[data-v-1856276e] {
+#hover[data-v-a6cad322] {
   --color-stop-1: #FEE159;
   --color-stop-2: #F569A3;
 }
-#active[data-v-1856276e] {
+#active[data-v-a6cad322] {
   --color-stop-1: #9747FF;
   --color-stop-2: #F569A3;
 }
-.wide-container[data-v-1856276e] {
+.wide-container[data-v-a6cad322] {
   max-width: 1440px;
   margin: auto;
   padding: 0 50px;
 }
 @media screen and (max-width: 992px) {
-.wide-container[data-v-1856276e] {
+.wide-container[data-v-a6cad322] {
     padding: 0 15px;
 }
 }
-.booking[data-v-1856276e] {
+.booking[data-v-a6cad322] {
   display: flex;
   justify-content: space-around;
 }
 @media screen and (max-width: 992px) {
-.booking[data-v-1856276e] {
+.booking[data-v-a6cad322] {
     flex-wrap: wrap;
 }
 }
-.booking__rooms[data-v-1856276e] {
+.booking__rooms[data-v-a6cad322] {
   height: 500px;
   flex: 0 0 190px;
   display: flex;
@@ -6157,18 +6249,18 @@ p {
   margin-right: 50px;
 }
 @media screen and (max-width: 1200px) {
-.booking__rooms[data-v-1856276e] {
+.booking__rooms[data-v-a6cad322] {
     margin-right: 15px;
 }
 }
 @media screen and (max-width: 992px) {
-.booking__rooms[data-v-1856276e] {
+.booking__rooms[data-v-a6cad322] {
     flex: 0 0 100%;
     margin: 0;
     margin-bottom: 75px;
 }
 }
-.booking__room[data-v-1856276e] {
+.booking__room[data-v-a6cad322] {
   display: flex;
   flex-direction: column;
   flex: 5 1 0;
@@ -6176,34 +6268,34 @@ p {
   filter: grayscale(1);
   cursor: pointer;
 }
-.booking__room .booking__room-title[data-v-1856276e] {
+.booking__room .booking__room-title[data-v-a6cad322] {
   background: #555;
 }
-.booking__room[data-v-1856276e]:hover {
+.booking__room[data-v-a6cad322]:hover {
   flex: 6 1 0;
   filter: grayscale(0);
 }
-.booking__room:hover .booking__room-title[data-v-1856276e] {
+.booking__room:hover .booking__room-title[data-v-a6cad322] {
   background: var(--roomColor);
 }
-.booking__room.open[data-v-1856276e] {
+.booking__room.open[data-v-a6cad322] {
   filter: grayscale(0);
   flex: 10 1 0;
 }
-.booking__room.open .booking__room-title[data-v-1856276e] {
+.booking__room.open .booking__room-title[data-v-a6cad322] {
   background: var(--roomColor);
 }
-.booking__room-image[data-v-1856276e] {
+.booking__room-image[data-v-a6cad322] {
   flex-grow: 1;
   height: 0;
 }
-.booking__room-image > img[data-v-1856276e] {
+.booking__room-image > img[data-v-a6cad322] {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.booking__room-title[data-v-1856276e] {
+.booking__room-title[data-v-a6cad322] {
   flex: 0 0 50px;
   display: flex;
   justify-content: center;
@@ -6211,52 +6303,52 @@ p {
   border-radius: 0 0 5px 5px;
   transition: all 0.5s;
 }
-.booking__calendar-column[data-v-1856276e] {
+.booking__calendar-column[data-v-a6cad322] {
   z-index: 5;
   flex: 0 0 255px;
   margin-right: 50px;
 }
 @media screen and (max-width: 1200px) {
-.booking__calendar-column[data-v-1856276e] {
+.booking__calendar-column[data-v-a6cad322] {
     margin-right: 15px;
 }
 }
 @media screen and (max-width: 992px) {
-.booking__calendar-column[data-v-1856276e] {
+.booking__calendar-column[data-v-a6cad322] {
     margin: 0 auto;
 }
 }
 @media screen and (max-width: 768px) {
-.booking__calendar-column[data-v-1856276e] {
+.booking__calendar-column[data-v-a6cad322] {
     flex: 0 0 100%;
 }
 }
-.booking__time-selector[data-v-1856276e] {
+.booking__time-selector[data-v-a6cad322] {
   flex: 1 0 0;
   max-width: 540px;
 }
 @media screen and (max-width: 992px) {
-.booking__time-selector[data-v-1856276e] {
+.booking__time-selector[data-v-a6cad322] {
     margin: auto;
     padding: 0 15px;
     max-width: 410px;
 }
 }
-.booking__people-selector-row[data-v-1856276e] {
+.booking__people-selector-row[data-v-a6cad322] {
   margin-top: 25px;
   padding: 0 25px;
   display: flex;
   justify-content: space-between;
 }
 @media screen and (max-width: 576px) {
-.booking__people-selector-row[data-v-1856276e] {
+.booking__people-selector-row[data-v-a6cad322] {
     justify-content: center;
     flex-direction: column;
     align-items: center;
     padding: 0;
 }
 }
-.booking__price-wrapper[data-v-1856276e] {
+.booking__price-wrapper[data-v-a6cad322] {
   align-self: start;
   font-family: "Chivo";
   font-style: normal;
@@ -6266,13 +6358,13 @@ p {
   flex: 0 1 160px;
 }
 @media screen and (max-width: 576px) {
-.booking__price-wrapper[data-v-1856276e] {
+.booking__price-wrapper[data-v-a6cad322] {
     margin-top: 15px;
     flex: auto;
     width: 160px;
 }
 }
-.booking__price[data-v-1856276e] {
+.booking__price[data-v-a6cad322] {
   width: 100%;
   margin-top: 10px;
   padding: 4px 0;
@@ -6286,26 +6378,53 @@ p {
   line-height: 16px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
-.loader[data-v-1856276e] {
+.booking__next-button-wrapper[data-v-a6cad322] {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+.booking__next-button[data-v-a6cad322] {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #232020;
+  padding: 15px 50px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+@media screen and (max-width: 768px) {
+.booking__next-button[data-v-a6cad322] {
+    text-align: center;
+    width: 100%;
+}
+}
+.booking__next-button.disabled[data-v-a6cad322] {
+  cursor: default;
+  background: #777;
+}
+.loader[data-v-a6cad322] {
   display: flex;
   min-height: 50vh;
   justify-content: center;
   align-items: center;
 }
-.loader .lds-roller[data-v-1856276e] {
+.loader .lds-roller[data-v-a6cad322] {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
-.loader .lds-roller div[data-v-1856276e] {
-  -webkit-animation: lds-roller-1856276e 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-          animation: lds-roller-1856276e 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+.loader .lds-roller div[data-v-a6cad322] {
+  -webkit-animation: lds-roller-a6cad322 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-roller-a6cad322 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 40px 40px;
 }
-.loader .lds-roller div[data-v-1856276e]:after {
+.loader .lds-roller div[data-v-a6cad322]:after {
   content: " ";
   display: block;
   position: absolute;
@@ -6315,71 +6434,71 @@ p {
   background: #fff;
   margin: -4px 0 0 -4px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(1) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(1) {
   -webkit-animation-delay: -0.036s;
           animation-delay: -0.036s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(1):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(1):after {
   top: 63px;
   left: 63px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(2) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(2) {
   -webkit-animation-delay: -0.072s;
           animation-delay: -0.072s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(2):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(2):after {
   top: 68px;
   left: 56px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(3) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(3) {
   -webkit-animation-delay: -0.108s;
           animation-delay: -0.108s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(3):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(3):after {
   top: 71px;
   left: 48px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(4) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(4) {
   -webkit-animation-delay: -0.144s;
           animation-delay: -0.144s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(4):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(4):after {
   top: 72px;
   left: 40px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(5) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(5) {
   -webkit-animation-delay: -0.18s;
           animation-delay: -0.18s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(5):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(5):after {
   top: 71px;
   left: 32px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(6) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(6) {
   -webkit-animation-delay: -0.216s;
           animation-delay: -0.216s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(6):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(6):after {
   top: 68px;
   left: 24px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(7) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(7) {
   -webkit-animation-delay: -0.252s;
           animation-delay: -0.252s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(7):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(7):after {
   top: 63px;
   left: 17px;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(8) {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(8) {
   -webkit-animation-delay: -0.288s;
           animation-delay: -0.288s;
 }
-.loader .lds-roller div[data-v-1856276e]:nth-child(8):after {
+.loader .lds-roller div[data-v-a6cad322]:nth-child(8):after {
   top: 56px;
   left: 12px;
 }
-@-webkit-keyframes lds-roller-1856276e {
+@-webkit-keyframes lds-roller-a6cad322 {
 0% {
     transform: rotate(0deg);
 }
@@ -6387,7 +6506,131 @@ p {
     transform: rotate(360deg);
 }
 }
-@keyframes lds-roller-1856276e {
+@keyframes lds-roller-a6cad322 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-2.use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/js/views/BookingStep2View.vue?vue&type=style&index=0&id=40df0570&scoped=true&lang=scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* Vars:
+  ========================================================================== */
+/*
+  All colors taken from:
+  https://github.com/vedees/uimini
+*/
+#hover[data-v-40df0570] {
+  --color-stop-1: #FEE159;
+  --color-stop-2: #F569A3;
+}
+#active[data-v-40df0570] {
+  --color-stop-1: #9747FF;
+  --color-stop-2: #F569A3;
+}
+.loader[data-v-40df0570] {
+  display: flex;
+  min-height: 50vh;
+  justify-content: center;
+  align-items: center;
+}
+.loader .lds-roller[data-v-40df0570] {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.loader .lds-roller div[data-v-40df0570] {
+  -webkit-animation: lds-roller-40df0570 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-roller-40df0570 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.loader .lds-roller div[data-v-40df0570]:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(1) {
+  -webkit-animation-delay: -0.036s;
+          animation-delay: -0.036s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(2) {
+  -webkit-animation-delay: -0.072s;
+          animation-delay: -0.072s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(3) {
+  -webkit-animation-delay: -0.108s;
+          animation-delay: -0.108s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(4) {
+  -webkit-animation-delay: -0.144s;
+          animation-delay: -0.144s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(5) {
+  -webkit-animation-delay: -0.18s;
+          animation-delay: -0.18s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(6) {
+  -webkit-animation-delay: -0.216s;
+          animation-delay: -0.216s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(7) {
+  -webkit-animation-delay: -0.252s;
+          animation-delay: -0.252s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(8) {
+  -webkit-animation-delay: -0.288s;
+          animation-delay: -0.288s;
+}
+.loader .lds-roller div[data-v-40df0570]:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@-webkit-keyframes lds-roller-40df0570 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+@keyframes lds-roller-40df0570 {
 0% {
     transform: rotate(0deg);
 }

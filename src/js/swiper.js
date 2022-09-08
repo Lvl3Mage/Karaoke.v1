@@ -63,7 +63,8 @@ new Swiper('.image-slider-gallery', {
     autoHeight: false,
     pagination: {
         el: '.swiper-pagination',
-      clickable: true,  
+        clickable: true,  
+        dynamicBullets: true,
     },
     breakpoints: {
         250: {
@@ -108,24 +109,26 @@ new Swiper('.image-slider-menu', {
     pagination: {
         el: '.swiper-pagination-menu',
         clickable: true,
+        
     },
     spaceBetween: 30,
     breakpoints: {
-        250: {
-            slidesPerView: 1,
+        
+        576: {
+            slidesPerView: 1.5,
             grid: {
                 columns: 1,
-                rows: 2,
-            },
-        },
-        320: {
-            slidesPerView: 2,
-            grid: {
-                columns: 2,
-                rows: 2,
+                rows: 1,
             },
         },
         768: {
+            slidesPerView: 2,
+            grid: {
+                columns: 2,
+                rows:2,
+            },
+        },
+        992: {
             slidesPerView: 3,
             grid: {
                 columns: 3,

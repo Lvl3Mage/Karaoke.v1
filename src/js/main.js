@@ -102,3 +102,4 @@ $(document).on('mousedown touchstart', '.modal-bg, .modal-cross', function(event
 $(document).on('mousedown touchstart', '.modal-window', function(event) {
 	event.stopPropagation();
 });
+
