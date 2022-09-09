@@ -1,6 +1,11 @@
 .content-wrap {
     display: block;
     padding: 90px 0;
+    &--menu{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     @media screen and (min-width:$tabletWidth) {
         padding: 60px 0;
     }

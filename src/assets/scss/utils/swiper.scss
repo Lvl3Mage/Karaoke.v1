@@ -47,10 +47,10 @@
 	&__slide,.swiper-slide {
 		height: calc(100% / 2);
 		overflow: hidden;
-		@media screen and (max-width:$smTabletWidth){
-			height: calc(100% / 4);
-			width: calc(100% / 2);
-		}
+		// @media screen and (max-width:$smTabletWidth){
+		// 	height: calc(100% / 4);
+		// 	width: calc(100% / 2);
+		// }
 	}
 	&__image{    
         &>img {
@@ -80,27 +80,35 @@
 	display: flex;
 	justify-items: center;
 	margin: 0 auto;
-    padding: 0 28px;
 	overflow: hidden;
-	@media screen and (min-width:$desktopWidth){
-		width: calc(100% - 240px - 48px);
+	width: calc(100% - 240px - 48px);
+	&__wrap{
+		position: relative;
+		width: 100%;
 	}
+	
 	@media screen and (max-width:$smDesktopWidth){
-		margin: 0 30px;
+		width: calc(100% - 155px);
 	}
-	@media screen and (max-width:$tabletWidth){
-		margin: 0;
+	@media screen and (max-width:$phoneWidth){
+		width: calc(100% - 30px);
 	}
 }
 .image-slider-menu {
 	position: relative;
 	width: 100%;
+	padding: 25px;
+	
 		// .image-slider-menu__wrapper
 
 		&__wrapper {
 			height:800px;
+			margin-bottom: 30px;
 			@media screen and (max-width:$tabletWidth){
 				height: 600px;
+			}
+			@media screen and (max-width:$phoneWidth ){
+				height: 350px;
 			}
 		}
 
@@ -115,10 +123,9 @@
 			height: calc((100% - 30px) / 2);
 			overflow: hidden;
 			margin-top: 0;
-		// @media screen and (max-width:$smTabletWidth){
-		// 	height: calc(100% / 4);
-		// 	width: calc(100% / 2);
-		// }
+		@media screen and (max-width:$phoneWidth){
+			height: 100% ;
+		}
 	}
 
 		// .image-slider-menu__image
@@ -131,7 +138,6 @@
 		&__description {
 			padding: 15px 20px;
 			width: 100%;
-			height: 118px;
 			background: rgba(255, 255, 255, 0.9);
 			border-radius: 0px 0px 20px 20px;
 		}
@@ -170,18 +176,29 @@
 .slider-button-next-menu {
 	z-index: 40;
     position: absolute;
-    top: 48%;
+    top: 45%;
+	@media screen and (max-width:$tabletWidth){
+		top: 46%;
+	}
+	@media screen and (max-width:$phoneWidth ){
+		display: none;
+	}
 }
 .slider-button-prev-menu{
-	left: -1%;
+	left: 6%;
 }
 .slider-button-next-menu {
-	right: -1%;
+	right: 6%;
 }
-// .svg-wrap--nav-next {
-// }
-// .swiper-pagination {
-// }
 
-
+.swiper-pagination-bullets-dynamic{
+	display: inline;
+    position: absolute;
+}
+.swiper-pagination-bullet{
+	@media screen and (max-width:$smTabletWidth){
+		width: 15px;
+		height: 15px;
+	}
+}
 

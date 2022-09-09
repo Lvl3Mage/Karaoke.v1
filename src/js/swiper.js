@@ -101,30 +101,38 @@ new Swiper('.image-slider-menu', {
         onlyInViewport: true,
         pageUpDown: true,
     },
-    
     watchOverFlow: true,
-    
     speed: 850,
     autoHeight: false,
     pagination: {
         el: '.swiper-pagination-menu',
         clickable: true,
-        
+        type:"bullets",
+        dynamicBullets: true,
     },
+    
     spaceBetween: 30,
     breakpoints: {
-        
-        576: {
+        240: {
+            centeredSlides: true,
             slidesPerView: 1.5,
             grid: {
                 columns: 1,
                 rows: 1,
-            },
+            }, 
         },
-        768: {
+        576: {
+            centeredSlides: false,
             slidesPerView: 2,
             grid: {
                 columns: 2,
+                rows: 2,
+            },
+        },
+        768: {
+            slidesPerView: 3,
+            grid: {
+                columns: 3,
                 rows:2,
             },
         },
