@@ -6,28 +6,28 @@
 		'room1': {
 			primaryColor: '#902FDC',
 			name: 'Hula',
-			previewImage: '', // link
+			previewImage: '/assets/images/main.jpg', // link
 			minPeople: 5,
 			maxPeople: 10,
 		},
 		'room2': {
 			primaryColor: '#1D4ED8',
 			name: 'Party',
-			previewImage: '',
+			previewImage: '/assets/images/main.jpg',
 			minPeople: 2,
 			maxPeople: 10,
 		},
 		'room3': {
 			primaryColor: '#FEE159',
 			name: 'Ukulele',
-			previewImage: '',
+			previewImage: '/assets/images/main.jpg',
 			minPeople: 5,
 			maxPeople: 15,
 		},
 		'room4': {
 			primaryColor: '#F569A3',
 			name: 'Flamingo',
-			previewImage: '',
+			previewImage: '/assets/images/main.jpg',
 			minPeople: 5,
 			maxPeople: 10,
 		}

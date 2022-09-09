@@ -11,9 +11,11 @@ const useBookingStore = defineStore({
 		//loaded data
 		selectedRoomID: '',
 		roomData: {},
-		scheduleData: {},
 		selectedRange: null,
 		selectedPeopleCount:0,
+
+		itemData: null,
+		itemOrders: [],
 	}),
 	getters: {
 		formatedSelectedDate: function(){
