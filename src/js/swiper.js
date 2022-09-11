@@ -89,10 +89,10 @@ new Swiper('.image-slider-gallery', {
 });
 
 new Swiper('.image-slider-menu', {
-    navigation: {
-        nextEl: '.slider-button-next-menu',
-        prevEl: '.slider-button-prev-menu'
-    },
+    // navigation: {
+    //     nextEl: '.slider-button-next-menu',
+    //     prevEl: '.slider-button-prev-menu'
+    // },
     grabCursor: true,
     // Change slide by click on
     slideToClickedSlides: true,
@@ -100,6 +100,10 @@ new Swiper('.image-slider-menu', {
         enabled: true,
         onlyInViewport: true,
         pageUpDown: true,
+    },
+    mousewheel: {
+        sensitivity: 2,
+        // eventsTarget: ".image-slider-menu__image"
     },
     watchOverFlow: true,
     speed: 850,
@@ -110,10 +114,10 @@ new Swiper('.image-slider-menu', {
         type:"bullets",
         dynamicBullets: true,
     },
-    
     spaceBetween: 30,
     breakpoints: {
         240: {
+            initialSlide: 1,
             centeredSlides: true,
             slidesPerView: 1.5,
             grid: {

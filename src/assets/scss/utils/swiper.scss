@@ -78,32 +78,31 @@
 // SWIPER MENU PAGE
 .content-menu{
 	display: flex;
+	flex-direction: column;
 	justify-items: center;
 	margin: 0 auto;
 	overflow: hidden;
-	width: calc(100% - 240px - 48px);
 	&__wrap{
 		position: relative;
 		width: 100%;
 	}
-	
-	@media screen and (max-width:$smDesktopWidth){
-		width: calc(100% - 155px);
+	@media screen and (min-width:$desktopWidth){
+		width: calc(100% - 240px - 48px);
 	}
-	@media screen and (max-width:$phoneWidth){
-		width: calc(100% - 30px);
+	@media screen and (max-width:$desktopWidth){
+		width: calc(100% - 240px);
+	}
+	@media screen and (max-width:$tabletWidth){
+		width: calc(100% - 10%);
 	}
 }
 .image-slider-menu {
-	position: relative;
 	width: 100%;
-	padding: 25px;
-	
 		// .image-slider-menu__wrapper
 
 		&__wrapper {
 			height:800px;
-			margin-bottom: 30px;
+			margin-bottom: 60px;
 			@media screen and (max-width:$tabletWidth){
 				height: 600px;
 			}
@@ -130,16 +129,21 @@
 
 		// .image-slider-menu__image
 
-		&__image {
-		}
 
 		// .image-slider-menu__description
 
 		&__description {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			min-height: 150px;
 			padding: 15px 20px;
 			width: 100%;
 			background: rgba(255, 255, 255, 0.9);
 			border-radius: 0px 0px 20px 20px;
+			@media screen and (max-width:$tabletWidth){
+				
+			}
 		}
 
 		// .image-slider-menu__title
@@ -164,31 +168,17 @@
 		// .image-slider-menu__price
 
 		&__price {
+			align-self: flex-end;
 			font-family: $roomFont;
 			font-style: normal;
 			font-weight: 700;
 			color: #FC4F53;
 			text-align: end;
 		}
-}
-
-.slider-button-prev-menu,
-.slider-button-next-menu {
-	z-index: 40;
-    position: absolute;
-    top: 45%;
-	@media screen and (max-width:$tabletWidth){
-		top: 46%;
-	}
-	@media screen and (max-width:$phoneWidth ){
-		display: none;
-	}
-}
-.slider-button-prev-menu{
-	left: 6%;
-}
-.slider-button-next-menu {
-	right: 6%;
+		&__price-type{
+			color: #000000;
+			margin-right: 20px;
+		}
 }
 
 .swiper-pagination-bullets-dynamic{

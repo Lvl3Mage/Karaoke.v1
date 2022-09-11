@@ -236,12 +236,17 @@ p {
 	}
 }
 
-.title {
-      font-family: $headFont;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 40px;
-      color: $mainFontColor;
+.title,
+.pretitle {
+    font-family: $headFont;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    color: $mainFontColor;
+
+}
+.pretitle{
+	font-weight: 400;
 }
 .title-rooms{
 	font-family: $roomFont;

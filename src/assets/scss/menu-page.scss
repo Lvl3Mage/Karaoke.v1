@@ -1,5 +1,13 @@
 // chef section
-
+.section-bg,
+.section-sbg{
+	padding: 50px 0;
+}
+.content-pretitle{
+	margin-bottom: 30px;
+	align-self: flex-start;
+	margin-left: 12%;
+}
 .menu-section {
 	padding: 0 120px;
 	@media screen and (max-width: $desktopWidth) {
