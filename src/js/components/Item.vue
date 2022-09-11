@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-	
+	import { PhShoppingCartSimple} from "phosphor-vue";
 </script>
 <script>
 	export default{
@@ -150,10 +150,7 @@
 			padding: 7px 15px;
 			padding-right: 25px;
 			// margin-right: 15px;
-
 		}
-		
-		
 	}
 	&__count-order-wrapper{
 		display: flex;
@@ -227,7 +224,7 @@
 	}
 	&__popup-wrapper{
 		position: absolute;
-		bottom: 50%;
+		bottom: 65%;
 		left: -50px;
 		right: -50px;
 		display: flex;

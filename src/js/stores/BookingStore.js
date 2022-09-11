@@ -23,7 +23,7 @@ const useBookingStore = defineStore({
 		},
 		stepCompletion: function(){
 			if(this.selectedRange != null){
-				if(false){
+				if(true){
 					if(false){
 						return 3;
 					}
@@ -32,7 +32,7 @@ const useBookingStore = defineStore({
 				return 1;
 			}
 			return 0;
-		}
+		},
 	},
 	actions: {
 		formatDate: function(date){
