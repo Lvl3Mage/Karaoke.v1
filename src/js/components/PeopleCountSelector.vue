@@ -17,6 +17,7 @@
 	</div>
 </template>
 <script setup>
+	import { PhUser} from "phosphor-vue";
 </script>
 <script>
 	export default {

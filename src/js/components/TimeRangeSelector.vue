@@ -54,6 +54,7 @@
 	</div>
 </template>
 <script setup>
+	import { PhClock} from "phosphor-vue";
 </script>
 <script>
 	let Selector = {

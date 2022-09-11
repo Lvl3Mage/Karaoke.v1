@@ -1,6 +1,7 @@
 <script setup>
-	const bookingStore = useBookingStore()
+	const bookingStore = useBookingStore();
 	import Item from '../components/Item.vue'
+	import ShoppingCart from '../components/ShoppingCart.vue'
 </script>
 <script>
 	let APIItemData = 
@@ -36,6 +37,71 @@
 					unit: 'unit',
 					description: false,
 				},
+				{
+					innerID: "123123123",
+					title: 'Good cake 4',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
+				{
+					innerID: "123aasd",
+					title: 'Good cake 5',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
+			],
+		},
+		{
+			title: 'Party',
+			items: [
+				{
+					innerID: "asdasd",
+					title: 'Good cake',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					maxCount: 15,
+					unit: 'unit',
+					description: true,
+					placeholder: 'write text here',
+				},
+				{
+					innerID: "qweqweq",
+					title: 'Good cake 2',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					maxCount: 15,
+					unit: 'unit',
+					description: true,
+					placeholder: 'write text here',
+				},
+				{
+					innerID: "asdagfdsf",
+					title: 'Good cake 3',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
+				{
+					innerID: "sdfsdfsdf",
+					title: 'Good cake 4',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
+				{
+					innerID: "sdfsfhfghd",
+					title: 'Good cake 5',
+					image: '/assets/images/main.jpg',
+					price: 2,
+					unit: 'unit',
+					description: false,
+				},
 			],
 		}	
 	];
@@ -45,6 +111,8 @@
 	export default{
 		data() {
 			return {
+				nextRoute: {name:"booking-step-3"},
+				prevRoute: {name:'booking-step-1'}
 			}
 		},
 		watch: {
@@ -85,10 +153,23 @@
 					}
 				}
 				this.bookingStore.itemOrders.push(order);
+			},
+			nextView: function(){
+				if(this.isStepComplete){
+					this.$router.push(this.nextRoute);	
+				}
+				
+			},
+			prevView: function(){
+				this.$router.push(this.prevRoute);
 			}
 		},
 
 		computed: {
+			isStepComplete: function(){
+
+				return this.bookingStore.stepCompletion >= this.$router.resolve(this.nextRoute).meta.minCompletion;
+			},
 			itemsLoaded: function(){
 				return this.bookingStore.itemData != null;
 			},
@@ -103,56 +184,118 @@
 	}
 </script>
 <template>
-	<div class="item-select" v-if="itemsLoaded">
-		<div class="item-select__item-window">
-			<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
-				<div class="item-select__item-list-category">
-					<span>{{category.title}}</span>
+	<div class="container">
+		<div class="item-select" v-if="itemsLoaded">
+			<div class="item-select__item-window">
+				<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
+					<div class="item-select__item-list-category">
+						<span>{{category.title}}</span>
+					</div>
+					<div class="item-select__item-list">
+						<Item v-for="(item, j) in category.items" :key="j" 
+							:maxCount="item.maxCount ? item.maxCount : 10"
+							:description="item.description"
+							:placeholder="item.placeholder"
+							:imageLink="item.image"
+							:innerID="item.innerID"
+							:highlightColor="selectedRoomColor"
+							@order="addOrder(i,j,$event)"
+						>
+							<template v-slot:title>
+								{{item.title}}
+							</template>
+							<template v-slot:price>
+								{{item.price}} KD / 1 unit
+							</template>
+						</Item>
+					</div>
 				</div>
-				<div class="item-select__item-list">
-					<Item v-for="(item, j) in category.items" :key="j" 
-						:maxCount="item.maxCount ? item.maxCount : 10"
-						:description="item.description"
-						:placeholder="item.placeholder"
-						:imageLink="item.image"
-						:innerID="item.innerID"
-						:highlightColor="selectedRoomColor"
-						@order="addOrder(i,j,$event)"
+				
+			</div>
+			<div class="item-select__order-list-window">
+				<div class="shopping-cart-window">
+					<ShoppingCart
+						:prevEnabled="true"
+						:nextEnabled="isStepComplete"
+						@prev-clicked="prevView()"
+						@next-clicked="nextView()"
 					>
-						<template v-slot:title>
-							{{item.title}}
+						<template v-slot:next-text>
+							Confirm
 						</template>
-						<template v-slot:price>
-							{{item.price}} KD / 1 unit
+						<template v-slot:prev-text>
+							Back
 						</template>
-					</Item>
+					</ShoppingCart>	
 				</div>
+
 			</div>
-			
-		</div>
-		<div class="item-select__order-list-window">
-			<div class="" v-for="order in bookingStore.itemOrders" :key="order">
-				{{order}}
-			</div>
-		</div>
+		</div>	
 	</div>
+	
 	<div class="loader" v-if="!itemsLoaded">
 		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	</div>
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.shopping-cart-window{
+		top: 25px;
+		position: sticky;
+		height: calc(100vh - 50px);
+		overflow-y: auto;
+		padding: 15px;
+		scrollbar-width: thin;
+		&::-webkit-scrollbar {
+			width: 15px;
+			@media screen and (max-width: $phoneWidth){
+				width: 10px;
+			}
+		}
+
+		&::-webkit-scrollbar-track {
+			background-color: $background-color;
+			border-radius: 5px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: #555;
+			border: 3px solid transparent;
+			border-radius: 5px;
+			background-clip: content-box;
+		}
+	}
 	.item-select {
-		&__item-window {}
+		display: flex;
+		@media screen and (max-width: 1200px) {
+			flex-direction: column;
+		}
+		&__item-window {
+			width: 50%;
+			@media screen and (max-width: 1200px) {
+				width: 100%;
+			}
+		}
 		&__item-list-wrapper {}
-		&__item-list-category {}
+		&__item-list-category {
+			font-family: 'Playfair Display';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 40px;
+			margin-bottom: 30px;
+		}
 		&__item-list {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
 			align-items: stretch;
 		}
-		&__order-list-window {}
+		&__order-list-window {
+			width: 50%;
+			@media screen and (max-width: 1200px) {
+				width: 100%;			}
+		}
 	}
 
 	.loader{
