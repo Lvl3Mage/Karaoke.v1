@@ -89,10 +89,6 @@ new Swiper('.image-slider-gallery', {
 });
 
 new Swiper('.image-slider-menu', {
-    // navigation: {
-    //     nextEl: '.slider-button-next-menu',
-    //     prevEl: '.slider-button-prev-menu'
-    // },
     grabCursor: true,
     // Change slide by click on
     slideToClickedSlides: true,
@@ -114,6 +110,7 @@ new Swiper('.image-slider-menu', {
         type:"bullets",
         dynamicBullets: true,
     },
+    preloadImages: false,
     spaceBetween: 30,
     breakpoints: {
         240: {

@@ -45,22 +45,7 @@
                 transition: all 0.6s;
                 animation:pulse 0.75s ease-in-out;
             }
-            // &::after,
-            // &::before{
-            //     content: '';
-            //     position: absolute;
-            //     border: 2px solid #3D64FF;
-            //     left: -20px;
-            //     opacity: 0;
-            //     right: -20px;
-            //     top: -20px;
-            //     bottom: -20px;
-            //     border-radius: 50%;
-                
-            // }
-            // &::after{
-            //     animation-delay: 1.25s;
-            // }
+           
             @keyframes pulse {
             0% {
                 transform: scale(0.9);
@@ -75,9 +60,7 @@
             }
             }
 
-            // &:not(:last-child) {
-            //    margin-right: 30px; 
-            // }
+            
             &--vertical{
                 width: calc(100% / 3 - 15px);
                 aspect-ratio: 0.6;
