@@ -59,6 +59,8 @@
 		// .footer__social
 
 		&__social {
+            align-self: flex-start;
+            margin-top: 42px;
             @media screen and(max-width: 680px) {
                 display: none;
             }

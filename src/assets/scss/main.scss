@@ -42,6 +42,9 @@ a {
   &:not(.def-link){
   	text-decoration: inherit; /* no underline */
   }
+  &:hover{
+	color: inherit;
+  }
 }
 h1,
 h2,
