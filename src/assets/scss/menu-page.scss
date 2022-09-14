@@ -11,13 +11,22 @@
 .menu-section {
 	width: calc(100% - 240px);
 	margin: 0 auto;
-	@media screen and (max-width: 1060px) {
-		width: calc(100% - 160px);
+	@media screen and (min-width:$desktopWidth){
+		width: calc(100% - 240px - 48px);
+	}
+	@media screen and (max-width:$desktopWidth){
+		width: calc(100% - 240px);
 	}
 	@media screen and (max-width:$tabletWidth){
 		width: calc(100% - 10%);
-
 	}
+	// @media screen and (max-width: 1060px) {
+	// 	width: calc(100% - 160px);
+	// }
+	// @media screen and (max-width:$tabletWidth){
+	// 	width: calc(100% - 10%);
+
+	// }
 }
 .menu-page {
 
@@ -93,6 +102,9 @@
     		aspect-ratio: 1.55;
 			justify-content: space-between;
 			margin-left: 120px;
+			@media screen and (min-width:$desktopWidth){
+				margin-left: 180px;
+			}
 			@media screen and (max-width: $desktopWidth) {
 				margin-left: 80px;
 			}
@@ -120,11 +132,13 @@
 		// .chef__title
 
 		&__title {
-			
 			font-family: $headFont;
 			font-style: normal;
 			font-weight: 700;
 			color: $mainFontColor;
+			@media screen and (min-width:$desktopWidth){
+				width: 70%;
+			}
 		}
 
 		// .chef__data

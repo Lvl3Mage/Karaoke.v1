@@ -153,6 +153,7 @@
 			font-style: normal;
 			font-weight: 700;
 			color: $background-color;
+			
 		}
 
 		// .image-slider-menu__text
@@ -195,14 +196,14 @@
 }
 
 .slider-button-prev-menu{
-	left: 6%;
+	left: 5%;
 	@media screen and (max-width:$tabletWidth){
 		left: 1%;;
 	}
 }
 
 .slider-button-next-menu {
-	right: 6%;
+	right: 5%;
 	@media screen and (max-width:$tabletWidth){
 		right: 1%;
 	}
