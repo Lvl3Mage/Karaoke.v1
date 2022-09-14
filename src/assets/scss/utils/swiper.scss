@@ -181,6 +181,33 @@
 		}
 }
 
+.slider-button-prev-menu,
+.slider-button-next-menu {
+	z-index: 40;
+    position: absolute;
+    top: 44%;
+	@media screen and (max-width:$tabletWidth){
+		top: 43%;
+	}
+	@media screen and (max-width:$smTabletWidth ){
+		display: none;
+	}
+}
+
+.slider-button-prev-menu{
+	left: 6%;
+	@media screen and (max-width:$tabletWidth){
+		left: 1%;;
+	}
+}
+
+.slider-button-next-menu {
+	right: 6%;
+	@media screen and (max-width:$tabletWidth){
+		right: 1%;
+	}
+}
+
 .swiper-pagination-bullets-dynamic{
 	display: inline;
     position: absolute;

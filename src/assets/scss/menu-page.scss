@@ -47,15 +47,18 @@
 		// .chef__img
 
 		&__img {
-			width: 380px;
-			height: 470px;
+			width: 50%;
+			aspect-ratio: 0.65;
 			position: relative;
-			@media screen and (max-width: $smDesktopWidth) {
-				width: 255px;
-				height: 348px;
+			@media screen and (min-width: $desktopWidth) {
+				width: 40%;
+				aspect-ratio: 0.65;
 			}
-			@media screen and (max-width: $smTabletWidth) {
-				align-self: center;
+			@media screen and (max-width: $smDesktopWidth ) {
+				width: 50%;
+			}
+			@media screen and (max-width: $smTabletWidth ){
+				width: 70%;
 				margin-bottom: 35px;
 			}
 		}
@@ -63,44 +66,38 @@
 			object-fit: cover;
 			position: absolute;
 			z-index: 3;
-			width: 380px;
-			height: 470px;
+			width: 100%;
+			height: 100%;
 			border: none;
 			border-radius: 8px;
-			@media screen and (max-width: $smDesktopWidth) {
-				width: 255px;
-				height: 348px;
-			}
+			
 		}
 
 		// .chef__square
 
 		&__square {
+			position: absolute;
 			display: flex;
-			width: 251px;
-			height: 251px;
+			width: 60%;
+			aspect-ratio: 1 / 1;
 			border: 2px solid $mainFontColor;
 			box-shadow: 10px 10px 6px #000000;
-			@media screen and (max-width: $smDesktopWidth) {
-				width: 180px;
-				height: 190px;
-			}
 		}
 
 		// .chef__description
 
 		&__description {
 			display: flex;
-			height: 470px;
 			flex-direction: column;
+			width: 95%;
+    		aspect-ratio: 1.55;
 			justify-content: space-between;
 			margin-left: 120px;
 			@media screen and (max-width: $desktopWidth) {
-				margin-left: 60px;
+				margin-left: 80px;
 			}
 			@media screen and (max-width: $smDesktopWidth) {
-				height: 348px;	
-				margin-left: 40px;
+				margin-left: 60px;
 			}
 			@media screen and (max-width: $tabletWidth) {
 				
@@ -165,35 +162,35 @@
 			font-weight: 400;
 			color: #979797;
 			@media screen and (max-width: $roomsWidth){
-				justify-content: flex-end;
+				justify-content: flex-start;
 			}
 		}
 }
 .square1 {
+	top: -3%;
+	right: -4%;
 	background: #4AE6D8;
-	margin-left: 145px;
-	margin-top: -16px;
-	@media screen and (max-width: $smDesktopWidth) {
-				margin-left: 91px;
-			}
+	
 }
 .square2 {
+	left: -4%;
+	bottom: -3%;
 	background: #FC4F53;
-	margin-left: -16px;
 }
 .word {
 
 		// .word__pretitle
 
 		&__pretitle {
-			@media screen and (max-width: $roomsWidth) {
+			@media screen and (max-width: $smTabletWidth) {
 				display: none;
 			}
 			&--mobile{
 				display: none;
-				@media screen and (max-width: $roomsWidth) {
+				@media screen and (max-width: $smTabletWidth) {
 					display: flex;
 					align-self: flex-end;
+					margin-bottom: 30px;
 				}
 			}
 		}

@@ -89,18 +89,23 @@ new Swiper('.image-slider-gallery', {
 });
 
 new Swiper('.image-slider-menu', {
+    navigation: {
+        nextEl: '.slider-button-next-menu',
+        prevEl: '.slider-button-prev-menu'
+    },
+   
     grabCursor: true,
     // Change slide by click on
-    slideToClickedSlides: true,
+    // slideToClickedSlides: true,
     keyboard: {
         enabled: true,
         onlyInViewport: true,
         pageUpDown: true,
     },
-    mousewheel: {
-        sensitivity: 2,
-        // eventsTarget: ".image-slider-menu__image"
-    },
+    // mousewheel: {
+    //     sensitivity: 2,
+    //     // eventsTarget: ".image-slider-menu__image"
+    // },
     watchOverFlow: true,
     speed: 850,
     autoHeight: false,
