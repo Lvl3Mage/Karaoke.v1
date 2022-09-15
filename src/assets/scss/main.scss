@@ -181,6 +181,9 @@ p {
 		z-index: 10;
 		width: 40px;
 		height: 40px;
+		@media screen and (max-width:$phoneWidth){
+			top: 90%;
+		}
 		&--menu{
 			width: 40px;
 			height: 40px;
@@ -196,10 +199,10 @@ p {
 		}
 	}
 	&--nav-next{
-		right: 2%;
+		right: 3%;
 	}
 	&--nav-prev{
-		left: 2%;
+		left: 3%;
 	}
 	&--follow{
 		width: 70px;

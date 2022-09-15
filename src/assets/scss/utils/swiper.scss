@@ -47,10 +47,10 @@
 	&__slide,.swiper-slide {
 		height: calc(100% / 2);
 		overflow: hidden;
-		// @media screen and (max-width:$smTabletWidth){
-		// 	height: calc(100% / 4);
-		// 	width: calc(100% / 2);
-		// }
+		@media screen and (max-width:$smTabletWidth){
+			height: calc(100% / 4);
+			width: calc(100% / 2);
+		}
 	}
 	&__image{    
         &>img {
