@@ -16,6 +16,14 @@ const useBookingStore = defineStore({
 
 		itemData: null,
 		itemOrders: [],
+
+		name: '',
+		email: '',
+		phone: '',
+
+		contactDetailsValid: false,
+
+		orderDescription: '',
 	}),
 	getters: {
 		formatedSelectedDate: function(){
@@ -24,7 +32,7 @@ const useBookingStore = defineStore({
 		stepCompletion: function(){
 			if(this.selectedRange != null){
 				if(true){
-					if(false){
+					if(this.contactDetailsValid){
 						return 3;
 					}
 					return 2;

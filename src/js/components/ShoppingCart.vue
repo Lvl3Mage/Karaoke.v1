@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div class="cart__description cart-bottom">
-			<textarea rows="4" cols="50" placeholder="Add any additional comments here"></textarea>
+			<textarea rows="4" cols="50" placeholder="Add any additional comments here" v-model="bookingStore.orderDescription"></textarea>
 		</div>
 		<div class="cart__price">
 			<span class="cart__price-title">Total Price</span>

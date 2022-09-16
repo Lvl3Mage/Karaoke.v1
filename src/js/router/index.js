@@ -5,6 +5,7 @@ import BookingView from '../views/BookingView.vue'
 
 import BookingStep1View from '../views/BookingStep1View.vue'
 import BookingStep2View from '../views/BookingStep2View.vue'
+import BookingStep3View from '../views/BookingStep3View.vue'
 
 
 const router = createRouter({
@@ -37,7 +38,7 @@ const router = createRouter({
 				{ 
 					path: 'step3',
 					name: 'booking-step-3',
-					component: BookingStep2View,
+					component: BookingStep3View,
 					meta: {
 						minCompletion: 2,
 						prevStepRoute: {name:'booking-step-2'},
