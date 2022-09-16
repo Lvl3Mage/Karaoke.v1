@@ -13,7 +13,7 @@
 			<div class="cart__room-details">
 				<div class="cart__room-title-wrapper">
 					<div class="cart__room-title">
-						Hula Room
+						{{selectedRoom.name}} Room
 					</div>
 					<div class="cart__room-price price-underline">
 						{{bookingStore.roomPrice}} KD
@@ -78,7 +78,15 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="cart__checkbox-wrapper">
+			<div class="cart__checkbox-tick" @click="bookingStore.halfPayment = !bookingStore.halfPayment">
+				<img src="/assets/images/svg/tick.svg" alt="warning-icon"  v-if="bookingStore.halfPayment">
+			</div>
+			<div class="cart__checkbox-text">
+				I want to pay today only 50%
+			</div>	
+		</div>
+		
 
 		<div class="cart__description cart-bottom">
 			<textarea rows="4" cols="50" placeholder="Add any additional comments here" v-model="bookingStore.orderDescription"></textarea>
@@ -86,6 +94,14 @@
 		<div class="cart__price">
 			<span class="cart__price-title">Total Price</span>
 			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}}</span>
+		</div>
+		<div class="cart__price-warning" v-if="bookingStore.halfPayment">
+			<div class="cart__price-warning-sign" >
+				<img src="/assets/images/svg/warning-icon.svg" alt="warning-icon">
+			</div>
+			<div class="cart__price-warning-text">
+				The remaining 50% of the amount you will have to pay at the time of your visit.
+			</div>
 		</div>
 		
 	</div>
@@ -171,7 +187,7 @@
 				let startIndex = this.bookingStore.selectedRange.startIndex;
 				let endIndex = this.bookingStore.selectedRange.endIndex;
 				let price = 0;
-				for (var i = startIndex; i <= endIndex ; i++) {
+				for (var i = startIndex; i <= endIndex; i++) {
 					price += this.selectedOccupancyData[i].cost * this.bookingStore.selectedPeopleCount;
 				}
 				return price;
@@ -200,6 +216,55 @@
 	padding: 20px;
 	@media screen and (max-width: $phoneWidth) {
 		padding: 10px;
+	}
+
+	&__checkbox-wrapper {
+		display: flex;
+		align-items: center;
+		margin-bottom: 25px;
+	}
+	&__checkbox-tick {
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+		border: 1px solid #FFFFFF;
+		border-radius: 4px;
+		margin-right: 15px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		img{
+			width: 80%;
+			height: auto;
+		}
+	}
+	&__checkbox-text {
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 700;
+		font-size: 14px;
+	}
+	&__price-warning {
+		display: flex;
+		align-items: center;
+	}
+	&__price-warning-sign {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-right: 15px;
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+	&__price-warning-text {
+		font-family: 'Chivo';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 10px;
 	}
 	&__title {
 		font-family: 'Chivo';
@@ -486,6 +551,7 @@
 			cursor: default;
 			opacity: 0.6;
 		}
+
 	}
 }
 

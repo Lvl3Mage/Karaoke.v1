@@ -90,6 +90,7 @@ const useBookingStore = defineStore({
 		],
 		selectedPaymentMethod: 0,
 		packOrders: [],
+		halfPayment: false,
 	}),
 	getters: {
 		roomPrice: function(){
@@ -112,6 +113,9 @@ const useBookingStore = defineStore({
 			}
 			for (var i = 0; i < this.packOrders.length; i++) {
 				price += this.packOrders[i].price;
+			}
+			if(this.halfPayment){
+				price *= 0.5;
 			}
 			return price;
 		},

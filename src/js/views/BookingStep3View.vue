@@ -93,7 +93,7 @@
 						@next-clicked="attemptSubmit()"
 					>
 						<template v-slot:next-text>
-							Confirm
+							Pay
 						</template>
 						<template v-slot:prev-text>
 							Back

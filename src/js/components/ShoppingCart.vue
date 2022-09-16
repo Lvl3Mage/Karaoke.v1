@@ -13,7 +13,7 @@
 			<div class="cart__room-details">
 				<div class="cart__room-title-wrapper">
 					<div class="cart__room-title">
-						Hula Room
+						{{selectedRoom.name}} Room
 					</div>
 					<div class="cart__room-price price-underline">
 						{{bookingStore.roomPrice}} KD
@@ -171,7 +171,7 @@
 				let startIndex = this.bookingStore.selectedRange.startIndex;
 				let endIndex = this.bookingStore.selectedRange.endIndex;
 				let price = 0;
-				for (var i = startIndex; i <= endIndex ; i++) {
+				for (var i = startIndex; i <= endIndex; i++) {
 					price += this.selectedOccupancyData[i].cost * this.bookingStore.selectedPeopleCount;
 				}
 				return price;
