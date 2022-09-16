@@ -131,7 +131,7 @@
 							<span>2</span>
 						</div>
 						<div class="booking__step-text">
-							<span>RESERVE</span>
+							<span>Additionaly</span>
 						</div>
 					</router-link>
 					<div class="booking__steps-line" :class="{'active': bookingStore.openStep >= 2}"></div>
@@ -140,7 +140,7 @@
 							<span>3</span>
 						</div>
 						<div class="booking__step-text">
-							<span>RESERVE</span>
+							<span>Confirmation</span>
 						</div>
 					</router-link>
 				</div>
@@ -236,6 +236,7 @@
 			transition: all 0.5s;
 		}
 		&__step-text{
+			text-transform: uppercase;
 			position: absolute;
 			bottom: 100%;
 			left: 0;

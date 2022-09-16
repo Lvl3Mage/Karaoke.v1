@@ -1,5 +1,5 @@
 <template>
-	<div class="item" :style="'--highlightColor:'+ highlightColor">
+	<div class="item" :style="'--highlightColor:'+ highlightColor" @click="toggleActive()" :class="{'active':orderRef.active}">
 		<div class="item__image">
 			<img :src="imageLink" alt="">
 		</div>
@@ -10,9 +10,9 @@
 			<div class="item__price">
 				<slot name="price">price/unit</slot>
 			</div>
-			<div class="item__count-order-wrapper">
-				<div class="item__count-selector">
-					<select v-model="selectedCount">
+			<div class="item__count-order-wrapper" >
+				<div class="item__count-selector" @click.stop>
+					<select v-model="orderRef.count">
 						<option :value="i" v-for="i in maxCount" :key="i">{{i}}</option>
 					</select>
 					<div class="item__count-selector-arrow">
@@ -20,16 +20,16 @@
 					</div>
 					
 				</div>
-				<div class="item__order-button" @click="sendOrder()">
+				<!-- <div class="item__order-button" @click="sendOrder()">
 					<ph-shopping-cart-simple :size="18" :color="highlightColor" />
 					<div class="item__popup-wrapper" :class="{'open': popup, 'error': popupError}">
 						<div class="item__popup">{{popupText}}</div>
 					</div>
 					
-				</div>
+				</div> -->
 			</div>
 			<div class="item__description" v-if="description" :class="{'invalid': descriptionInvalid}">
-				<input class="" type="text" :placeholder="placeholder" v-model="descriptionText">
+				<input class="" type="text" :placeholder="placeholder" v-model="orderRef.description" @click.stop="descriptionInvalid = false">
 			</div>
 		</div>
 	</div>
@@ -40,16 +40,15 @@
 </script>
 <script>
 	export default{
-		props: ['maxCount', 'description', 'placeholder', 'imageLink', 'innerID', 'highlightColor'],
+		props: ['maxCount', 'description', 'placeholder', 'imageLink', 'innerID', 'highlightColor', 'orderRef'],
 		data() {
 			return {
 				selectedCount: 1,
-				descriptionText: '',
 				descriptionInvalid: false,
 
-				popup: false,
-				popupText: '',
-				popupError: false,
+				// popup: false,
+				// popupText: '',
+				// popupError: false,
 			}
 		},
 		created(){
@@ -63,35 +62,54 @@
 		},
 		// emits: ['update:modelValue'],
 		methods: {
-			sendOrder: function(){
-				let order = {
-					count: this.selectedCount,
-				};
-				if(this.description){
-					if(this.descriptionText.length == 0){
-						this.descriptionInvalid = true;
-
-						this.popupError = true;
-						this.popupText = "Description is empty";
-						this.popup = true;
-						this.removePopupAsync();
-						return;
+			toggleActive: function(){
+				if(!this.orderRef.active){
+					if(this.description){
+						if(this.orderRef.description.length > 0 ){
+							this.orderRef.active = true
+						}
+						else{
+							this.descriptionInvalid = true
+						}
 					}
-					order.description = this.descriptionText;
-					this.descriptionText = '';
+					else{
+						this.orderRef.active = true;
+					}
+					
 				}
-				this.$emit('order', order);
-				this.selectedCount = 1;
-				this.popupError = false;
-				this.popupText = "Order added to cart";
-				this.popup = true;
-				this.removePopupAsync();
+				else{
+					this.orderRef.active = false;
+				}
 			},
-			removePopupAsync: function(){
-				setTimeout(function(){
-					this.popup = false;
-				}.bind(this), 1500);
-			},
+			// sendOrder: function(){
+			// 	// let order = {
+			// 	// 	count: this.selectedCount,
+			// 	// };
+			// 	// if(this.description){
+			// 	// 	if(this.descriptionText.length == 0){
+			// 	// 		this.descriptionInvalid = true;
+
+			// 	// 		this.popupError = true;
+			// 	// 		this.popupText = "Description is empty";
+			// 	// 		this.popup = true;
+			// 	// 		this.removePopupAsync();
+			// 	// 		return;
+			// 	// 	}
+			// 	// 	order.description = this.descriptionText;
+			// 	// 	this.descriptionText = '';
+			// 	// }
+			// 	// // this.$emit('order', order);
+			// 	// this.selectedCount = 1;
+			// 	// this.popupError = false;
+			// 	// this.popupText = "Order added to cart";
+			// 	// this.popup = true;
+			// 	// this.removePopupAsync();
+			// },
+			// removePopupAsync: function(){
+			// 	setTimeout(function(){
+			// 		this.popup = false;
+			// 	}.bind(this), 1500);
+			// },
 		},
 		computed: {
 		}
@@ -100,10 +118,18 @@
 
 <style lang="scss" scoped>
 .item {
+	cursor: pointer;
 	width: 180px;
 	margin: 10px;
 	display: flex;
 	flex-direction: column;
+	transition: all 0.4s;
+	&.active{
+		transform: scale(1.05);
+		.item__content{
+			background: var(--highlightColor);
+		}
+	}
 	&__image {
 		height: 180px;
 		img{
@@ -113,6 +139,7 @@
 		}
 	}
 	&__content {
+		transition: all 0.5s;
 		flex-grow: 1;
 		background: #3A3838;
 		border-radius: 0px 0px 6px 6px;
@@ -121,6 +148,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+
 	}
 	&__title {
 		font-family: 'Roboto';
@@ -176,14 +204,25 @@
 	&__description {
 		width: 100%;
 		input{
+			
 			border-radius: 10px;
 			text-align: center;
 			width: 100%;
 			padding: 6px 0;
-			border: none;
+			border: 2px solid transparent;
+			
+			// border: none;
 			background: #fff;
 			&::placeholder{
 				opacity: 0.6;
+			}
+		}
+		&.invalid{
+			input{
+				border: 2px solid tomato;
+				&::placeholder{
+					color: tomato;
+				}
 			}
 		}
 		margin-bottom: 10px;

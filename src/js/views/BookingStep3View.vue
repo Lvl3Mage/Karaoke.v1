@@ -12,9 +12,6 @@
 			return {
 				// nextRoute: {name:"booking-step-3"},
 				prevRoute: {name:'booking-step-2'},
-				nameregex: /(.|\s)*\S(.|\s)*/,
-				emailregex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-				phoneregex: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
 			}
 		},
 		watch: {
@@ -27,11 +24,16 @@
 
 		},
 		methods: {
-			nextView: function(){
-				if(this.isStepComplete){
-					this.$router.push(this.nextRoute);	
+			attemptSubmit: function(){
+				let valid = true;
+				for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
+					let invalid = !this.bookingStore.contactFields[i].regex.test(this.bookingStore.contactFields[i].value);
+					valid = valid && !invalid;
+					this.bookingStore.contactFields[i].invalid = invalid;
 				}
-				
+				if(valid){
+					//submit
+				}
 			},
 			prevView: function(){
 				this.$router.push(this.prevRoute);
@@ -40,7 +42,7 @@
 
 		computed: {
 			isStepComplete: function(){
-				return false;
+				return true;
 			},
 			selectedRoomColor: function(){
 				return this.selectedRoom.primaryColor;
@@ -58,26 +60,29 @@
 			<div class="checkout__window">
 				<div class="">Please enter your details</div>
 				<div class="checkout__fields">
-					<div class="checkout__field">
+					<div class="checkout__field" v-for="field in bookingStore.contactFields" :key="field">
 						<div class="checkout__field-title">
-							<span>Name *</span>
+							<span>{{field.title}} </span><span v-if="field.obligatory">*</span>
 						</div>
-						<InputField v-model="bookingStore.name" :placeholder="'David'" :regex="emailregex"></InputField>
-					</div>	
-					<div class="checkout__field">
-						<div class="checkout__field-title">
-							<span>E-mail *</span>
-						</div>
-						<InputField v-model="bookingStore.name" :placeholder="'example@example.com'" :regex="phoneregex"></InputField>
-					</div>	
-					<div class="checkout__field">
-						<div class="checkout__field-title">
-							<span>Phone *</span>
-						</div>
-						<InputField v-model="bookingStore.name" :placeholder="'+919367788755'" :regex="emailregex"></InputField>
+						<InputField 
+							v-model="field.value" 
+							:placeholder="field.placeholder" 
+							:invalid="field.invalid" 
+							:invalidMessage="field.invalidMessage"
+							@fieldClick="field.invalid = false"
+						></InputField>
 					</div>	
 				</div>
-				
+				<div class="payment-selection" >
+					<div class="payment-selection__title">
+						Please choose a payment method
+					</div>
+					<div class="payment-selection__methods">
+						<div class="payment-selection__method" :style="'--shadowColor:' + method.shadowColor" v-for="(method, i) in bookingStore.paymentMethods" :key="i" :class="{'active': i == bookingStore.selectedPaymentMethod}" @click="bookingStore.selectedPaymentMethod = i">
+							<img :src="method.preview" alt="">
+						</div>
+					</div>
+				</div>
 			</div>			
 			<div class="checkout__window">
 				<div class="shopping-cart-window">
@@ -85,7 +90,7 @@
 						:prevEnabled="true"
 						:nextEnabled="isStepComplete"
 						@prev-clicked="prevView()"
-						@next-clicked="nextView()"
+						@next-clicked="attemptSubmit()"
 					>
 						<template v-slot:next-text>
 							Confirm
@@ -97,7 +102,7 @@
 				</div>
 
 			</div>
-		</div>	
+		</div>
 	</div>
 </template>
 <style scoped lang="scss">
@@ -106,6 +111,9 @@
 		top: 25px;
 		position: sticky;
 		height: calc(100vh - 50px);
+		@media screen and (max-width: 1200px) {
+			height: auto;
+		}
 		overflow-y: auto;
 		padding: 15px;
 		scrollbar-width: thin;
@@ -154,7 +162,41 @@
 		&__field{
 			padding: 15px;
 			flex: 0 0 50%;
+			@media screen and (max-width: $phoneWidth) {
+				flex: 0 0 100%;
+			}
 		}
 	}
+	.payment-selection {
+		&__title {
+			font-family: 'Chivo';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			margin-bottom: 25px;
+		}
+		&__methods {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		&__method {
+			flex: 0 0 25%;
+			@media screen and (max-width: $smTabletWidth) {
+				flex: 0 0 33%;
+			}
+			padding: 15px;
+			cursor: pointer;
+			filter: drop-shadow(0 0 0 transparent);
+			transition: all 0.5s;
+			&.active{
+				filter: drop-shadow(0 0 10px var(--shadowColor))
+			}
+			img{
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+
 
 </style>

@@ -123,14 +123,38 @@
 
 			//ajax request for data
 				this.bookingStore.itemData = APIItemData;
-
+				this.bookingStore.itemOrders = [];
+				for (var i = 0; i < this.bookingStore.itemData.length; i++) {
+					for (var j = 0; j < this.bookingStore.itemData[i].items.length; j++) {
+						let item = this.bookingStore.itemData[i].items[j];
+						let itemObject = {
+							title: item.title,
+							innerID: item.innerID,
+							price: item.price,
+							unit: item.unit,
+							count: 1,
+							active: false,
+						};
+						if(item.description){
+							itemObject.description = '';
+						}
+						this.bookingStore.itemOrders.push(itemObject);
+					}
+				}
 		},
 		mounted(){
 
 		},
 		methods: {
-			addOrder: function(categoryID, itemID ,itemOrder){
-				console.log(itemOrder);
+			addPack: function(pack){
+				this.bookingStore.packOrders.push({
+					title: pack.title,
+					list: pack.list,
+					price: pack.price,
+					description: '',
+				});
+			},
+			changeOrder: function(categoryID, itemID, itemOrder){
 				let item = this.bookingStore.itemData[categoryID].items[itemID];
 				let order = {
 					title: item.title,
@@ -149,7 +173,6 @@
 							this.bookingStore.itemOrders[i].count += order.count;
 							return;
 						}
-						
 					}
 				}
 				this.bookingStore.itemOrders.push(order);
@@ -162,7 +185,14 @@
 			},
 			prevView: function(){
 				this.$router.push(this.prevRoute);
-			}
+			},
+			itemOrderID: function(categoryID, itemID){
+				let id = itemID;
+				for (var i = 0; i < categoryID; i++) {
+					id += this.bookingStore.itemData[i].items.length;
+				}
+				return id;
+			},
 		},
 
 		computed: {
@@ -171,7 +201,7 @@
 				return this.bookingStore.stepCompletion >= this.$router.resolve(this.nextRoute).meta.minCompletion;
 			},
 			itemsLoaded: function(){
-				return this.bookingStore.itemData != null;
+				return this.bookingStore.itemData != null && this.bookingStore.itemOrders != null;
 			},
 			selectedRoomColor: function(){
 				return this.selectedRoom.primaryColor;
@@ -180,11 +210,47 @@
 			selectedRoom: function(){
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
 			},
+			
 		}
 	}
 </script>
 <template>
 	<div class="container">
+		<div class="section-description" v-if="itemsLoaded">
+			We have three Celebration Packs for you. You can choose any one you like.
+		</div>
+		<div class="packages" v-if="itemsLoaded">
+			<div class="package" v-for="(pack, i) in bookingStore.packData" :key="i">
+				<div class="package__inner">
+					<div class="package__front">
+						<img :src="pack.preview" alt="preview">
+						<div class="package__touch-icon">
+							<img src="/assets/images/svg/cursor-click.svg" alt="">
+						</div>
+					</div>
+					<div class="package__back">
+						<div class="package__title">
+							{{pack.title}}
+						</div>
+						<div class="package__text">
+							<h3>This package includes:</h3>
+							<ul>
+								<li v-for="item in pack.list" :key="item">{{item}}</li>
+							</ul>			
+						</div>
+						<div class="package__price">
+							{{pack.price}} KD
+						</div>
+						<div class="package__button" @click="addPack(pack)">
+							Add
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section-description" v-if="itemsLoaded">
+			Please select additional services if you need
+		</div>
 		<div class="item-select" v-if="itemsLoaded">
 			<div class="item-select__item-window">
 				<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
@@ -199,7 +265,7 @@
 							:imageLink="item.image"
 							:innerID="item.innerID"
 							:highlightColor="selectedRoomColor"
-							@order="addOrder(i,j,$event)"
+							:orderRef="bookingStore.itemOrders[itemOrderID(i,j)]"
 						>
 							<template v-slot:title>
 								{{item.title}}
@@ -239,10 +305,168 @@
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.section-description{
+		font-family: 'Chivo';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		margin-bottom: 25px;
+	}
+	.packages {
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		margin-bottom: 45px;
+	}
+	.package {
+		margin: 15px;
+		min-width: 350px;
+		min-height: 350px;
+		width: calc(100% * 1/3 - 30px);
+		@media screen and (max-width: $phoneWidth) {
+			width: 100%;
+			min-width: 0;
+		}
+		&:hover{
+			.package__inner{
+				transform: rotateY(180deg);
+			}
+		}
+		@media (pointer:none), (pointer:coarse) {
+			&:focus{
+				.package__inner{
+					transform: rotateY(180deg);
+				}
+			}	
+		}
+
+		&__inner {
+			
+			width: 100%;
+			height: 100%;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: all 0.6s;
+		}
+		&__front {
+			box-shadow: 10px 10px 6px #000000;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			img{
+				object-fit: cover;
+				width: 100%;
+				height: 100%;
+				border-radius: 0 0 5px 5px;
+			}
+			-webkit-backface-visibility: hidden; /* Safari */
+			backface-visibility: hidden;
+		}
+		&__touch-icon{
+			position: absolute;
+			width: 80px;
+			height: 80px;
+			right: 15px;
+			bottom: 15px;
+			background: rgba(255, 255, 255, 0.9);
+			box-shadow: 4px 4px 10px #FE3F46;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 5%;
+			border-radius: 50%;
+			img{
+				width: 100%;
+				height: auto;
+			}
+		}
+		&__back {
+			box-shadow: 10px 10px 6px #000000;
+			padding: 30px;
+			width: 100%;
+			height: 100%;
+			-webkit-backface-visibility: hidden; /* Safari */
+			backface-visibility: hidden;
+			transform: rotateY(180deg);
+			background: #FE3F46;
+			border-radius: 0 0 5px 5px;
+			display: flex;
+			flex-direction: column;
+		}
+		&__title {
+			font-family: 'Playfair Display';
+			font-style: normal;
+			font-weight: 800;
+			font-size: 24px;
+			line-height: 40px;
+			text-align: center;
+		}
+		&__text {
+			font-family: 'Chivo';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			h1,h2,h3,h4,h5,h6{
+				margin-bottom: 15px;
+			}
+			li{
+				position: relative;
+				padding-left: 20px;
+
+				&:before{
+					top: 0;
+					left: 0;
+					position: absolute;
+					height: 7px;
+					width: 7px;
+					margin: 7px;
+					content: '';
+					margin-right: 10px;
+					background: #fff;
+					border-radius: 50%;
+					display: inline-block;
+				}
+			}
+			margin-bottom: 15px;
+		}
+		&__price {
+			font-family: 'Playfair Display';
+			font-style: normal;
+			font-weight: 600;
+			font-size: 32px;
+			line-height: 40px;
+			text-align: right;
+			margin-right: 15px;
+			margin-bottom: 15px;
+		}
+		&__button {
+			background: #FFFFFF;
+			border-radius: 8px;
+			padding: 15px;
+			width: 100%;
+			color: #232020;
+			margin-top: auto;
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 32px;
+			line-height: 38px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+	}
+
 	.shopping-cart-window{
 		top: 25px;
 		position: sticky;
 		height: calc(100vh - 50px);
+		@media screen and (max-width: 1200px) {
+			height: auto;
+		}
 		overflow-y: auto;
 		padding: 15px;
 		scrollbar-width: thin;
@@ -278,6 +502,7 @@
 		}
 		&__item-list-wrapper {}
 		&__item-list-category {
+			margin-left: 15px;
 			font-family: 'Playfair Display';
 			font-style: normal;
 			font-weight: 700;

@@ -134,7 +134,6 @@
 					
 
 				console.log(response);
-				// await this.delay(1000);
 				delete this.pendingDateRequests[targetRoom][this.bookingStore.formatDate(targetDate)];
 				for(var date in response) {
 					this.bookingStore.roomData[targetRoom].scheduleData[date] = response[date];
@@ -183,22 +182,9 @@
 			bookingDataAvailable: function(){
 				return this.bookingStore.formatedSelectedDate in this.scheduleData;
 			},
-			currentPrice: function(){
-				if(this.bookingStore.selectedRange == null){
-					return 0;
-				}
-				let startIndex = this.bookingStore.selectedRange.startIndex;
-				let endIndex = this.bookingStore.selectedRange.endIndex;
-				let totalPrice = 0;
-				for (var i = startIndex; i <= endIndex ; i++) {
-					totalPrice += this.selectedOccupancyData[i].cost * this.bookingStore.selectedPeopleCount;
-				}
-				return totalPrice;
-			},
 			
 		}
 	}
-	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 </script>
 <template>
 	<div class="wide-container">
@@ -226,7 +212,7 @@
 					<PeopleCountSelector :minCount="selectedRoom.minPeople" :maxCount="selectedRoom.maxPeople" :highlightColor="selectedRoomColor" v-model="bookingStore.selectedPeopleCount"></PeopleCountSelector>
 					<div class="booking__price-wrapper">
 						<span>Price</span>
-						<div class="booking__price">{{currentPrice}}</div>
+						<div class="booking__price">{{bookingStore.roomPrice}}</div>
 					</div>
 				</div>
 				<div class="booking__next-button-wrapper">

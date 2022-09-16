@@ -312,6 +312,7 @@
 		font-weight: 900;
 		font-size: 14px;
 		margin-bottom: 15px;
+		text-align: center;
 	}
 	&__field {
 		flex: 0 0 33%;

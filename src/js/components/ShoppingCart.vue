@@ -16,7 +16,7 @@
 						Hula Room
 					</div>
 					<div class="cart__room-price price-underline">
-						24 KD
+						{{bookingStore.roomPrice}} KD
 					</div>
 				</div>
 				<div class="cart__room-row">
@@ -34,7 +34,7 @@
 			<span>Additionally</span>
 		</div>
 		<div class="cart__orders">
-			<div class="cart__order" v-for="(order, i) in bookingStore.itemOrders" :key="i">
+			<div class="cart__order" v-for="(order, i) in activeOrders" :key="i">
 				<div class="cart__order-content">
 					<div class="cart__order-title">
 						{{order.title}}:
@@ -60,25 +60,45 @@
 					{{order.description}}
 				</div>
 			</div>
+			<div class="cart__order" v-for="(order, i) in bookingStore.packOrders" :key="i">
+				<div class="cart__order-content">
+					<div class="cart__order-title">
+						{{order.title}}:
+					</div>
+					<div class="cart__order-remove" @click="bookingStore.packOrders.splice(i,1)">
+						Remove
+						<div class="cart__order-cross"></div>
+					</div>
+					<div class="cart__order-price price-underline">
+						{{order.price}} KD
+					</div>
+				</div>
+				<div class="cart__order-details" >
+					<textarea rows="4" cols="50" placeholder="Specify any package details here. We will contact you if any additional details will be needed" v-model="order.description"></textarea>
+				</div>
+			</div>
 		</div>
+
+
 		<div class="cart__description cart-bottom">
 			<textarea rows="4" cols="50" placeholder="Add any additional comments here" v-model="bookingStore.orderDescription"></textarea>
 		</div>
 		<div class="cart__price">
 			<span class="cart__price-title">Total Price</span>
-			<span class="cart__price-total price-underline">{{totalPrice}}</span>
+			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}}</span>
 		</div>
-		<div class="cart__buttons">
-			<div class="cart__button cart__button--prev" :class="{'active': prevEnabled}" @click="prevClick()">
-				<span>
-					<slot name="prev-text">Back</slot>
-				</span>
-			</div>
-			<div class="cart__button cart__button--next" :class="{'active': nextEnabled}" @click="nextClick()">
-				<span>
-					<slot name="next-text">Next</slot>
-				</span>
-			</div>
+		
+	</div>
+	<div class="cart__buttons">
+		<div class="cart__button cart__button--prev" :class="{'active': prevEnabled}" @click="prevClick()">
+			<span>
+				<slot name="prev-text">Back</slot>
+			</span>
+		</div>
+		<div class="cart__button cart__button--next" :class="{'active': nextEnabled}" @click="nextClick()">
+			<span>
+				<slot name="next-text">Next</slot>
+			</span>
 		</div>
 	</div>
 </template>
@@ -103,7 +123,7 @@
 			// 	this.selectedDate = val;
 			// },
 		},
-		// emits: ['update:modelValue'],
+		emits: ['prev-clicked', 'next-clicked'],
 		//you gae
 		methods: {
 			prevClick: function(){
@@ -117,13 +137,14 @@
 				}
 			},
 			changeOrderCount: function(orderID, change){
-				this.bookingStore.itemOrders[orderID].count += change;
-				if(this.bookingStore.itemOrders[orderID].count <= 0){
+				if(this.activeOrders[orderID].count + change <= 0){
 					this.removeOrder(orderID);
+					return
 				}
+				this.activeOrders[orderID].count += change;
 			},
 			removeOrder: function(index){
-				this.bookingStore.itemOrders.splice(index, 1);
+				this.activeOrders[index].active = false;
 			},
 			pluralUnitCheck: function(count, singleUnit, pluralUnit){
 				if(count > 1){
@@ -134,15 +155,9 @@
 
 		},
 		computed: {
-			totalPrice: function(){
-				let price = 0;
-				price += this.roomPrice;
-				for (var i = 0; i < this.bookingStore.itemOrders.length; i++) {
-					price += this.bookingStore.itemOrders[i].count * this.bookingStore.itemOrders[i].price;
-				}
-				return price;
-			},
-			
+			activeOrders: function(){
+				return this.bookingStore.activeOrders;
+			},			
 			selectedRoom: function(){
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
 			},
@@ -167,6 +182,7 @@
 </script>
 
 <style lang="scss" scoped>
+@import 'styles/utils/vars.scss';
 .price-underline{
 	text-decoration: underline;
 	text-underline-offset: 2px;
@@ -182,6 +198,9 @@
 	background: #3A3838;
 	box-shadow: 10px 10px 6px #000000;
 	padding: 20px;
+	@media screen and (max-width: $phoneWidth) {
+		padding: 10px;
+	}
 	&__title {
 		font-family: 'Chivo';
 		font-style: normal;
@@ -239,11 +258,20 @@
 	}
 	&__order {
 		padding: 5px;
+		&:not(:last-child){
+			@media screen and (max-width: $phoneWidth) {
+				border-bottom: 1px solid #555;
+			}	
+		}
+		
 	}
 	&__order-content {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		@media screen and (max-width: $phoneWidth) {
+			flex-wrap: wrap;
+		}
 	}
 	&__order-title {
 		font-family: 'Chivo';
@@ -251,14 +279,30 @@
 		font-weight: 400;
 		font-size: 14px;
 		flex: 0 0 25%;
+		@media screen and (max-width: $phoneWidth) {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			padding: 5px;
+			order: 0;
+		}
 	}
 	&__order-units{
+		text-align: center;
 		flex: 1 0 25%;
 		display: flex;
+		align-items: center;
 		-webkit-user-select: none; /* Safari */        
 		-moz-user-select: none; /* Firefox */
 		-ms-user-select: none; /* IE10+/Edge */
 		user-select: none; /* Standard */
+		@media screen and (max-width: $phoneWidth) {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			padding: 5px;
+			order: 2;
+		}
 	}
 	&__order-units-change-button{
 		margin: 0 5px;
@@ -271,12 +315,22 @@
 		border-radius: 15px;
 		background: #232020;
 		cursor: pointer;
+		@media screen and (max-width: $phoneWidth) {
+			margin: 0 3px;
+		}
 	}
 	&__order-remove{
 		flex: 0 0 25%;
 		display: flex;
 		align-items: center;
 		cursor: pointer;
+		@media screen and (max-width: $phoneWidth) {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			padding: 5px;
+			order: 3;
+		}
 	}
 	&__order-cross{
 		margin-left: 5px;
@@ -308,6 +362,13 @@
 		font-weight: 400;
 		font-size: 14px;
 		flex: 0 0 auto;
+		@media screen and (max-width: $phoneWidth) {
+			flex: 0 0 50%;
+			display: flex;
+			justify-content: center;
+			padding: 5px;
+			order: 1;
+		}
 	}
 	&__order-details {
 		margin-left: 25px;
@@ -316,6 +377,21 @@
 		font-weight: 400;
 		font-size: 14px;
 		margin-bottom: 5px;
+		@media screen and (max-width: $phoneWidth) {
+			margin: 0;
+			text-align: center;
+		}
+		textarea{
+			margin-top: 15px;
+			background: #5B5959;
+			box-shadow: 2px 3px 4px #232020;
+			border-radius: 10px;
+			border: none;
+			width: 80%;
+			resize: none;
+			color: #fff;
+			padding: 10px;
+		}
 	}
 	&__description {
 		textarea{
@@ -344,9 +420,13 @@
 	&__price-total {
 	}
 	&__buttons {
+		margin-top: 25px;
 		display: flex;
 		justify-content: space-between;
-		flex-wrap: wrap;
+		@media screen and (max-width: $phoneWidth) {
+			flex-wrap: wrap;
+		}
+		
 	}
 	&__button{
 		cursor: pointer;
