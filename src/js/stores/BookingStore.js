@@ -101,7 +101,6 @@ const useBookingStore = defineStore({
 			let endIndex = this.selectedRange.endIndex;
 			let price = 0;
 			for (var i = startIndex; i <= endIndex ; i++) {
-				console.log(this.roomData[this.selectedRoomID].scheduleData[this.formatedSelectedDate]);
 				price += this.roomData[this.selectedRoomID].scheduleData[this.formatedSelectedDate].occupancyData[i].cost * this.selectedPeopleCount;
 			}
 			return price;

@@ -157,6 +157,8 @@
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	
+	
 	.booking {
 		&__top-bar{
 			position: relative;

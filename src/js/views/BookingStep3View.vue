@@ -12,6 +12,7 @@
 			return {
 				// nextRoute: {name:"booking-step-3"},
 				prevRoute: {name:'booking-step-2'},
+				TOS: false,
 			}
 		},
 		watch: {
@@ -42,7 +43,7 @@
 
 		computed: {
 			isStepComplete: function(){
-				return true;
+				return this.TOS;
 			},
 			selectedRoomColor: function(){
 				return this.selectedRoom.primaryColor;
@@ -73,6 +74,14 @@
 						></InputField>
 					</div>	
 				</div>
+				<div class="tos__checkbox-wrapper">
+					<div class="tos__checkbox-tick" @click="TOS = !TOS">
+						<img src="/assets/images/svg/tick.svg" alt="tick"  v-if="TOS">
+					</div>
+					<div class="tos__checkbox-text">
+						Сonfirm that I agree with the Terms of Service and Privacy Policy
+					</div>	
+				</div>
 				<div class="payment-selection" >
 					<div class="payment-selection__title">
 						Please choose a payment method
@@ -83,7 +92,7 @@
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>		
 			<div class="checkout__window">
 				<div class="shopping-cart-window">
 					<ShoppingCartCheckout
@@ -107,6 +116,34 @@
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.tos{
+		&__checkbox-wrapper {
+			display: flex;
+			align-items: center;
+			margin-bottom: 25px;
+		}
+		&__checkbox-tick {
+			cursor: pointer;
+			width: 20px;
+			height: 20px;
+			border: 1px solid #FFFFFF;
+			border-radius: 4px;
+			margin-right: 15px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			img{
+				width: 80%;
+				height: auto;
+			}
+		}
+		&__checkbox-text {
+			font-family: 'Chivo';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 12px;
+		}
+	}
 	.shopping-cart-window{
 		top: 25px;
 		position: sticky;
