@@ -64,7 +64,12 @@
 				aspect-ratio: 0.65;
 			}
 			@media screen and (max-width: $smDesktopWidth ) {
+				width: 263px;
+				height: 405px;
+			}
+			@media screen and (max-width: $tabletWidth){
 				width: 50%;
+				aspect-ratio: 0.70;
 			}
 			@media screen and (max-width: $smTabletWidth ){
 				width: 70%;
@@ -116,6 +121,7 @@
 			}
 			@media screen and (max-width: $smTabletWidth) {
 				margin-left: 0;
+				aspect-ratio: 2;
 			}
 		}
 
@@ -146,6 +152,9 @@
 		&__data {
 			display: flex;
 			justify-content: space-between;
+			@media screen and (max-width:$smPhoneWidth){
+				flex-direction: column;
+			}
 		}
 		&__data-item{
 
@@ -154,10 +163,14 @@
 		// .chef__name
 
 		&__name {
+			display: flex;
 			font-family: $headFont;
 			font-style: normal;
 			font-weight: 400;
 			color: #FEE159;
+			@media screen and (max-width:$smDesktopWidth){
+				flex-wrap: wrap;
+			}
 		}
 		&__text {
 			font-family: $mainFont;
@@ -169,8 +182,9 @@
 		
 		// .chef__sign
 
-		&__sign {
+		&__sign-item {
 			display: flex;
+			justify-content: space-between;
 			font-family: $signFont;
 			font-style: normal;
 			font-weight: 400;

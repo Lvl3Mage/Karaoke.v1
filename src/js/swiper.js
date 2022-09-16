@@ -20,11 +20,11 @@ new Swiper('.image-slider', {
     watchOverFlow: true,
     spaceBetween: 25,
     speed: 850,
-    autoplay: {
-        delay: 2000,
-        stopOnLastSlide: true,
-        disableOnInteraction: true, 
-    },
+    // autoplay: {
+    //     delay: 2000,
+    //     stopOnLastSlide: true,
+    //     disableOnInteraction: true, 
+    // },
     effect: 'cube',
     cubeEffect: {
         slideShadows: true,
@@ -76,13 +76,15 @@ new Swiper('.image-slider-gallery', {
         320: {
             slidesPerView: 2,
             grid: {
+                columns: 2,
                 rows: 4,
             },
         },
         768: {
             slidesPerView: 4,
             grid: {
-                rows:2,
+                rows: 2,
+                columns: 4,
             },
         }
     },
