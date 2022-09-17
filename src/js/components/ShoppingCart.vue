@@ -40,11 +40,11 @@
 						{{order.title}}:
 					</div>
 					<div class="cart__order-units">
-						<div class="cart__order-units-change-button" @click="changeOrderCount(i,-1)">
+						<div class="cart__order-units-change-button" @click="changeOrderCount(i,-1)" v-if="!order.description">
 							-
 						</div>
 						<span>{{order.count}} {{pluralUnitCheck(order.count,'unit','units')}}</span>
-						<div class="cart__order-units-change-button" @click="changeOrderCount(i,1)">
+						<div class="cart__order-units-change-button" @click="changeOrderCount(i,1)" v-if="!order.description">
 							+
 						</div>
 					</div>

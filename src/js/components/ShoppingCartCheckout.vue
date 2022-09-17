@@ -40,11 +40,11 @@
 						{{order.title}}:
 					</div>
 					<div class="cart__order-units">
-						<div class="cart__order-units-change-button" @click="changeOrderCount(i,-1)">
+						<div class="cart__order-units-change-button" @click="changeOrderCount(i,-1)" v-if="!order.description">
 							-
 						</div>
 						<span>{{order.count}} {{pluralUnitCheck(order.count,'unit','units')}}</span>
-						<div class="cart__order-units-change-button" @click="changeOrderCount(i,1)">
+						<div class="cart__order-units-change-button" @click="changeOrderCount(i,1)" v-if="!order.description">
 							+
 						</div>
 					</div>
@@ -92,8 +92,8 @@
 			<textarea rows="4" cols="50" placeholder="Add any additional comments here" v-model="bookingStore.orderDescription"></textarea>
 		</div>
 		<div class="cart__price">
-			<span class="cart__price-title">Total Price</span>
-			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}}</span>
+			<span class="cart__price-title">Total Price <span v-if="bookingStore.halfPayment">50%</span></span> 
+			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}} KD</span>
 		</div>
 		<div class="cart__price-warning" v-if="bookingStore.halfPayment">
 			<div class="cart__price-warning-sign" >
@@ -225,7 +225,7 @@
 	}
 	&__checkbox-tick {
 		cursor: pointer;
-		width: 20px;
+		flex: 0 0 20px;
 		height: 20px;
 		border: 1px solid #FFFFFF;
 		border-radius: 4px;
@@ -497,8 +497,10 @@
 		cursor: pointer;
 		text-align: center;
 		padding: 15px;
-		flex: 1 1 50%;
-		margin: 0 10px;
+		flex: 0 0 calc(50% - 15px);
+		@media screen and (max-width: $phoneWidth) {
+			flex: 0 0 100%;
+		}
 		margin-bottom: 15px;
 		
 		border-radius: 8px;

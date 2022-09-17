@@ -44,7 +44,7 @@ const useBookingStore = defineStore({
 				title: 'Phone',
 				obligatory: true,
 				placeholder: '+919367788755',
-				regex: /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[456789]\d{9}|(\d[ -]?){10}\d$/,
+				regex: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
 				value: '',
 				invalid: false,
 				invalidMessage: 'Enter a valid phone number',

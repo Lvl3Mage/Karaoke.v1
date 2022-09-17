@@ -284,6 +284,7 @@
 				flex: 10 1 0;
 				.booking__room-title{
 					background: var(--roomColor);
+					color: var(--textColorBG);
 				}
 			}
 			&.closed{

@@ -328,6 +328,7 @@
 		&.selected {
 			background: var(--highlightColor);
 			border-radius: 5px;
+			color: var(--textColorBG);
 		}
 
 	}

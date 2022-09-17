@@ -10,7 +10,7 @@
 			<div class="item__price">
 				<slot name="price">price/unit</slot>
 			</div>
-			<div class="item__count-order-wrapper" >
+			<div class="item__count-order-wrapper" v-if="!description">
 				<div class="item__count-selector" @click.stop>
 					<select v-model="orderRef.count">
 						<option :value="i" v-for="i in maxCount" :key="i">{{i}}</option>
@@ -56,6 +56,14 @@
 		mounted(){
 		},
 		watch:{
+			OrderDescription: function(val){
+				this.orderRef.count = val.length;
+			},
+			// OrderCount: function(val){
+			// 	if(this.description){
+			// 		this.orderRef.count = this.
+			// 	}
+			// }
 			// modelValue:function(val){
 			// 	this.selectedDate = val;
 			// },
@@ -112,6 +120,12 @@
 			// },
 		},
 		computed: {
+			OrderDescription: function(){
+				return this.orderRef.description;
+			},
+			OrderCount: function(){
+				return this.orderRef.count;
+			}
 		}
 	}
 </script>
@@ -128,6 +142,13 @@
 		transform: scale(1.05);
 		.item__content{
 			background: var(--highlightColor);
+
+		}
+		.item__title{
+			color: var(--textColorBG);
+		}
+		.item__price{
+			color: var(--textColorBG);
 		}
 	}
 	&__image {

@@ -11,7 +11,7 @@
 			items: [
 				{
 					innerID: "123231",
-					title: 'Good cake',
+					title: 'Cake',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					maxCount: 15,
@@ -21,7 +21,7 @@
 				},
 				{
 					innerID: "232321",
-					title: 'Good cake 2',
+					title: 'Cake 2',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					maxCount: 15,
@@ -31,7 +31,7 @@
 				},
 				{
 					innerID: "34534",
-					title: 'Good cake 3',
+					title: 'Cake 3',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -39,7 +39,7 @@
 				},
 				{
 					innerID: "123123123",
-					title: 'Good cake 4',
+					title: 'Cake 4',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -47,7 +47,7 @@
 				},
 				{
 					innerID: "123aasd",
-					title: 'Good cake 5',
+					title: 'Cake 5',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -60,7 +60,7 @@
 			items: [
 				{
 					innerID: "asdasd",
-					title: 'Good cake',
+					title: 'Cake',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					maxCount: 15,
@@ -70,7 +70,7 @@
 				},
 				{
 					innerID: "qweqweq",
-					title: 'Good cake 2',
+					title: 'Cake 2',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					maxCount: 15,
@@ -80,7 +80,7 @@
 				},
 				{
 					innerID: "asdagfdsf",
-					title: 'Good cake 3',
+					title: 'Cake 3',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -88,7 +88,7 @@
 				},
 				{
 					innerID: "sdfsdfsdf",
-					title: 'Good cake 4',
+					title: 'Cake 4',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -96,7 +96,7 @@
 				},
 				{
 					innerID: "sdfsfhfghd",
-					title: 'Good cake 5',
+					title: 'Cake 5',
 					image: '/assets/images/main.jpg',
 					price: 2,
 					unit: 'unit',
@@ -122,6 +122,7 @@
 			this.bookingStore.openStep = 2;
 
 			//ajax request for data
+			if(this.bookingStore.itemData == null && this.bookingStore.itemOrders == null){
 				this.bookingStore.itemData = APIItemData;
 				this.bookingStore.itemOrders = [];
 				for (var i = 0; i < this.bookingStore.itemData.length; i++) {
@@ -141,6 +142,8 @@
 						this.bookingStore.itemOrders.push(itemObject);
 					}
 				}
+			}
+				
 		},
 		mounted(){
 
@@ -523,8 +526,11 @@
 		}
 		&__order-list-window {
 			width: 50%;
+			margin-top: 65px;
 			@media screen and (max-width: 1200px) {
-				width: 100%;			}
+				width: 100%;
+				margin-top: 0;		
+			}
 		}
 	}
 

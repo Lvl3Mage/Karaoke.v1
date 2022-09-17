@@ -93,7 +93,7 @@
 					</div>
 				</div>
 			</div>		
-			<div class="checkout__window">
+			<div class="checkout__window checkout__window--mt">
 				<div class="shopping-cart-window">
 					<ShoppingCartCheckout
 						:prevEnabled="true"
@@ -180,13 +180,23 @@
 		}
 		&__window{
 			width: 50%;
+			&--mt{
+				margin-top: 28px;
+				@media screen and (max-width: 1200px) {
+					margin-top: 0;
+				}
+			}
 			@media screen and (max-width: 1200px) {
 				width: 100%;
+				
 			}
 		}
 		&__fields{
 			display: flex;
 			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 25px;
 		}
 		&__field-title	{
 			font-family: 'Roboto';
@@ -197,8 +207,7 @@
 			margin-bottom: 15px;
 		}
 		&__field{
-			padding: 15px;
-			flex: 0 0 50%;
+			flex: 0 0 calc(50% - 15px);
 			@media screen and (max-width: $phoneWidth) {
 				flex: 0 0 100%;
 			}

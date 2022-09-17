@@ -5,6 +5,7 @@
 	{
 		'room1': {
 			primaryColor: '#902FDC',
+			bgTextColor: '#FFF',
 			name: 'Hula',
 			previewImage: '/assets/images/main.jpg', // link
 			minPeople: 5,
@@ -12,6 +13,7 @@
 		},
 		'room2': {
 			primaryColor: '#1D4ED8',
+			bgTextColor: '#FFF',
 			name: 'Party',
 			previewImage: '/assets/images/main.jpg',
 			minPeople: 2,
@@ -19,6 +21,7 @@
 		},
 		'room3': {
 			primaryColor: '#FEE159',
+			bgTextColor: '#000000',
 			name: 'Ukulele',
 			previewImage: '/assets/images/main.jpg',
 			minPeople: 5,
@@ -26,6 +29,7 @@
 		},
 		'room4': {
 			primaryColor: '#F569A3',
+			bgTextColor: '#FFF',
 			name: 'Flamingo',
 			previewImage: '/assets/images/main.jpg',
 			minPeople: 5,
@@ -100,12 +104,15 @@
 		computed: {
 			bookingDataAvailable: function(){
 				return this.bookingStore.selectedRoomID in this.bookingStore.roomData;
+			},
+			bgTextColor: function(){
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].bgTextColor;
 			}
 		}
 	}
 </script>
 <template>
-	<div class="booking" v-if="bookingDataAvailable">
+	<div class="booking" v-if="bookingDataAvailable" :style="'--roomColor:' + selectedRoomColor() + '; --textColorBG:' + bgTextColor + ';'">
 		<div class="container">
 			<div class="booking__top-bar">
 				<div class="booking__logo">
@@ -209,11 +216,11 @@
 				.booking__step-circle{
 					background: var(--roomColor);
 					border: 1px solid #FFFFFF;
-					color: #FFFFFF;
+					color: var(--textColorBG);
 					box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.9);
 				}
 				.booking__step-text{
-					color: #FFFFFF;
+					color: #FFF;
 					text-shadow: 4px 4px 15px rgba(255, 255, 255, 0.9);
 					
 				}

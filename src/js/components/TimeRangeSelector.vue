@@ -245,7 +245,7 @@
 				let segments = [];
 				for (var i = 0; i < this.occupancyData.length; i++) {
 					let startTime = this.openTime + i*this.segmentLength;
-					segments.push({startTime: startTime, endTime: startTime + this.segmentLength});
+					segments.push({startTime: startTime, endTime: startTime + this.segmentLength - 5});
 				}
 				return segments;
 			},
@@ -377,6 +377,7 @@
 		&.selected{
 			opacity: 0.6;
 			background: var(--roomColor);
+			color: var(--textColorBG);
 		}
 		&.border{
 			opacity: 1;
@@ -385,10 +386,11 @@
 			cursor: pointer;
 			position: relative;
 			&--start{
-				border-radius: 1px 8px 8px 1px;
+				// border-radius: 8px;
+				// border-radius: 1px 8px 8px 1px;
 			}	
 			&--end{
-				border-radius: 8px 1px 1px 8px;
+				// border-radius: 8px 1px 1px 8px;
 			}
 			// background: darken(var(--roomColor), 10%);
 		}
