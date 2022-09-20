@@ -1,0 +1,126 @@
+.bg-404,
+.bg-404__wrapper{
+	width: 100%;
+	height: 100vh;
+	background: linear-gradient(120.95deg, rgba(35, 32, 32, 0.9) 8.29%, rgba(217, 217, 217, 0) 100.48%);
+}
+.bg-404{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.fourzerofour {
+	
+
+		// .fourzerofour__content
+		&__logo{
+			flex: 0 0 40%;
+			@media screen and (max-width: $phoneWidth){
+				flex: 0 0 30%;
+			}
+			
+		}
+		&__content {
+			flex:  0 0 28%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			@media screen and (max-width: $phoneWidth){
+				flex: 0 0 35%;
+			}
+			@media screen and (max-width: $smPhoneWidth){
+				flex:  0 0 40%;
+			}
+		}
+
+		// .fourzerofour__title
+
+		&__title {
+			font-family: $headFont;
+			font-style: normal;
+			font-weight: 700;
+			font-size: 128px;
+			line-height: 50px;
+			color: $mainFontColor;
+			@media screen and (max-width: $tabletWidth) {
+				font-size: 96px;				
+			}
+			@media screen and (max-width: $smPhoneWidth) {
+				font-size: 80px;
+			}
+			
+		}
+
+		&__text-wrap {
+			display: flex;
+			align-items: center;
+			margin: 0 50px;
+			@media screen and (max-width: $smPhoneWidth) {
+				margin: 0;
+			}
+		}
+		// .fourzerofour__text
+
+		&__text {
+			text-align: center;
+			font-family: $mainFont;
+			font-style: normal;
+			font-weight: 400;
+		}
+
+		// .fourzerofour__links
+
+		&__links {
+			display: flex;
+			justify-content: space-evenly;
+			width: 100%;
+			@media screen and (max-width:$phoneWidth){
+				flex-direction: column;
+				width: fit-content;
+			}
+		}
+}
+.link {
+	font-family: $mainFont;
+	font-style: normal;
+	font-size: 20px;
+	line-height: 150%;
+	border: 1px solid $mainFontColor;
+	border-radius: 8px;
+	padding: 10px 45px;
+
+		// .link__home
+
+		&__home {
+			font-weight: 400;
+			color: $mainFontColor;
+			background-color: transparent;
+			@media screen and (max-width: $phoneWidth){
+				margin-bottom: 30px;
+			}
+		}
+
+		// .link__contact
+
+		&__contact {
+			background-color: $mainFontColor;
+			font-weight: 900;
+			color: black;
+			&:hover{
+			background: $hover-color;
+			color: $mainFontColor;
+			border:none;
+    		}
+			&:active{
+				background: $active-color;
+				color: $mainFontColor;
+				border: none;
+			}
+			&:disabled{
+				background: $default-color;
+				color: $mainFontColor;
+			}
+		}
+}
