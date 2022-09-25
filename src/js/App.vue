@@ -1,13 +1,17 @@
 
 <script>
+	import {useBookingStore} from './stores/BookingStore.js'
 	import axios from 'axios';
 	let api = {};
-	api.baseURL = "http://192.168.1.214:8000";
-	//const axios = require(["axios"]).default;
+	api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php";
+	// const axios = require(["axios"]).default;
 	export {axios, api};
 	export default {
 		data: () => ({
 		}),
+		created(){
+			this.bookingStore.startTimerCycle();
+		},
 		methods: {
 			exampleMethod() {
 			}
@@ -16,6 +20,7 @@
 </script>
 <script setup>
 	import { RouterLink, RouterView } from 'vue-router'
+	const bookingStore = useBookingStore();
 </script>
 <template>
 	<div class="app-content">

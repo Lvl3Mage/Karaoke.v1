@@ -87,6 +87,12 @@
 				if(this.startIndex == null || this.endIndex == null){
 					return;
 				}
+				if(this.occupancyData.length <= this.endIndex){
+
+					this.startIndex = null;
+					this.endIndex = null;
+					return;
+				}
 				for (var i = this.startIndex; i <= this.endIndex; i++) {
 					if(this.isBooked(i)){
 						this.startIndex = null;
@@ -177,7 +183,9 @@
 					startIndex:this.startIndex,
 					endIndex:this.endIndex,
 					startTime: this.tConvert(this.timeSegments[this.startIndex].startTime),
-					endTime: this.tConvert(this.timeSegments[this.endIndex].endTime)
+					endTime: this.tConvert(this.timeSegments[this.endIndex].endTime),
+					startTimeMin: this.timeSegments[this.startIndex].startTime,
+					endTimeMin: this.timeSegments[this.endIndex].endTime
 				});
 			},
 			isSelected: function(index){

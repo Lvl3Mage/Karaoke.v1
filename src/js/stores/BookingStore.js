@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {axios} from '../App.vue';
+import {useErrorModalStore} from '../stores/ErrorModalStore.js'
 
 const useBookingStore = defineStore({
 	id: 'BookingStore',
@@ -16,10 +16,6 @@ const useBookingStore = defineStore({
 
 		itemData: null,
 		itemOrders: null,
-
-		name: '',
-		email: '',
-		phone: '',
 
 		contactFields: [
 			{
@@ -57,51 +53,55 @@ const useBookingStore = defineStore({
 		orderDescription: '',
 
 		packData: [
-			{
-				preview: '/assets/images/package-preview.jpg',
-				title: 'Birthday Package',
-				list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-				price: 20
-			},
-			{
-				preview: '/assets/images/package-preview.jpg',
-				title: 'Birthday Package',
-				list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-				price: 20
-			},
-			{
-				preview: '/assets/images/package-preview.jpg',
-				title: 'Birthday Package',
-				list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-				price: 20
-			},
+			// {
+			// 	preview: '/assets/images/package-preview.jpg',
+			// 	title: 'Birthday Package',
+			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
+			// 	price: 20
+			// },
+			// {
+			// 	preview: '/assets/images/package-preview.jpg',
+			// 	title: 'Birthday Package',
+			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
+			// 	price: 20
+			// },
+			// {
+			// 	preview: '/assets/images/package-preview.jpg',
+			// 	title: 'Birthday Package',
+			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
+			// 	price: 20
+			// },
 		],
 		paymentMethods: [
 			{
 				preview: '/assets/images/knet.png',
 				shadowColor: '#AAA'
-
 			},
 			{
 				preview: '/assets/images/mastercard.png',
 				shadowColor: '#AAA'
-
 			},
 		],
 		selectedPaymentMethod: 0,
 		packOrders: [],
 		halfPayment: false,
+
+		reservationToken: null,
+		reservationTTL: null,
 	}),
 	getters: {
 		roomPrice: function(){
 			if(this.selectedRange == null){
 				return 0;
 			}
+			if(!this.roomData[this.selectedRoomID].scheduleData[this.dictFormatedSelectedDate]){
+				return 0;
+			}
 			let startIndex = this.selectedRange.startIndex;
 			let endIndex = this.selectedRange.endIndex;
 			let price = 0;
-			for (var i = startIndex; i <= endIndex ; i++) {
-				price += this.roomData[this.selectedRoomID].scheduleData[this.formatedSelectedDate].occupancyData[i].cost * this.selectedPeopleCount;
+			for (var i = startIndex; i <= endIndex; i++) {
+				price += this.roomData[this.selectedRoomID].scheduleData[this.dictFormatedSelectedDate].occupancyData[i].cost * this.selectedPeopleCount;
 			}
 			return price;
 		},
@@ -113,17 +113,15 @@ const useBookingStore = defineStore({
 			for (var i = 0; i < this.packOrders.length; i++) {
 				price += this.packOrders[i].price;
 			}
-			if(this.halfPayment){
-				price *= 0.5;
-			}
+			
 			return price;
 		},
-		formatedSelectedDate: function(){
-			return this.selectedDate.toLocaleDateString('en-GB');
+		dictFormatedSelectedDate: function(){
+			return this.formatDictDate(this.selectedDate);
 		},
 		stepCompletion: function(){
 			if(this.selectedRange != null){
-				if(true){
+				if(this.reservationToken){
 					if(this.contactDetailsValid){
 						return 3;
 					}
@@ -147,13 +145,31 @@ const useBookingStore = defineStore({
 		},
 	},
 	actions: {
-		formatDate: function(date){
+		formatDictDate: function(date){
+			return date.toLocaleDateString('fr-CA')
+		},
+		formatDisplayDate: function(date){
 			return date.toLocaleDateString('en-GB');
 		},
-
-
+		startTimerCycle: async function(){
+			while(true){
+				await delay(1000);
+				if(this.reservationTTL != null){
+					this.reservationTTL -= 1;
+					if(this.reservationTTL <= 0){
+						this.reservationTTL = null;
+						this.endReservation();
+					}
+				}
+			}
+		},
+		endReservation: function(){
+			this.reservationToken = null;
+			this.reservationTTL = null;
+		},
 	}
 });
+const delay = ms => new Promise(res => setTimeout(res, ms));
 export {useBookingStore};
 
 //https://jsben.ch/AhMN6

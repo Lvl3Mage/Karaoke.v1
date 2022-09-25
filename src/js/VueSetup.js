@@ -10,7 +10,6 @@ app.use(pinia);
 
 import router from './router'
 app.use(router);
-
 // import PhosphorVue from "phosphor-vue";
 // app.use(PhosphorVue);
 

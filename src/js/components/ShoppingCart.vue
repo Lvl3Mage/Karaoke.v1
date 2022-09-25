@@ -162,7 +162,7 @@
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
 			},
 			selectedSchedule: function(){
-				return this.selectedRoom.scheduleData[this.bookingStore.formatedSelectedDate];
+				return this.selectedRoom.scheduleData[this.bookingStore.dictFormatedSelectedDate];
 			},
 			selectedOccupancyData: function(){
 				return this.selectedSchedule.occupancyData;

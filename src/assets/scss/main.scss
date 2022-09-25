@@ -17,6 +17,7 @@
 @import './sections/section-follow';
 @import './sections/section-menu';
 @import './sections/section-contacts';
+@import './sections/section-confirmation';
 @import './menu-page';
 
 
@@ -284,6 +285,21 @@ p {
 	height: 100%;
 	left: 50px;
 	top: 0;
+	&.light{
+		.def-modal__wrapper{
+			background: #FFF;
+		}
+		.def-modal__cross-line{
+			background: #232020;
+			border: 1px solid #232020;
+		}
+		&.modal-active{
+			backdrop-filter: blur(3px);
+		}
+		transition: all 0.8s;
+		backdrop-filter: blur(0px);
+		background: transparent;
+	}
 	@media screen and (max-width:$phoneWidth){
 		left: 0;
 	}

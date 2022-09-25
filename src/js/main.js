@@ -77,11 +77,11 @@ $(document).on('click', function(){
 ///MODAL
 
 $(document).on('click', '.modal-trigger', function(event) {
-	$("body").css("overflow", "hidden");
+
 
 	var modalID = $(this).data('modal-id');
-	var modal = $("#" + modalID + ".modal");
-	modal.addClass("modal-active");
+	let modal = OpenModal('#' + modalID);
+	
 
 	var modalTitle = $(this).data('modal-title');
 	if(typeof modalTitle !== 'undefined'){
@@ -93,12 +93,24 @@ $(document).on('click', '.modal-trigger', function(event) {
 			modal.find(modalFieldPresets[i].childSelector).val(modalFieldPresets[i].value);
 		}
 	}
+	
 });
+function OpenModal(selector){
+	$("body").css("overflow", "hidden");
+	var modal = $(selector + ".modal");
+	modal.addClass("modal-active");
+	return modal;
+}
 $(document).on('mousedown touchstart', '.modal-bg, .modal-cross', function(event) {
-	$("body").css("overflow", "visible");
-	var modal = $(this).closest(".modal");
-	modal.removeClass("modal-active");
+	CloseModal(this);
 });
+function CloseModal(selector){
+	if($('.modal-active').length == 1){ // only 1 modal window is open
+		$("body").css("overflow", "visible");
+	}
+	var modal = $(selector).closest(".modal");
+	modal.removeClass("modal-active");
+}
 $(document).on('mousedown touchstart', '.modal-window', function(event) {
 	event.stopPropagation();
 });

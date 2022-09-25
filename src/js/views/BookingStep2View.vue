@@ -2,8 +2,12 @@
 	const bookingStore = useBookingStore();
 	import Item from '../components/Item.vue'
 	import ShoppingCart from '../components/ShoppingCart.vue'
+	const errorModalStore = useErrorModalStore();
 </script>
 <script>
+	import {axios, api} from '../App.vue';
+	import {useBookingStore} from '../stores/BookingStore.js'
+	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
 	let APIItemData = 
 	[
 		{
@@ -105,8 +109,7 @@
 			],
 		}	
 	];
-	import {axios, api} from '../App.vue';
-	import {useBookingStore} from '../stores/BookingStore.js'
+	
 
 	export default{
 		data() {
@@ -122,26 +125,70 @@
 			this.bookingStore.openStep = 2;
 
 			//ajax request for data
-			if(this.bookingStore.itemData == null && this.bookingStore.itemOrders == null){
-				this.bookingStore.itemData = APIItemData;
-				this.bookingStore.itemOrders = [];
-				for (var i = 0; i < this.bookingStore.itemData.length; i++) {
-					for (var j = 0; j < this.bookingStore.itemData[i].items.length; j++) {
-						let item = this.bookingStore.itemData[i].items[j];
-						let itemObject = {
-							title: item.title,
-							innerID: item.innerID,
-							price: item.price,
-							unit: item.unit,
-							count: 1,
-							active: false,
-						};
-						if(item.description){
-							itemObject.description = '';
-						}
-						this.bookingStore.itemOrders.push(itemObject);
+			let reservationData = new FormData();
+			reservationData.append('action', 'createTemporaryReserve');
+			reservationData.append('roomID', this.bookingStore.selectedRoomID);
+			reservationData.append('selectedDate', this.bookingStore.dictFormatedSelectedDate);
+			reservationData.append('startTimeMin', this.bookingStore.selectedRange.startTimeMin);
+			reservationData.append('endTimeMin', this.bookingStore.selectedRange.endTimeMin);
+			reservationData.append('peopleCount', this.bookingStore.selectedPeopleCount);
+			let token = ''
+			if(this.bookingStore.reservationToken != null){
+				token = this.bookingStore.reservationToken;
+			}
+			reservationData.append('token', token);
+			axios
+				.post(api.baseURL,reservationData)
+				.then(response => {
+
+					console.log(response.data);
+					if(response.data.status == 200){
+						this.bookingStore.reservationToken = response.data.token;
+						this.bookingStore.reservationTTL = response.data.ttl;
 					}
-				}
+					else{
+						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						this.$router.push(this.prevRoute);
+						//display error that redirects to step 1
+					}
+					
+
+			});
+			
+			if(this.bookingStore.itemData == null && this.bookingStore.itemOrders == null){
+				let itemData = new FormData();
+				itemData.append('action', 'getItemsList');
+				axios
+					.post(api.baseURL,itemData)
+					.then(response => {
+
+						console.log(response.data);
+						this.bookingStore.itemData = response.data.itemData;
+						this.bookingStore.itemOrders = [];
+						for (var i = 0; i < this.bookingStore.itemData.length; i++) {
+							for (var j = 0; j < this.bookingStore.itemData[i].items.length; j++) {
+								let item = this.bookingStore.itemData[i].items[j];
+								let itemObject = {
+									title: item.title,
+									innerID: item.innerID,
+									price: item.price,
+									maxCount: item.maxCount,
+									count: 1,
+									active: false,
+								};
+								if(item.description){
+									itemObject.description = '';
+								}
+								this.bookingStore.itemOrders.push(itemObject);
+							}
+						}
+						this.bookingStore.packData = response.data.packageData;
+					})			
+					.catch((err) => {
+						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						this.$router.push(this.prevRoute);
+					});
+				
 			}
 				
 		},
@@ -197,18 +244,15 @@
 				return id;
 			},
 		},
-
 		computed: {
 			isStepComplete: function(){
-
 				return this.bookingStore.stepCompletion >= this.$router.resolve(this.nextRoute).meta.minCompletion;
 			},
-			itemsLoaded: function(){
-				return this.bookingStore.itemData != null && this.bookingStore.itemOrders != null;
+			stepLoaded: function(){
+				return this.bookingStore.itemData != null && this.bookingStore.itemOrders != null  && this.bookingStore.reservationToken != null;
 			},
 			selectedRoomColor: function(){
 				return this.selectedRoom.primaryColor;
-				 
 			},
 			selectedRoom: function(){
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
@@ -219,14 +263,14 @@
 </script>
 <template>
 	<div class="container">
-		<div class="section-description" v-if="itemsLoaded">
+		<div class="section-description" v-if="stepLoaded">
 			We have three Celebration Packs for you. You can choose any one you like.
 		</div>
-		<div class="packages" v-if="itemsLoaded">
+		<div class="packages" v-if="stepLoaded">
 			<div class="package" v-for="(pack, i) in bookingStore.packData" :key="i">
 				<div class="package__inner">
 					<div class="package__front">
-						<img :src="pack.preview" alt="preview">
+						<img :src="pack.image" alt="preview">
 						<div class="package__touch-icon">
 							<img src="/assets/images/svg/cursor-click.svg" alt="">
 						</div>
@@ -238,7 +282,7 @@
 						<div class="package__text">
 							<h3>This package includes:</h3>
 							<ul>
-								<li v-for="item in pack.list" :key="item">{{item}}</li>
+								<li v-for="item in pack.list" :key="item">{{item.item}}</li>
 							</ul>			
 						</div>
 						<div class="package__price">
@@ -251,10 +295,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="section-description" v-if="itemsLoaded">
+		<div class="section-description" v-if="stepLoaded">
 			Please select additional services if you need
 		</div>
-		<div class="item-select" v-if="itemsLoaded">
+		<div class="item-select" v-if="stepLoaded">
 			<div class="item-select__item-window">
 				<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
 					<div class="item-select__item-list-category">
@@ -302,7 +346,7 @@
 		</div>	
 	</div>
 	
-	<div class="loader" v-if="!itemsLoaded">
+	<div class="loader" v-if="!stepLoaded">
 		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	</div>
 </template>

@@ -93,7 +93,7 @@
 		</div>
 		<div class="cart__price">
 			<span class="cart__price-title">Total Price <span v-if="bookingStore.halfPayment">50%</span></span> 
-			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}} KD</span>
+			<span class="cart__price-total price-underline">{{totalPrice}} KD</span>
 		</div>
 		<div class="cart__price-warning" v-if="bookingStore.halfPayment">
 			<div class="cart__price-warning-sign" >
@@ -178,7 +178,7 @@
 				return this.bookingStore.roomData[this.bookingStore.selectedRoomID];
 			},
 			selectedSchedule: function(){
-				return this.selectedRoom.scheduleData[this.bookingStore.formatedSelectedDate];
+				return this.selectedRoom.scheduleData[this.bookingStore.dictFormatedSelectedDate];
 			},
 			selectedOccupancyData: function(){
 				return this.selectedSchedule.occupancyData;
@@ -189,6 +189,13 @@
 				let price = 0;
 				for (var i = startIndex; i <= endIndex; i++) {
 					price += this.selectedOccupancyData[i].cost * this.bookingStore.selectedPeopleCount;
+				}
+				return price;
+			},
+			totalPrice: function(){
+				let price = this.bookingStore.totalPrice;
+				if(this.bookingStore.halfPayment){
+					price *= 0.5;
 				}
 				return price;
 			}
