@@ -2,10 +2,13 @@
 	const bookingStore = useBookingStore();
 	import ShoppingCartCheckout from '../components/ShoppingCartCheckout.vue'
 	import InputField from '../components/InputField.vue'
+	import ShoppingCart from '../components/ShoppingCart.vue'
+	const errorModalStore = useErrorModalStore();
 </script>
 <script>
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
+	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
 
 	export default{
 		data() {
@@ -29,11 +32,54 @@
 				let valid = true;
 				for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
 					let invalid = !this.bookingStore.contactFields[i].regex.test(this.bookingStore.contactFields[i].value);
-					valid = valid && !invalid;
-					this.bookingStore.contactFields[i].invalid = invalid;
+					if(this.bookingStore.contactFields[i].obligatory){
+						valid = valid && !invalid;
+						this.bookingStore.contactFields[i].invalid = invalid;	
+					}
 				}
 				if(valid){
-					//submit
+					let contactFields = [];
+					for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
+						contactFields.push({
+							title: this.bookingStore.contactFields[i].title,
+							value: this.bookingStore.contactFields[i].value,
+						});
+						
+					}
+					let bookingData = {
+						itemOrders: this.bookingStore.activeOrders,
+						packageOrders: this.bookingStore.packOrders,
+						contactFields: contactFields,
+						totalPrice: this.bookingStore.totalPrice,
+						halfPrice: this.bookingStore.halfPayment,
+						description: this.bookingStore.orderDescription,
+					};
+					bookingData = JSON.stringify(bookingData);
+					// let amougs = {
+					// 	data: bookingData,
+					// }
+					// console.log(JSON.stringify(amougs));
+					// console.log(bookingData);
+					let data = new FormData();
+					console.log(bookingData);
+					data.append('action', 'createBooking');
+					data.append('bookingData', bookingData);
+					data.append('token', this.bookingStore.reservationToken);
+					axios
+						.post(api.baseURL,data)
+						.then(response => {
+
+							console.log(response.data);
+							window.location.replace("https://karaoke.marmadot.com/booking-success?token=" + this.bookingStore.reservationToken);
+							// if(response.data.status == 200){
+								
+							// }
+							// else{
+							// 	this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+							// }
+							
+
+					});
 				}
 			},
 			prevView: function(){

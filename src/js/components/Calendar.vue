@@ -2,7 +2,7 @@
 	<div class="calendar-wrapper" :style="'--highlightColor:'+ highlightColor">
 		<div class="calendar-input-field noise-overlay__wrapper" @click="calendarOpen = true">
 			<div class="noise-overlay"></div>
-			<ph-calendar :size="26" color="#ffffff" />
+			<!-- <ph-calendar :size="26" color="#ffffff" /> -->
 			<span class="p--x-5">{{weekDays_EN[selectedDate.getDay()]}}</span>
 			<span class="">{{selectedDate.getDate()}}/</span>
 			<span class="">{{selectedDate.getMonth()}}/</span>
@@ -54,7 +54,7 @@
 	</div>
 </template>
 <script setup>
-	import { PhCalendar} from "phosphor-vue";
+	// import { PhCalendar} from "phosphor-vue";
 </script>
 <script>
 	import $ from "jquery";

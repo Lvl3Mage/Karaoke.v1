@@ -20,13 +20,6 @@
 					</div>
 					
 				</div>
-				<!-- <div class="item__order-button" @click="sendOrder()">
-					<ph-shopping-cart-simple :size="18" :color="highlightColor" />
-					<div class="item__popup-wrapper" :class="{'open': popup, 'error': popupError}">
-						<div class="item__popup">{{popupText}}</div>
-					</div>
-					
-				</div> -->
 			</div>
 			<div class="item__description" v-if="description" :class="{'invalid': descriptionInvalid}">
 				<input class="" type="text" :placeholder="placeholder" v-model="orderRef.description" @click.stop="descriptionInvalid = false">
@@ -36,7 +29,6 @@
 </template>
 
 <script setup>
-	import { PhShoppingCartSimple} from "phosphor-vue";
 </script>
 <script>
 	export default{
@@ -235,6 +227,7 @@
 			// border: none;
 			background: #fff;
 			&::placeholder{
+				font-size: 12px;
 				opacity: 0.6;
 			}
 		}

@@ -1,54 +1,66 @@
 
+<script setup>
+	import { PhClock} from "phosphor-vue";
+	const bookingStore = useBookingStore()
+	const errorModalStore = useErrorModalStore();
+</script>
 <script>
-
-	const APIRoomData = 
-	{
-		'room1': {
-			primaryColor: '#902FDC',
-			bgTextColor: '#FFF',
-			name: 'Hula',
-			previewImage: '/assets/images/main.jpg', // link
-			minPeople: 5,
-			maxPeople: 10,
-		},
-		'room2': {
-			primaryColor: '#1D4ED8',
-			bgTextColor: '#FFF',
-			name: 'Party',
-			previewImage: '/assets/images/main.jpg',
-			minPeople: 2,
-			maxPeople: 10,
-		},
-		'room3': {
-			primaryColor: '#FEE159',
-			bgTextColor: '#000000',
-			name: 'Ukulele',
-			previewImage: '/assets/images/main.jpg',
-			minPeople: 5,
-			maxPeople: 15,
-		},
-		'room4': {
-			primaryColor: '#F569A3',
-			bgTextColor: '#FFF',
-			name: 'Flamingo',
-			previewImage: '/assets/images/main.jpg',
-			minPeople: 5,
-			maxPeople: 10,
-		}
-	};
 	import {useBookingStore} from '../stores/BookingStore.js'
+	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
 	import {axios, api} from '../App.vue';
 	export default{
-		setup(){
-			const bookingStore = useBookingStore()
-
+		data() {
 			return {
-				bookingStore,
-
+				timerModalActive: false,
 			}
 		},
+		watch: {
+			timer: function(val){
+				if(val == 60){
+					this.timerModalActive = true;
+				}
+				if(val == null){
+					this.timerModalActive = false;
+					console.log(this.errorModalStore);
+					this.errorModalStore.OpenModal("It seems your reservation time has expired.", 'You can attempt to reserve the same time again.');
+					this.$router.replace({name:'booking-step-1'});	
+
+				}
+			},
+		},
 		mounted(){
-			//
+			let data = new FormData();
+			data.append('action', 'getRoomData');
+			axios
+				.post(api.baseURL,data)
+				.then(response => {
+					console.log(response);
+					let roomIDs = Object.keys(response.data);
+					for (let roomID of roomIDs) {
+						let room = response.data[roomID];
+
+						room.scheduleData = {
+							occupancyData:{}
+						};
+						this.bookingStore.roomData[roomID] = room;
+					}
+
+
+					if(this.$route.params.roomID in this.bookingStore.roomData){
+						this.bookingStore.selectedRoomID = this.$route.params.roomID;
+					}
+					else{
+						for(let roomID of roomIDs){
+							console.log(roomID)
+							if(this.bookingStore.roomData[roomID].default){
+								this.bookingStore.selectedRoomID = roomID;
+								break;
+							}
+						}				
+					}
+
+					this.$router.replace({ name: 'booking'  });
+			});
 				// let data = new FormData();
 
 
@@ -66,30 +78,8 @@
 				// 			this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
 				// 		}
 				// }.bind({room:this.$route.params.roomID, bookingStore: this.bookingStore}));
-			let response = APIRoomData;
-			let roomNames = Object.keys(response);
-			for (let roomName of roomNames) {
-				let room = response[roomName];
-
-				room.scheduleData = {
-					occupancyData:{}
-				};
-
-
-				this.bookingStore.roomData[roomName] = room;
-			}
-
-
-			if(this.$route.params.roomID in this.bookingStore.roomData){
-				this.bookingStore.selectedRoomID = this.$route.params.roomID;
-			}
-			else{
-				//if not room is selected select the first room
-				this.bookingStore.selectedRoomID = Object.keys(this.bookingStore.roomData)[0];
-				
-			}
-
-			this.$router.replace({ name: 'booking'  });
+			// let response = APIRoomData;
+			
 			
 		},
 		methods: {
@@ -99,14 +89,56 @@
 				}
 				return '#979797';
 				 
-			}
+			},
+			openTimerModal: function(){
+				if(this.timer <= 60){
+					this.timerModalActive = true;
+				}
+			},
+			extendReservationTime: function(){
+				let data = new FormData();
+				data.append('action', 'extendTTL');
+				data.append('token', this.bookingStore.reservationToken)
+				axios
+					.post(api.baseURL,data)
+					.then(response => {
+						console.log(response.data);
+						if(response.data.status == 200){
+							this.bookingStore.reservationTTL = 120;
+						}
+						else{
+							this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						}
+					})			
+					.catch((err) => {
+						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+					});
+					
+
+				this.timerModalActive = false;
+			},
 		},
 		computed: {
 			bookingDataAvailable: function(){
 				return this.bookingStore.selectedRoomID in this.bookingStore.roomData;
 			},
 			bgTextColor: function(){
-				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].bgTextColor;
+				return this.bookingStore.roomData[this.bookingStore.selectedRoomID].highlightedTextColor;
+			},
+			timer: function(){
+				return this.bookingStore.reservationTTL;
+			},
+			formattedTimer: function(){
+				let time = this.timer;
+				let minutes = Math.floor(time / 60);
+				if(minutes < 10){
+					minutes = "0" + minutes;
+				}
+				let seconds = time % 60;
+				if(seconds < 10){
+					seconds = "0" + seconds;
+				}
+				return minutes + ":" + seconds;
 			}
 		}
 	}
@@ -118,9 +150,15 @@
 				<div class="booking__logo">
 					<img src="/assets/images/logo.png" alt="">
 				</div>
-				<div class="booking__title-wrapper">
-					<span>Book me</span>
-				</div>	
+				<div class="booking__complementary-wrapper">
+					<div class="booking__title-wrapper">
+						<span>Book me</span>
+					</div>
+					<div class="booking__timer-wrapper" :class="{'highlighted': bookingStore.reservationTTL <= 60}"  v-if="bookingStore.reservationTTL != null" @click="openTimerModal()">
+						<ph-clock :size="23" color="#fff" /><span>{{formattedTimer}}</span>
+					</div>	
+				</div>
+				
 			</div>
 			<div class="booking__steps-wrapper m--b-45" :style="'--roomColor:' + selectedRoomColor()">
 				<div class="booking__steps">
@@ -159,13 +197,140 @@
 	<div class="loader" v-if="!bookingDataAvailable">
 		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	</div>
+	<div class="def-modal light" :class="{'modal-active': timerModalActive}" @click="timerModalActive = false">
+		<div class="def-modal__outer-container container">
+			<div class="def-modal__inner-container def-modal__inner-container--50">
+				<div class="def-modal__wrapper" @click.stop>
+					<div class="def-modal__top">
+						<div class="def-modal__title">
+							<span class="modal-title"></span>
+						</div>
+						<div class="def-modal__cross" @click="timerModalActive = false">
+							<div class="def-modal__cross-line def-modal__cross-line--1"></div>
+							<div class="def-modal__cross-line def-modal__cross-line--2"></div>
+						</div>
+					</div>
+					<div class="def-modal__content-wrapper def-modal-class-name modal-content-wrapper">
+						<div class="alert-modal">
+							<div class="alert-modal__title m--b-15">
+								Your reservation time is about to expire
+							</div>
+							<div class="alert-modal__image">
+								<img src="/assets/images/waiting.png" alt="">
+							</div>
+							<div class="alert-modal__message m--b-45">
+								Do you want to extend it?
+							</div>
+							<div class="alert-modal__buttons">
+								<div class="alert-modal__button alert-modal__button--dismiss" @click="timerModalActive = false">
+									No
+								</div>
+								<div class="alert-modal__button alert-modal__button--accept" @click="extendReservationTime()">
+									Yes
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="def-modal light" :class="{'modal-active': errorModalStore.modalOpen}" @click="errorModalStore.modalOpen = false">
+		<div class="def-modal__outer-container container">
+			<div class="def-modal__inner-container def-modal__inner-container--50">
+				<div class="def-modal__wrapper" @click.stop>
+					<div class="def-modal__top">
+						<div class="def-modal__title">
+							<span class="modal-title"></span>
+						</div>
+						<div class="def-modal__cross" @click="errorModalStore.modalOpen = false">
+							<div class="def-modal__cross-line def-modal__cross-line--1"></div>
+							<div class="def-modal__cross-line def-modal__cross-line--2"></div>
+						</div>
+					</div>
+					<div class="def-modal__content-wrapper def-modal-class-name modal-content-wrapper">
+						<div class="alert-modal">
+							<div class="alert-modal__title m--b-15">
+								{{errorModalStore.modalTitle}}
+							</div>
+							<div class="alert-modal__message m--b-45">
+								{{errorModalStore.modalText}}
+							</div>
+							<div class="alert-modal__buttons">
+								<div class="alert-modal__button alert-modal__button--dismiss" @click="errorModalStore.modalOpen = false">
+									Ok
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
 	
 	
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
 	
-	
+	.alert-modal {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		&__title {
+			color: #232020;
+			font-family: 'Playfair Display';
+			font-style: normal;
+			font-weight: 600;
+			font-size: 24px;
+			line-height: 40px;
+		}
+		&__image {
+			img{
+				width: 200px;
+				height: auto;
+			}
+		}
+		&__message {
+			color: #232020;
+			font-family: 'Playfair Display';
+			font-style: normal;
+			font-weight: 600;
+			font-size: 28px;
+		}
+		&__buttons {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+			width: 100%;
+		}
+		&__button {
+			margin: 15px 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 150px;
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 600;
+			font-size: 28px;
+			border-radius: 14px;
+			padding: 10px;
+			cursor: pointer;
+			&--dismiss {
+				border: 1px solid #232020;
+				color: #232020;
+			}
+			&--accept {
+				color: #fff;
+				background: #902FDC;
+				
+
+			}
+		}
+	}
 	.booking {
 		&__top-bar{
 			position: relative;
@@ -178,6 +343,11 @@
 				width: 100%;
 				height: auto;
 			}
+		}
+		&__complementary-wrapper{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 		}
 		&__title-wrapper {
 			position: absolute;
@@ -193,6 +363,30 @@
 			font-style: normal;
 			font-weight: 700;
 			font-size: 64px;
+		}
+		&__timer-wrapper {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 28px;
+			line-height: 28px;
+			@media screen and (max-width: $tabletWidth) {
+				position: relative;
+			}
+			span{
+				margin-left: 15px;
+			}
+			display: flex;
+			align-items: center;
+			color: #FFFFFF;
+			&.highlighted{
+				cursor: pointer;
+				color: #FC4F53;
+			}
 		}
 		&__steps-wrapper {
 		}

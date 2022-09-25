@@ -9,11 +9,11 @@ import BookingStep3View from '../views/BookingStep3View.vue'
 
 
 const router = createRouter({
-	base: '/app',
+	base: '/',
 	history: createWebHistory(),
 	routes: [
 		{	
-			path: '/app/booking/',
+			path: '/booking/',
 			name: 'booking',
 			redirect: { name: 'booking-step-1' },
 			component: BookingView,
@@ -48,7 +48,7 @@ const router = createRouter({
 		},
 		
 		{
-			path: '/app/booking/:roomID/',
+			path: '/booking/:roomID/',
 			component: BookingView,
 
 		},

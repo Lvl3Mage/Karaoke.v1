@@ -22,6 +22,7 @@ const PAGES = fs
 	.readdirSync(PAGES_DIR)
 	.filter(fileName => fileName.endsWith('.html'))
 
+
 //***********main config object************
 module.exports = {
 	mode: mode,
@@ -41,7 +42,7 @@ module.exports = {
 		},
 		historyApiFallback: {
 			rewrites: [
-				{ from: /^\/app/, to: '/booking.html' },
+				{ from: /^\/booking/, to: '/booking.html' },
 			]
 		},
 	},
@@ -140,7 +141,7 @@ module.exports = {
 					template: `${PAGES_DIR}/${page}`,
 					filename: `./${page}`
 				})
-		)
+		),
 	],
 	
 }
