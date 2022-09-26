@@ -75,6 +75,12 @@
 				width: 70%;
 				margin-bottom: 35px;
 			}
+			@media screen and (max-width:$phoneWidth){
+				width: 85%;
+			}
+			@media screen and (max-width:$smPhoneWidth){
+				width: 100%;
+			}
 		}
 		&__img-foto {
 			object-fit: cover;
