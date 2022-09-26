@@ -104,7 +104,7 @@
 					.then(response => {
 						console.log(response.data);
 						if(response.data.status == 200){
-							this.bookingStore.reservationTTL = 120;
+							this.bookingStore.reservationTTL = response.data.ttl;
 						}
 						else{
 							this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
@@ -148,7 +148,7 @@
 		<div class="container">
 			<div class="booking__top-bar">
 				<div class="booking__logo">
-					<img src="/assets/images/logo.png" alt="">
+					<img :src="require('assetDir/images/logo.png')" alt="">
 				</div>
 				<div class="booking__complementary-wrapper">
 					<div class="booking__title-wrapper">
@@ -216,7 +216,7 @@
 								Your reservation time is about to expire
 							</div>
 							<div class="alert-modal__image">
-								<img src="/assets/images/waiting.png" alt="">
+								<img :src="require('assetDir/images/waiting.png')" alt="">
 							</div>
 							<div class="alert-modal__message m--b-45">
 								Do you want to extend it?

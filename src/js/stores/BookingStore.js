@@ -74,11 +74,11 @@ const useBookingStore = defineStore({
 		],
 		paymentMethods: [
 			{
-				preview: '/assets/images/knet.png',
+				preview: require('assetDir/images/knet.png'),
 				shadowColor: '#AAA'
 			},
 			{
-				preview: '/assets/images/mastercard.png',
+				preview: require('assetDir/images/mastercard.png'),
 				shadowColor: '#AAA'
 			},
 		],

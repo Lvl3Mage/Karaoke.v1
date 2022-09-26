@@ -42,7 +42,7 @@ module.exports = {
 		},
 		historyApiFallback: {
 			rewrites: [
-				{ from: /^\/booking/, to: '/booking.html' },
+				{ from: /^\/book/, to: '/booking.html' },
 			]
 		},
 	},
@@ -125,7 +125,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			styles: path.resolve(__dirname,'src/assets/scss')
+			styles: path.resolve(__dirname,'src/assets/scss'),
+			assetDir: path.resolve(PATHS.src, 'assets')//(process.env.WEBPACK_SERVE) ? path.resolve(PATHS.src, 'assets') : path.resolve(PATHS.dist, 'assets'),//(process.env.WEBPACK_SERVE) ?  path.resolve(PATHS.src, '/assets') :  path.resolve(PATHS.dist, '/assets')
 			//'vue$': 'vue/dist/vue.cjs.js'
 		}
 	},

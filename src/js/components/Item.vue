@@ -16,7 +16,7 @@
 						<option :value="i" v-for="i in maxCount" :key="i">{{i}}</option>
 					</select>
 					<div class="item__count-selector-arrow">
-						<img src="/assets/images/svg/arrow-gray.svg" alt="">
+						<img :src="require('assetDir/images/svg/arrow-gray.svg')" alt="">
 					</div>
 					
 				</div>

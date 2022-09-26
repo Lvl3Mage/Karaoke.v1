@@ -273,7 +273,7 @@
 					<div class="package__front">
 						<img :src="pack.image" alt="preview">
 						<div class="package__touch-icon">
-							<img src="/assets/images/svg/cursor-click.svg" alt="">
+							<img :src="require('assetDir/images/svg/cursor-click.svg')" alt="">
 						</div>
 					</div>
 					<div class="package__back">

@@ -122,7 +122,7 @@
 				</div>
 				<div class="tos__checkbox-wrapper">
 					<div class="tos__checkbox-tick" @click="TOS = !TOS">
-						<img src="/assets/images/svg/tick.svg" alt="tick"  v-if="TOS">
+						<img :src="require('assetDir/images/svg/tick.svg')" alt="tick"  v-if="TOS">
 					</div>
 					<div class="tos__checkbox-text">
 						Сonfirm that I agree with the Terms of Service and Privacy Policy

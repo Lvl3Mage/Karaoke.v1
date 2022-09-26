@@ -80,7 +80,7 @@
 		</div>
 		<div class="cart__checkbox-wrapper">
 			<div class="cart__checkbox-tick" @click="bookingStore.halfPayment = !bookingStore.halfPayment">
-				<img src="/assets/images/svg/tick.svg" alt="warning-icon"  v-if="bookingStore.halfPayment">
+				<img :src="require('assetDir/images/svg/tick.svg')" alt="warning-icon"  v-if="bookingStore.halfPayment">
 			</div>
 			<div class="cart__checkbox-text">
 				I want to pay today only 50%
@@ -97,7 +97,7 @@
 		</div>
 		<div class="cart__price-warning" v-if="bookingStore.halfPayment">
 			<div class="cart__price-warning-sign" >
-				<img src="/assets/images/svg/warning-icon.svg" alt="warning-icon">
+				<img :src="require('assetDir/images/svg/warning-icon.svg')" alt="warning-icon">
 			</div>
 			<div class="cart__price-warning-text">
 				The remaining 50% of the amount you will have to pay at the time of your visit.
