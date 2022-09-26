@@ -104,10 +104,13 @@
 			height:800px !important;
 			margin-bottom: 60px;
 			@media screen and (max-width:$tabletWidth){
-				height: 600px;
+				height: 600px !important;
 			}
 			@media screen and (max-width:$phoneWidth ){
-				height: 350px;
+				height: 350px !important;
+			}
+			@media screen and (max-width:$smPhoneWidth ){
+				height: 300px !important;
 			}
 		}
 
@@ -215,8 +218,8 @@
 }
 .swiper-pagination-bullet{
 	@media screen and (max-width:$smTabletWidth){
-		width: 15px;
-		height: 15px;
+		width: 15px !important;
+		height: 15px !important;
 	}
 }
 
