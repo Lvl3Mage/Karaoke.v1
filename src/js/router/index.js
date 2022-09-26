@@ -13,7 +13,7 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes: [
 		{	
-			path: '/booking/',
+			path: '/book/',
 			name: 'booking',
 			redirect: { name: 'booking-step-1' },
 			component: BookingView,
@@ -48,7 +48,7 @@ const router = createRouter({
 		},
 		
 		{
-			path: '/booking/:roomID/',
+			path: '/book/:roomID/',
 			component: BookingView,
 
 		},
