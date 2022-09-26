@@ -64,15 +64,15 @@
 	margin-bottom: 30px;
 }
 .swiper-pagination-bullet{
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	border: 1px solid #fff;
-	opacity: 1;
+	width: 20px !important;
+	height: 20px !important;
+	border-radius: 50% !important;
+	border: 1px solid #fff !important;
+	opacity: 1 !important;
 }
 .swiper-pagination-bullet-active{
 	border: solid $flamingo-color;
-	background: $flamingo-color;
+	background: $flamingo-color !important;
 }
 
 // SWIPER MENU PAGE
@@ -101,7 +101,7 @@
 		// .image-slider-menu__wrapper
 
 		&__wrapper {
-			height:800px;
+			height:800px !important;
 			margin-bottom: 60px;
 			@media screen and (max-width:$tabletWidth){
 				height: 600px;
