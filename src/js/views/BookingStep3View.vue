@@ -70,7 +70,7 @@
 						.then(response => {
 
 							console.log(response.data);
-							window.location.replace("https://karaoke.marmadot.com/booking-success?token=" + this.bookingStore.reservationToken);
+							window.location.replace("https://karaoke.marmadot.com/booking-confirmation?token=" + this.bookingStore.reservationToken + '&order=' + response.data.booking_id);
 							// if(response.data.status == 200){
 								
 							// }

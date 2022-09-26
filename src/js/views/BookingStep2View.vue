@@ -202,6 +202,7 @@
 					list: pack.list,
 					price: pack.price,
 					description: '',
+					innerID: pack.innerID,
 				});
 			},
 			changeOrder: function(categoryID, itemID, itemOrder){
