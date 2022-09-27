@@ -193,7 +193,7 @@
 	.shopping-cart-window{
 		top: 25px;
 		position: sticky;
-		height: calc(100vh - 50px);
+		// height: calc(100vh - 50px);
 		@media screen and (max-width: 1200px) {
 			height: auto;
 		}

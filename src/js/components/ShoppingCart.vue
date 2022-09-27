@@ -257,7 +257,7 @@
 		margin-bottom: 15px;
 	}
 	&__order {
-		padding: 5px;
+		padding: 5px 0;
 		&:not(:last-child){
 			@media screen and (max-width: $phoneWidth) {
 				border-bottom: 1px solid #555;

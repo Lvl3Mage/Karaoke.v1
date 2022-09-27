@@ -555,7 +555,7 @@
 		}
 		&__item-list-wrapper {}
 		&__item-list-category {
-			margin-left: 15px;
+			// margin-left: 15px;
 			font-family: 'Playfair Display';
 			font-style: normal;
 			font-weight: 700;
