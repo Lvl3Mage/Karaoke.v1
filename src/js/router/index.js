@@ -46,12 +46,6 @@ const router = createRouter({
 				},
 			],
 		},
-		
-		{
-			path: '/book/:roomID/',
-			component: BookingView,
-
-		},
 	]
 });
 

@@ -45,9 +45,11 @@
 						this.bookingStore.roomData[roomID] = room;
 					}
 
-
-					if(this.$route.params.roomID in this.bookingStore.roomData){
-						this.bookingStore.selectedRoomID = this.$route.params.roomID;
+					let uri = window.location.search.substring(1); 
+					let params = new URLSearchParams(uri);
+					let selectRoom = params.get("selectRoom");
+					if(selectRoom in this.bookingStore.roomData){
+						this.bookingStore.selectedRoomID = selectRoom;
 					}
 					else{
 						for(let roomID of roomIDs){
@@ -554,10 +556,10 @@
 		}
 		@keyframes lds-roller {
 		  0% {
-		    transform: rotate(0deg);
+			transform: rotate(0deg);
 		  }
 		  100% {
-		    transform: rotate(360deg);
+			transform: rotate(360deg);
 		  }
 		}
 	}
