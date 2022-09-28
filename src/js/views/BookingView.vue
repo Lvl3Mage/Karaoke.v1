@@ -178,7 +178,7 @@
 							<span>2</span>
 						</div>
 						<div class="booking__step-text">
-							<span>Additionaly</span>
+							<span>Additions</span>
 						</div>
 					</router-link>
 					<div class="booking__steps-line" :class="{'active': bookingStore.openStep >= 2}"></div>
