@@ -8,114 +8,14 @@
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
-	let APIItemData = 
-	[
-		{
-			title: 'Desert',
-			items: [
-				{
-					innerID: "123231",
-					title: 'Cake',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					maxCount: 15,
-					unit: 'unit',
-					description: true,
-					placeholder: 'write text here',
-				},
-				{
-					innerID: "232321",
-					title: 'Cake 2',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					maxCount: 15,
-					unit: 'unit',
-					description: true,
-					placeholder: 'write text here',
-				},
-				{
-					innerID: "34534",
-					title: 'Cake 3',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-				{
-					innerID: "123123123",
-					title: 'Cake 4',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-				{
-					innerID: "123aasd",
-					title: 'Cake 5',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-			],
-		},
-		{
-			title: 'Party',
-			items: [
-				{
-					innerID: "asdasd",
-					title: 'Cake',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					maxCount: 15,
-					unit: 'unit',
-					description: true,
-					placeholder: 'write text here',
-				},
-				{
-					innerID: "qweqweq",
-					title: 'Cake 2',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					maxCount: 15,
-					unit: 'unit',
-					description: true,
-					placeholder: 'write text here',
-				},
-				{
-					innerID: "asdagfdsf",
-					title: 'Cake 3',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-				{
-					innerID: "sdfsdfsdf",
-					title: 'Cake 4',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-				{
-					innerID: "sdfsfhfghd",
-					title: 'Cake 5',
-					image: '/assets/images/main.jpg',
-					price: 2,
-					unit: 'unit',
-					description: false,
-				},
-			],
-		}	
-	];
 	
 
 	export default{
 		data() {
 			return {
 				nextRoute: {name:"booking-step-3"},
-				prevRoute: {name:'booking-step-1'}
+				prevRoute: {name:'booking-step-1'},
+				openPackID: -1,
 			}
 		},
 		watch: {
@@ -196,6 +96,14 @@
 
 		},
 		methods: {
+			togglePack: function(id){
+				if(this.openPackID == id){
+					this.openPackID = -1;
+				}
+				else{
+					this.openPackID = id;
+				}
+			},
 			addPack: function(pack){
 				this.bookingStore.packOrders.push({
 					title: pack.title,
@@ -268,7 +176,7 @@
 			We have three Celebration Packs for you. You can choose any one you like.
 		</div>
 		<div class="packages" v-if="stepLoaded">
-			<div class="package" v-for="(pack, i) in bookingStore.packData" :key="i">
+			<div class="package" v-for="(pack, i) in bookingStore.packData" :key="i" @click="togglePack(i)" :class="{'mobile-open': openPackID == i}">
 				<div class="package__inner">
 					<div class="package__front">
 						<img :src="pack.image" alt="preview">
@@ -327,21 +235,24 @@
 				
 			</div>
 			<div class="item-select__order-list-window">
-				<div class="shopping-cart-window">
-					<ShoppingCart
-						:prevEnabled="true"
-						:nextEnabled="isStepComplete"
-						@prev-clicked="prevView()"
-						@next-clicked="nextView()"
-					>
-						<template v-slot:next-text>
-							Confirm
-						</template>
-						<template v-slot:prev-text>
-							Back
-						</template>
-					</ShoppingCart>	
+				<div class="shopping-cart-window-wrapper">
+					<div class="shopping-cart-window">
+						<ShoppingCart
+							:prevEnabled="true"
+							:nextEnabled="isStepComplete"
+							@prev-clicked="prevView()"
+							@next-clicked="nextView()"
+						>
+							<template v-slot:next-text>
+								Confirm
+							</template>
+							<template v-slot:prev-text>
+								Back
+							</template>
+						</ShoppingCart>	
+					</div>	
 				</div>
+				
 
 			</div>
 		</div>	
@@ -376,12 +287,14 @@
 			min-width: 0;
 		}
 		&:hover{
-			.package__inner{
-				transform: rotateY(180deg);
+			@media not all and (hover:none) {
+				.package__inner{
+					transform: rotateY(180deg);
+				}
 			}
 		}
-		@media (pointer:none), (pointer:coarse) {
-			&:focus{
+		&.mobile-open{
+			@media (hover:none) {
 				.package__inner{
 					transform: rotateY(180deg);
 				}
@@ -431,7 +344,7 @@
 			}
 
 			display: none;
-			@media (pointer:none), (pointer:coarse) {
+			@media (hover:none) {
 				display: block;	
 			}
 		}
@@ -510,18 +423,44 @@
 			justify-content: center;
 			align-items: center;
 			cursor: pointer;
+			transition: all 0.1s;
+			&:active{
+				background: #aaa;
+			}
 		}
 	}
 
 	.shopping-cart-window{
-		top: 25px;
-		position: sticky;
-		height: calc(100vh - 50px);
-		@media screen and (max-width: 1200px) {
-			height: auto;
+		&-wrapper{
+			top: 25px;
+			position: sticky;
+			height: calc(100vh - 100px);
+			@media screen and (max-width: 1200px) {
+				height: auto;
+			}
+			&:before, &:after {
+				position: absolute;
+				content: '';
+				height: 30px;
+				width: 100%;
+				@media screen and (max-width: 1200px){
+					display: none;
+				}
+			}
+			&:before{
+				top: 0;
+				background: linear-gradient(180deg, rgba(35,32,32,1) 0%, rgba(35,32,32,0) 100%);
+			}
+			&:after{
+				bottom: 0;
+				background: linear-gradient(0deg, rgba(35,32,32,1) 0%, rgba(35,32,32,0) 100%);
+			}
 		}
+		
+		height: 100%;
 		overflow-y: auto;
 		padding: 15px;
+		padding-top: 45px;
 		scrollbar-width: thin;
 		&::-webkit-scrollbar {
 			width: 15px;
@@ -541,6 +480,7 @@
 			border-radius: 5px;
 			background-clip: content-box;
 		}
+		
 	}
 	.item-select {
 		display: flex;
@@ -571,7 +511,7 @@
 		}
 		&__order-list-window {
 			width: 50%;
-			margin-top: 65px;
+			margin-top: 35px;
 			@media screen and (max-width: 1200px) {
 				width: 100%;
 				margin-top: 0;		

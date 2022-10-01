@@ -53,38 +53,15 @@ const useBookingStore = defineStore({
 		orderDescription: '',
 
 		packData: [
-			// {
-			// 	preview: '/assets/images/package-preview.jpg',
-			// 	title: 'Birthday Package',
-			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-			// 	price: 20
-			// },
-			// {
-			// 	preview: '/assets/images/package-preview.jpg',
-			// 	title: 'Birthday Package',
-			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-			// 	price: 20
-			// },
-			// {
-			// 	preview: '/assets/images/package-preview.jpg',
-			// 	title: 'Birthday Package',
-			// 	list: ['Dessert / Cake','Letter balloons (5 total)','Lei Flowers'],
-			// 	price: 20
-			// },
 		],
 		paymentMethods: [
 			{
 				preview: require('assetDir/images/knet.png'),
 				shadowColor: '#AAA'
 			},
-			{
-				preview: require('assetDir/images/mastercard.png'),
-				shadowColor: '#AAA'
-			},
 		],
 		selectedPaymentMethod: 0,
 		packOrders: [],
-		halfPayment: false,
 
 		reservationToken: null,
 		reservationTTL: null,

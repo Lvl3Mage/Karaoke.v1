@@ -21,6 +21,9 @@
 			</div>
 			<div class="calendar__day-labels">
 				<div class="calendar__day-label">
+					Sun
+				</div>
+				<div class="calendar__day-label">
 					Mon
 				</div>
 				<div class="calendar__day-label">
@@ -37,9 +40,6 @@
 				</div>
 				<div class="calendar__day-label">
 					Sat
-				</div>
-				<div class="calendar__day-label">
-					Sun
 				</div>
 			</div>
 			<div v-for="week in currentMonthWeeks" :key="week" class="calendar__days-row">
@@ -154,7 +154,8 @@
 							break;
 						}
 						i++;
-						if(monthDays[i].getDay() == 1){//last day of the week (fuck you js, day 0 is sunday for some reason)
+						if(monthDays[i].getDay() == 0){ //change 0 to 1 if you want the week to start with monday
+
 							break;
 						}
 					}

@@ -51,7 +51,6 @@
 						packageOrders: this.bookingStore.packOrders,
 						contactFields: contactFields,
 						totalPrice: this.bookingStore.totalPrice,
-						halfPrice: this.bookingStore.halfPayment,
 						description: this.bookingStore.orderDescription,
 					};
 					bookingData = JSON.stringify(bookingData);
@@ -141,7 +140,7 @@
 			</div>		
 			<div class="checkout__window checkout__window--mt">
 				<div class="shopping-cart-window">
-					<ShoppingCartCheckout
+					<ShoppingCart
 						:prevEnabled="true"
 						:nextEnabled="isStepComplete"
 						@prev-clicked="prevView()"
@@ -153,7 +152,7 @@
 						<template v-slot:prev-text>
 							Back
 						</template>
-					</ShoppingCartCheckout>	
+					</ShoppingCart>	
 				</div>
 
 			</div>

@@ -43,6 +43,7 @@ module.exports = {
 		historyApiFallback: {
 			rewrites: [
 				{ from: /^\/book/, to: '/booking.html' },
+				{ from: /^\/recover-booking/, to: '/booking.html' },
 			]
 		},
 	},

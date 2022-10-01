@@ -7,6 +7,8 @@ import BookingStep1View from '../views/BookingStep1View.vue'
 import BookingStep2View from '../views/BookingStep2View.vue'
 import BookingStep3View from '../views/BookingStep3View.vue'
 
+import BookingRecovery from '../views/BookingRecovery.vue'
+
 
 const router = createRouter({
 	base: '/',
@@ -46,6 +48,11 @@ const router = createRouter({
 				},
 			],
 		},
+		{
+			path: '/recover-booking',
+			name: 'booking-recovery',
+			component: BookingRecovery,
+		}
 	]
 });
 
