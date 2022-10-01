@@ -278,15 +278,19 @@ p {
     color: $mainFontColor;
 }
 
+// 
 .def-modal {
 	transition: background 0.8s, z-index 0s 0.8s;
 	background: rgba(50,50,50,0);
 	z-index: -50;
 	position: fixed;
-	width: 100%;
+	right: 0;
 	height: 100%;
 	left: 50px;
 	top: 0;
+	&--center{
+		left: 0;
+	}
 	&.light{
 		.def-modal__wrapper{
 			background: #FFF;
@@ -302,13 +306,10 @@ p {
 		backdrop-filter: blur(0px);
 		background: transparent;
 	}
-	@media screen and (max-width:$phoneWidth){
-		left: 0;
-	}
 	&.modal-active{
-		transition: all 0.8s;
+		transition: all 0s;
 		z-index: 450;
-		background: rgba(50,50,50,0.6);
+		background: rgba(50,50,50,0.4);
 		.def-modal__outer-container{
 			transition: all 0.8s;
 			transform: translateY(-100%);
@@ -320,12 +321,12 @@ p {
 		justify-content: center;
 		align-items: center;
 		transition: all 0.8s; // after .8s to allow the model to disappear
-		
+		width: 100%;
 		height: 100%;
 		top: 100%;
 		left: 0;
 		overflow-y: scroll;
-		
+		padding: 20px 25px;
 		box-sizing: border-box;
 		z-index: 5;
 		-ms-overflow-style: none;  /* IE and Edge */
@@ -335,39 +336,41 @@ p {
 		}
 	}
 	&__inner-container {
-		min-width: 0;
-		&--100{
-			width: 100%;
-		}
+		margin: auto;
+		padding: 50px 20px;
+		//max-height: 100%;
+		
 		&--75{
-			width: 75%;
+			flex: 0 0 75%;
 			@media screen and (max-width: 772px) {
-				width: 100%;
+				flex: 0 0 100%;
 			}
 		}
 		&--50{
-			width: 50%;
+			flex: 0 0 50%;
 			@media screen and (max-width: 992px) {
-				width: 75%;
+				flex: 0 0 75%;
 			}
 			@media screen and (max-width: 772px) {
-				width: 100%;
+				flex: 0 0 100%;
 			}
 		}
 	}
 	&__wrapper {
-		min-width: 0;
 		position: relative;
 		z-index: 10;
 		background: #3A3838;
-		border-radius: 8px;
-		padding: 45px 50px;
+		border-radius: 10px;
+		padding: 15px 25px;
 	}
 	&__top {
 		width: 100%;
 		display: flex;
 		align-items: center;
-		justify-content:flex-end;
+		justify-content: space-between;
+	}
+	&__title {
+		justify-self: start;
 	}
 
 	&__cross {
@@ -402,47 +405,95 @@ p {
 	&__content-wrapper{
 
 	}
-	&__video-wrapper {
-		width: 100%;
-		margin-bottom: 20px;
-		//set aspect ratio
-		&>iframe{
-			width: 100%;
-			height: 100%;
-		}
-	}
-	&__image-wrapper {
-		width: 100%;
-		margin-bottom: 20px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		&--100{
-			&>img{
-				width: 100%;
-				height: auto;
-			}
-		}
-		&--75{
-			&>img{
-				width: 75%;
-				height: auto;
-			}
-		}
-		&--50{
-			&>img{
-				width: 50%;
-				height: auto;
-			}
-		}
-	}
-	&__text-wrapper {
-		text-align: left;
-		&--center{
-			text-align: center;
-		}
-	}
 }
 .animation-wrapper{
 	height: 300px;
+}
+
+.work-calendar {
+	display: flex;
+	padding-right: 5px;
+	&__time-column {
+		display: flex;
+		flex-direction: column;
+		padding: 0 5px;
+	}
+	&__time {
+		border-top: 1px solid #555;
+		padding: 5px;
+		flex: 0 0 75px;
+		@media screen and (max-width: $smTabletWidth) {
+			font-size: 12px;
+		}
+	}
+	&__column {
+		flex: 1 1 25%;
+		display: flex;
+		flex-direction: column;
+		padding: 0 15px;
+		border: 1px solid #555;
+		@media screen and (max-width: $smTabletWidth) {
+			padding: 0 5px;
+		}
+	}
+	&__title {
+		height: 3em;
+	}
+	&__day-wrapper {
+		flex: 0 0 calc(75px * var(--hours, 1));
+		padding: 2px 0;
+	}
+	&__day {
+		background: var(--roomColor);
+		border-radius: 5px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		padding: 5px;
+		cursor: pointer;
+	}
+	&__day-content{
+		width: 100%;
+		padding-left: 5px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+
+	}
+}
+.order-item-list {
+	&__item {
+		margin-left: 15px;
+		padding: 10px 0;
+		&:not(:last-child){
+			border-bottom: 1px solid #555;
+		}
+	}
+	&__item-title {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		@media screen and (max-width: $smTabletWidth) {
+			flex-wrap: wrap;
+		}
+		margin-bottom: 15px;
+	}
+	&__item-title-element{
+		flex-grow: 1;
+		@media screen and (max-width: $smTabletWidth) {
+			flex: 0 0 100%;
+		}
+		padding: 3px 15px;
+		&--small{
+			flex: 0 0 auto;
+			@media screen and (max-width: $smTabletWidth) {
+				flex: 0 0 50%;
+			}
+		}
+	}
+	&__item-description {
+		margin-left: 30px;
+		color: #ccc;
+	}
 }

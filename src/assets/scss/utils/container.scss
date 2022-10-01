@@ -29,3 +29,59 @@
     padding: 0 6px;
   }
 } 
+
+.container-full{
+  &__wrapper{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 15px;
+      @media screen and (max-width: $phoneWidth){
+        width: 10px;
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $background-color;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border: 3px solid transparent;
+      border-radius: 5px;
+      background-clip: content-box;
+    }
+  }
+  box-sizing: border-box;
+  width: 1320px;
+  margin: 0 auto;
+}
+@media screen and (max-width: $desktopWidth) {
+  .container-full{
+    width: 1140px;
+  }
+}
+@media screen and (max-width: $smDesktopWidth) {
+  .container-full{
+    width: 960px;
+  }
+}
+@media screen and (max-width: $tabletWidth) {
+  .container-full{
+    width: 720px;
+  }
+}
+@media screen and (max-width: $smTabletWidth) {
+  .container-full{
+    width: 540px;
+  }
+}
+@media screen and (max-width: $phoneWidth) { 
+  .container-full{
+    width: 100%;
+  }
+} 

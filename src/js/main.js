@@ -93,6 +93,10 @@ $(document).on('click', '.modal-trigger', function(event) {
 			modal.find(modalFieldPresets[i].childSelector).val(modalFieldPresets[i].value);
 		}
 	}
+	let modalContent = $(this).data('modal-content');
+	if(modalContent){
+		modal.find('.modal-content-wrapper').html(modalContent);
+	}
 	
 });
 function OpenModal(selector){
