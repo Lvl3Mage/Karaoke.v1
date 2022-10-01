@@ -305,7 +305,7 @@
 		display: block;
 		top: 60px;
 		left: 0;
-		overflow: scroll;
+		overflow: auto;
 		width: 100%;
 		height: min(calc(100vh - 60px), 420px);
 		border: none;
