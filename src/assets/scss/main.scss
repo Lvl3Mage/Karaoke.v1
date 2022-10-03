@@ -43,7 +43,7 @@ ul {
 a {
   color: inherit;
   &:not(.def-link){
-  	text-decoration: inherit; /* no underline */
+	text-decoration: inherit; /* no underline */
   }
   &:hover{
 	color: inherit;
@@ -136,21 +136,21 @@ p {
 }
 
 .section-wrapper {
-      display: flex;
-      width: 100%;
+	display: flex;
+	width: 100%;
 	  &--contacts{
 		height: auto;
 	  }
 	//   &--follow{
 	// 	height: -webkit-fill-available;
 	//   }
-      @media screen and (max-width:$smTabletWidth){
-            height: -webkit-fill-available;
-      }
-      @media screen and (max-width:$phoneWidth){
-            background-position: right;
+	@media screen and (max-width:$smTabletWidth){
+		height: -webkit-fill-available;
+	}
+	@media screen and (max-width:$phoneWidth){
+		background-position: right;
 			
-      }
+	}
 }
 .svg-wrap{
 	width: 24px;
@@ -225,7 +225,7 @@ p {
 		width: 100px;
 		height: 100px;
 		transition: all 0.6s;
-        animation:pulse 0.9s ease-in-out;
+	  animation:pulse 0.9s ease-in-out;
 		animation-iteration-count: infinite;
 		@media screen and (max-width:1280px){
 			width: 75px;
@@ -286,12 +286,23 @@ p {
 	position: fixed;
 	right: 0;
 	height: 100%;
-	left: 50px;
+	left: 120px;
 	top: 0;
+	@media screen and (max-width: 992px) {
+		left: 100px;
+	}
+	@media screen and (max-width: 890px) {
+		left: 90px;
+	}
+	@media screen and (max-width: 576px) {
+		left: 0;
+		top: 60px;
+	}
 	&--center{
 		left: 0;
 	}
 	&.light{
+		color: #232020;
 		.def-modal__wrapper{
 			background: #FFF;
 		}
@@ -310,6 +321,9 @@ p {
 		transition: all 0s;
 		z-index: 450;
 		background: rgba(50,50,50,0.4);
+		&.important{
+			z-index: 600;
+		}
 		.def-modal__outer-container{
 			transition: all 0.8s;
 			transform: translateY(-100%);
@@ -339,7 +353,9 @@ p {
 		margin: auto;
 		padding: 50px 20px;
 		//max-height: 100%;
-		
+		&--100{
+			flex: 0 0 100%;
+		}
 		&--75{
 			flex: 0 0 75%;
 			@media screen and (max-width: 772px) {
@@ -440,6 +456,7 @@ p {
 		height: 3em;
 	}
 	&__day-wrapper {
+		border-top: 1px dashed #555;
 		flex: 0 0 calc(75px * var(--hours, 1));
 		padding: 2px 0;
 	}
@@ -460,6 +477,30 @@ p {
 		justify-content: space-around;
 		align-items: center;
 
+	}
+
+	&__navigation {
+		display: flex;
+		justify-content: space-around;
+	}
+	&__nav {
+		text-decoration: underline;
+		&--left {
+			text-decoration: none;
+		}
+		&--right {
+			text-decoration: none;
+		}
+		&.active{
+			text-decoration: none;
+			font-weight: 700;
+			cursor: default;
+		}
+		&.side{
+			@media screen and (max-width: $smTabletWidth) {
+				display: none;
+			}
+		}
 	}
 }
 .order-item-list {

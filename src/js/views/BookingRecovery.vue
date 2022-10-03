@@ -48,6 +48,10 @@
 					this.bookingStore.itemOrders = response.recoveryData.itemOrders;
 
 					this.bookingStore.packOrders = response.recoveryData.packOrders;
+
+					for (var i = 0; i < response.recoveryData.contactFields.length; i++) {
+						this.bookingStore.contactFields[i].value = response.recoveryData.contactFields[i]
+					}
 				})
 				.catch((err) => {
 					this.recoveryFailed();

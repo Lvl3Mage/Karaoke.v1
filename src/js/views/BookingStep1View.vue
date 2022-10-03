@@ -41,6 +41,7 @@
 			this.bookingStore.openStep = 1;
 		},
 		mounted(){
+
 			this.requestSelectedSchedule();
 			this.dayRefreshCycle();
 		},
@@ -165,6 +166,15 @@
 			this.dayRefreshActive = false;
 		}
 	}
+	function setCookie(name,value,days) {
+	    var expires = "";
+	    if (days) {
+	        var date = new Date();
+	        date.setTime(date.getTime() + (days*24*60*60*1000));
+	        expires = "; expires=" + date.toUTCString();
+	    }
+	    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+	}
 	const delay = ms => new Promise(res => setTimeout(res, ms));
 </script>
 <template>
@@ -238,13 +248,20 @@
 				margin-right: 15px;
 			}
 			@media screen and (max-width: $tabletWidth) {
+				order: 1;
+
 				flex: 0 0 100%;
 				margin: 0;
+				margin-top: 25px;
 				margin-bottom: 75px;
 			}
 
 		}
 		&__room {
+			@media screen and (max-width: $tabletWidth) {
+				overflow: hidden;
+				border-radius: 5px;
+			}
 			display: flex;
 			flex-direction: column;
 			flex: 5 1 0;
@@ -312,7 +329,7 @@
 			@media screen and (max-width: $tabletWidth) {
 				margin: auto;
 				padding: 0 15px;
-    			max-width: 410px;
+				max-width: 410px;
 			}
 		}
 		&__people-selector-row{
@@ -474,10 +491,10 @@
 		}
 		@keyframes lds-roller {
 		  0% {
-		    transform: rotate(0deg);
+			transform: rotate(0deg);
 		  }
 		  100% {
-		    transform: rotate(360deg);
+			transform: rotate(360deg);
 		  }
 		}
 	}

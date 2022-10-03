@@ -5,7 +5,9 @@
 	import ShoppingCart from '../components/ShoppingCart.vue'
 	const errorModalStore = useErrorModalStore();
 </script>
+<!-- <script src="https://demo.myfatoorah.com/cardview/v2/session.js"></script> -->
 <script>
+	import '../myfatoorah.js'
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
@@ -16,6 +18,11 @@
 				// nextRoute: {name:"booking-step-3"},
 				prevRoute: {name:'booking-step-2'},
 				TOS: false,
+				paymentModalOpen: false,
+
+				sessionId: '',
+				recoveryData: '',
+				bookingData: '',
 			}
 		},
 		watch: {
@@ -25,7 +32,59 @@
 			this.bookingStore.openStep = 3;
 		},
 		mounted(){
-
+			let data = new FormData();
+			data.append('action', 'getPaymentSession');
+			axios
+				.post(api.baseURL,data)
+				.then(response => {
+					var config = {
+						countryCode: response.data.CountryCode,
+						sessionId: response.data.SessionId,
+						cardViewId: "payment-form",
+						style: {
+						direction: "ltr",
+						cardHeight: 130,
+						input: {
+						  color: "black",
+						  fontSize: "13px",
+						  fontFamily: "sans-serif",
+						  inputHeight: "32px",
+						  inputMargin: "0px",
+						  borderColor: "c7c7c7",
+						  borderWidth: "1px",
+						  borderRadius: "8px",
+						  boxShadow: "",
+						  placeHolder: {
+							holderName: "Name On Card",
+							cardNumber: "Number",
+							expiryDate: "MM / YY",
+							securityCode: "CVV",
+						  }
+						},
+						label: {
+						  display: false,
+						  color: "black",
+						  fontSize: "13px",
+						  fontWeight: "normal",
+						  fontFamily: "sans-serif",
+						  text: {
+							holderName: "Card Holder Name",
+							cardNumber: "Card Number",
+							expiryDate: "Expiry Date",
+							securityCode: "Security Code",
+						  },
+						},
+						error: {
+						  borderColor: "red",
+						  borderRadius: "8px",
+						  boxShadow: "0px",
+						},
+					  },
+					};
+					myFatoorah.init(config);
+					console.log(response.data);
+			});
+			
 		},
 		methods: {
 			attemptSubmit: function(){
@@ -38,52 +97,53 @@
 					}
 				}
 				if(valid){
-					let contactFields = [];
-					for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
-						contactFields.push({
-							title: this.bookingStore.contactFields[i].title,
-							value: this.bookingStore.contactFields[i].value,
-						});
-						
-					}
-					let bookingData = {
-						itemOrders: this.bookingStore.activeOrders,
-						packageOrders: this.bookingStore.packOrders,
-						contactFields: contactFields,
-						totalPrice: this.bookingStore.totalPrice,
-						description: this.bookingStore.orderDescription,
-					};
-					bookingData = JSON.stringify(bookingData);
-					// let amougs = {
-					// 	data: bookingData,
-					// }
-					// console.log(JSON.stringify(amougs));
-					// console.log(bookingData);
-					let data = new FormData();
-					console.log(bookingData);
-					data.append('action', 'createBooking');
-					data.append('bookingData', bookingData);
-					data.append('token', this.bookingStore.reservationToken);
-					axios
-						.post(api.baseURL,data)
-						.then(response => {
-
-							console.log(response.data);
-							window.location.replace("https://karaoke.marmadot.com/booking-confirmation?token=" + this.bookingStore.reservationToken + '&order=' + response.data.booking_id);
-							// if(response.data.status == 200){
-								
-							// }
-							// else{
-							// 	this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
-							// }
-							
-
-					});
+					this.paymentModalOpen = true;
 				}
 			},
 			prevView: function(){
 				this.$router.push(this.prevRoute);
-			}
+			},
+			submitPayment: function(){
+				myFatoorah.submit()
+				.then(function (response) {
+					var sessionId = response.sessionId;
+					var cardBrand = response.cardBrand;
+					this.submitBooking(sessionId,cardBrand);
+				}.bind(this))
+				.catch(function (error) {
+					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+				}.bind(this));
+			},
+			submitBooking: function(sessionID, cardBrand){
+				let contactFields = [];
+				let contactFieldsOrdered = [];
+				for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
+					contactFields.push({
+						title: this.bookingStore.contactFields[i].title,
+						value: this.bookingStore.contactFields[i].value,
+					});
+					contactFieldsOrdered.push(this.bookingStore.contactFields[i].value)
+				}
+				this.sessionId = sessionID;
+				this.bookingData = JSON.stringify({
+					itemOrders: this.bookingStore.activeOrders,
+					packageOrders: this.bookingStore.packOrders,
+					contactFields: contactFields,
+					totalPrice: this.bookingStore.totalPrice,
+					description: this.bookingStore.orderDescription,
+				});
+				this.recoveryData = JSON.stringify({
+					selectedDate: this.bookingStore.selectedDate,
+					selectedRange: this.bookingStore.selectedRange,
+					itemOrders: this.bookingStore.itemOrders,
+					packOrders: this.bookingStore.packOrders,
+					contactFields: contactFieldsOrdered,
+				});
+				this.$nextTick(function(){
+					console.log(document.forms["payment-submit-form"]);
+					document.forms["payment-submit-form"].submit(); 
+				});
+			},
 		},
 
 		computed: {
@@ -157,10 +217,57 @@
 
 			</div>
 		</div>
+		<div class="def-modal light" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
+			<div class="def-modal__outer-container container">
+				<div class="def-modal__inner-container def-modal__inner-container--50">
+					<div class="def-modal__wrapper" @click.stop>
+						<div class="def-modal__top">
+							<div class="def-modal__title">
+								<span class="modal-title">Payment form</span>
+							</div>
+							<div class="def-modal__cross" @click="paymentModalOpen = false">
+								<div class="def-modal__cross-line def-modal__cross-line--1"></div>
+								<div class="def-modal__cross-line def-modal__cross-line--2"></div>
+							</div>
+						</div>
+						<div class="def-modal__content-wrapper def-modal-class-name modal-content-wrapper">
+							<div id="payment-form" class="m--t-15">
+								
+							</div>
+							<button class="pay-submit-button" @click="submitPayment()">Confirm Payment</button>
+							<form class="pay-submit-form" name="payment-submit-form">
+								<input type="hidden" :value="bookingData" name="bookinData">
+								<input type="hidden" :value="sessionId" name="sessionId">
+								<input type="hidden" :value="recoveryData" name="recoveryData">
+								<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
+							</form>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
 	</div>
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.pay-submit-button{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		font-family: 'Roboto';
+		font-style: normal;
+		font-weight: 600;
+		font-size: 28px;
+		border-radius: 14px;
+		padding: 10px;
+		cursor: pointer;
+		border: 1px solid #232020;
+		color: #232020;
+	}
+	.pay-submit-form{
+		display: none;
+	}
 	.tos{
 		&__checkbox-wrapper {
 			display: flex;

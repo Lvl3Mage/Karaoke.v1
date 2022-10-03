@@ -199,7 +199,7 @@
 	<div class="loader" v-if="!bookingDataAvailable">
 		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 	</div>
-	<div class="def-modal light" :class="{'modal-active': timerModalActive}" @click="timerModalActive = false">
+	<div class="def-modal important light" :class="{'modal-active': timerModalActive}" @click="timerModalActive = false">
 		<div class="def-modal__outer-container container">
 			<div class="def-modal__inner-container def-modal__inner-container--50">
 				<div class="def-modal__wrapper" @click.stop>
@@ -237,7 +237,7 @@
 			</div>	
 		</div>
 	</div>
-	<div class="def-modal light" :class="{'modal-active': errorModalStore.modalOpen}" @click="errorModalStore.modalOpen = false">
+	<div class="def-modal important light" :class="{'modal-active': errorModalStore.modalOpen}" @click="errorModalStore.modalOpen = false">
 		<div class="def-modal__outer-container container">
 			<div class="def-modal__inner-container def-modal__inner-container--50">
 				<div class="def-modal__wrapper" @click.stop>
