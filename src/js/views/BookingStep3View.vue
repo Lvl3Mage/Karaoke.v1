@@ -7,7 +7,6 @@
 </script>
 <!-- <script src="https://demo.myfatoorah.com/cardview/v2/session.js"></script> -->
 <script>
-	import '../myfatoorah.js'
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 	import {useErrorModalStore} from '../stores/ErrorModalStore.js'
@@ -20,9 +19,9 @@
 				TOS: false,
 				paymentModalOpen: false,
 
-				sessionId: '',
 				recoveryData: '',
 				bookingData: '',
+				selectedPaymentMethod: '',
 			}
 		},
 		watch: {
@@ -32,59 +31,7 @@
 			this.bookingStore.openStep = 3;
 		},
 		mounted(){
-			let data = new FormData();
-			data.append('action', 'getPaymentSession');
-			axios
-				.post(api.baseURL,data)
-				.then(response => {
-					var config = {
-						countryCode: response.data.CountryCode,
-						sessionId: response.data.SessionId,
-						cardViewId: "payment-form",
-						style: {
-						direction: "ltr",
-						cardHeight: 130,
-						input: {
-						  color: "black",
-						  fontSize: "13px",
-						  fontFamily: "sans-serif",
-						  inputHeight: "32px",
-						  inputMargin: "0px",
-						  borderColor: "c7c7c7",
-						  borderWidth: "1px",
-						  borderRadius: "8px",
-						  boxShadow: "",
-						  placeHolder: {
-							holderName: "Name On Card",
-							cardNumber: "Number",
-							expiryDate: "MM / YY",
-							securityCode: "CVV",
-						  }
-						},
-						label: {
-						  display: false,
-						  color: "black",
-						  fontSize: "13px",
-						  fontWeight: "normal",
-						  fontFamily: "sans-serif",
-						  text: {
-							holderName: "Card Holder Name",
-							cardNumber: "Card Number",
-							expiryDate: "Expiry Date",
-							securityCode: "Security Code",
-						  },
-						},
-						error: {
-						  borderColor: "red",
-						  borderRadius: "8px",
-						  boxShadow: "0px",
-						},
-					  },
-					};
-					myFatoorah.init(config);
-					console.log(response.data);
-			});
-			
+	
 		},
 		methods: {
 			attemptSubmit: function(){
@@ -97,24 +44,34 @@
 					}
 				}
 				if(valid){
+					let data = new FormData();
+					data.append('action', 'getPaymentMethods');
+					data.append('price', this.bookingStore.totalPrice);
+					axios
+						.post(api.baseURL,data)
+						.then(response => {
+							let paymentMethods = response.data.paymentMethods;
+							this.bookingStore.paymentMethods = [];
+							for (var i = 0; i < paymentMethods.length; i++) {
+								this.bookingStore.paymentMethods.push({
+									id: paymentMethods[i].PaymentMethodId,
+									preview: paymentMethods[i].ImageUrl,
+									shadowColor: '#AAA'
+								});
+							}
+						})
+						.catch(function(error){
+							console.log(error)
+							this.paymentModalOpen = false;
+							this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						}.bind(this));
 					this.paymentModalOpen = true;
 				}
 			},
 			prevView: function(){
 				this.$router.push(this.prevRoute);
 			},
-			submitPayment: function(){
-				myFatoorah.submit()
-				.then(function (response) {
-					var sessionId = response.sessionId;
-					var cardBrand = response.cardBrand;
-					this.submitBooking(sessionId,cardBrand);
-				}.bind(this))
-				.catch(function (error) {
-					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
-				}.bind(this));
-			},
-			submitBooking: function(sessionID, cardBrand){
+			submitBooking: function(){
 				let contactFields = [];
 				let contactFieldsOrdered = [];
 				for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
@@ -124,7 +81,6 @@
 					});
 					contactFieldsOrdered.push(this.bookingStore.contactFields[i].value)
 				}
-				this.sessionId = sessionID;
 				this.bookingData = JSON.stringify({
 					itemOrders: this.bookingStore.activeOrders,
 					packageOrders: this.bookingStore.packOrders,
@@ -140,13 +96,18 @@
 					contactFields: contactFieldsOrdered,
 				});
 				this.$nextTick(function(){
-					console.log(document.forms["payment-submit-form"]);
 					document.forms["payment-submit-form"].submit(); 
 				});
 			},
 		},
 
 		computed: {
+			selectedPaymentId: function(){
+				if(this.bookingStore.paymentMethods.length-1 < this.bookingStore.selectedPaymentMethod){
+					return null;
+				}
+				return this.bookingStore.paymentMethods[this.bookingStore.selectedPaymentMethod].id;
+			},
 			isStepComplete: function(){
 				return this.TOS;
 			},
@@ -187,16 +148,7 @@
 						Сonfirm that I agree with the Terms of Service and Privacy Policy
 					</div>	
 				</div>
-				<div class="payment-selection" >
-					<div class="payment-selection__title">
-						Please choose a payment method
-					</div>
-					<div class="payment-selection__methods">
-						<div class="payment-selection__method" :style="'--shadowColor:' + method.shadowColor" v-for="(method, i) in bookingStore.paymentMethods" :key="i" :class="{'active': i == bookingStore.selectedPaymentMethod}" @click="bookingStore.selectedPaymentMethod = i">
-							<img :src="method.preview" alt="">
-						</div>
-					</div>
-				</div>
+				
 			</div>		
 			<div class="checkout__window checkout__window--mt">
 				<div class="shopping-cart-window">
@@ -217,13 +169,13 @@
 
 			</div>
 		</div>
-		<div class="def-modal light" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
+		<div class="def-modal" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
 			<div class="def-modal__outer-container container">
 				<div class="def-modal__inner-container def-modal__inner-container--50">
 					<div class="def-modal__wrapper" @click.stop>
 						<div class="def-modal__top">
 							<div class="def-modal__title">
-								<span class="modal-title">Payment form</span>
+								<span class="modal-title">Please select a payment method</span>
 							</div>
 							<div class="def-modal__cross" @click="paymentModalOpen = false">
 								<div class="def-modal__cross-line def-modal__cross-line--1"></div>
@@ -231,21 +183,32 @@
 							</div>
 						</div>
 						<div class="def-modal__content-wrapper def-modal-class-name modal-content-wrapper">
-							<div id="payment-form" class="m--t-15">
-								
+							<div class="" v-if="bookingStore.paymentMethods != null">
+								<div class="payment-selection" >
+									<div class="payment-selection__methods">
+										<div class="payment-selection__method" :style="'--shadowColor:' + method.shadowColor" v-for="(method, i) in bookingStore.paymentMethods" :key="i" :class="{'active': i == bookingStore.selectedPaymentMethod}" @click="bookingStore.selectedPaymentMethod = i">
+											<img :src="method.preview" alt="">
+										</div>
+									</div>
+								</div>
+								<button class="pay-submit-button" @click="submitBooking()">Confirm Payment</button>
+								<form class="pay-submit-form" name="payment-submit-form">
+									<!-- correct to booking data later -->
+									<input type="hidden" :value="bookingData" name="bookinData"> 
+									<input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod">
+									<input type="hidden" :value="recoveryData" name="recoveryData">
+									<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
+								</form>	
 							</div>
-							<button class="pay-submit-button" @click="submitPayment()">Confirm Payment</button>
-							<form class="pay-submit-form" name="payment-submit-form">
-								<input type="hidden" :value="bookingData" name="bookinData">
-								<input type="hidden" :value="sessionId" name="sessionId">
-								<input type="hidden" :value="recoveryData" name="recoveryData">
-								<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
-							</form>
+							<div class="payment-selection__loader" v-if="bookingStore.paymentMethods == null">
+								<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+							</div>
 						</div>
 					</div>
 				</div>	
 			</div>
 		</div>
+		
 	</div>
 </template>
 <style scoped lang="scss">
@@ -366,12 +329,12 @@
 		}
 	}
 	.payment-selection {
-		&__title {
-			font-family: 'Chivo';
-			font-style: normal;
-			font-weight: 400;
-			font-size: 16px;
-			margin-bottom: 25px;
+		&__loader {
+			width: 100%;
+			height: 40vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 		&__methods {
 			display: flex;
@@ -394,6 +357,91 @@
 				height: auto;
 			}
 		}
+	}
+	
+	.lds-roller {
+	  display: inline-block;
+	  position: relative;
+	  width: 80px;
+	  height: 80px;
+	}
+	.lds-roller div {
+	  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	  transform-origin: 40px 40px;
+	}
+	.lds-roller div:after {
+	  content: " ";
+	  display: block;
+	  position: absolute;
+	  width: 7px;
+	  height: 7px;
+	  border-radius: 50%;
+	  background: #fff;
+	  margin: -4px 0 0 -4px;
+	}
+	.lds-roller div:nth-child(1) {
+	  animation-delay: -0.036s;
+	}
+	.lds-roller div:nth-child(1):after {
+	  top: 63px;
+	  left: 63px;
+	}
+	.lds-roller div:nth-child(2) {
+	  animation-delay: -0.072s;
+	}
+	.lds-roller div:nth-child(2):after {
+	  top: 68px;
+	  left: 56px;
+	}
+	.lds-roller div:nth-child(3) {
+	  animation-delay: -0.108s;
+	}
+	.lds-roller div:nth-child(3):after {
+	  top: 71px;
+	  left: 48px;
+	}
+	.lds-roller div:nth-child(4) {
+	  animation-delay: -0.144s;
+	}
+	.lds-roller div:nth-child(4):after {
+	  top: 72px;
+	  left: 40px;
+	}
+	.lds-roller div:nth-child(5) {
+	  animation-delay: -0.18s;
+	}
+	.lds-roller div:nth-child(5):after {
+	  top: 71px;
+	  left: 32px;
+	}
+	.lds-roller div:nth-child(6) {
+	  animation-delay: -0.216s;
+	}
+	.lds-roller div:nth-child(6):after {
+	  top: 68px;
+	  left: 24px;
+	}
+	.lds-roller div:nth-child(7) {
+	  animation-delay: -0.252s;
+	}
+	.lds-roller div:nth-child(7):after {
+	  top: 63px;
+	  left: 17px;
+	}
+	.lds-roller div:nth-child(8) {
+	  animation-delay: -0.288s;
+	}
+	.lds-roller div:nth-child(8):after {
+	  top: 56px;
+	  left: 12px;
+	}
+	@keyframes lds-roller {
+	  0% {
+	    transform: rotate(0deg);
+	  }
+	  100% {
+	    transform: rotate(360deg);
+	  }
 	}
 
 

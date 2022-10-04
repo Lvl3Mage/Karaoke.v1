@@ -54,12 +54,14 @@ const useBookingStore = defineStore({
 
 		packData: [
 		],
-		paymentMethods: [
-			{
-				preview: require('assetDir/images/knet.png'),
-				shadowColor: '#AAA'
-			},
-		],
+		paymentMethods: null,
+		// paymentMethods: [
+		// 	{
+		//		id: 20
+		// 		preview: require('assetDir/images/knet.png'),
+		// 		shadowColor: '#AAA'
+		// 	},
+		// ],
 		selectedPaymentMethod: 0,
 		packOrders: [],
 
