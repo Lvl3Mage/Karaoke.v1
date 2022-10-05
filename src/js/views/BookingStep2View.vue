@@ -492,6 +492,9 @@
 			@media screen and (max-width: 1200px) {
 				width: 100%;
 			}
+			@media screen and (max-width: 1200px) {
+				order: 1;	
+			}
 		}
 		&__item-list-wrapper {}
 		&__item-list-category {
@@ -508,11 +511,13 @@
 			flex-wrap: wrap;
 			justify-content: center;
 			align-items: stretch;
+			
 		}
 		&__order-list-window {
 			width: 50%;
 			margin-top: 35px;
 			@media screen and (max-width: 1200px) {
+				order: 0;
 				width: 100%;
 				margin-top: 0;		
 			}

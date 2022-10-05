@@ -20,7 +20,7 @@
 
 				recoveryData: '',
 				bookingData: '',
-				// selectedPaymentMethod: '',
+				selectedPaymentMethod: '',
 			}
 		},
 		watch: {
@@ -46,29 +46,28 @@
 					}
 				}
 				if(valid){
-					// let data = new FormData();
-					// data.append('action', 'getPaymentMethods');
-					// data.append('price', this.bookingStore.totalPrice);
-					// axios
-					// 	.post(api.baseURL,data)
-					// 	.then(response => {
-					// 		let paymentMethods = response.data.paymentMethods;
-					// 		this.bookingStore.paymentMethods = [];
-					// 		for (var i = 0; i < paymentMethods.length; i++) {
-					// 			this.bookingStore.paymentMethods.push({
-					// 				id: paymentMethods[i].PaymentMethodId,
-					// 				preview: paymentMethods[i].ImageUrl,
-					// 				shadowColor: '#AAA'
-					// 			});
-					// 		}
-					// 	})
-					// 	.catch(function(error){
-					// 		console.log(error)
-					// 		this.paymentModalOpen = false;
-					// 		this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
-					// 	}.bind(this));
-					// this.paymentModalOpen = true;
-					this.submitBooking();
+					let data = new FormData();
+					data.append('action', 'getPaymentMethods');
+					data.append('price', this.bookingStore.totalPrice);
+					axios
+						.post(api.baseURL,data)
+						.then(response => {
+							let paymentMethods = response.data.paymentMethods;
+							this.bookingStore.paymentMethods = [];
+							for (var i = 0; i < paymentMethods.length; i++) {
+								this.bookingStore.paymentMethods.push({
+									id: paymentMethods[i].PaymentMethodId,
+									preview: paymentMethods[i].ImageUrl,
+									shadowColor: '#AAA'
+								});
+							}
+						})
+						.catch(function(error){
+							console.log(error)
+							this.paymentModalOpen = false;
+							this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						}.bind(this));
+					this.paymentModalOpen = true;
 				}
 			},
 			prevView: function(){
@@ -172,13 +171,8 @@
 
 			</div>
 		</div>
-		<form action="/payment" method="POST" class="pay-submit-form" name="payment-submit-form">
-			<input type="hidden" :value="bookingData" name="bookinData"> 
-			<!-- <input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod"> -->
-			<input type="hidden" :value="recoveryData" name="recoveryData">
-			<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
-		</form>	
-		<!-- <div class="def-modal" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
+		
+		<div class="def-modal" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
 			<div class="def-modal__outer-container container">
 				<div class="def-modal__inner-container def-modal__inner-container--50">
 					<div class="def-modal__wrapper" @click.stop>
@@ -201,7 +195,12 @@
 									</div>
 								</div>
 								<button class="pay-submit-button" @click="submitBooking()">Confirm Payment</button>
-								
+								<form action="/payment" method="POST" class="pay-submit-form" name="payment-submit-form">
+									<input type="hidden" :value="bookingData" name="bookinData"> 
+									<input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod">
+									<input type="hidden" :value="recoveryData" name="recoveryData">
+									<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
+								</form>	
 							</div>
 							<div class="payment-selection__loader" v-if="bookingStore.paymentMethods == null">
 								<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -210,7 +209,7 @@
 					</div>
 				</div>	
 			</div>
-		</div> -->
+		</div>
 		
 	</div>
 </template>
@@ -306,8 +305,8 @@
 			}
 			@media screen and (max-width: 1200px) {
 				width: 100%;
-				
 			}
+			
 		}
 		&__fields{
 			display: flex;
