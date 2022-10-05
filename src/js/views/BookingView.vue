@@ -150,11 +150,13 @@
 		<div class="container">
 			<div class="booking__top-bar">
 				<div class="booking__logo">
-					<img :src="require('assetDir/images/logo.png')" alt="">
+					<a href="/">
+						<img :src="require('assetDir/images/logo.png')" alt="">
+					</a>
 				</div>
 				<div class="booking__complementary-wrapper">
 					<div class="booking__title-wrapper">
-						<span>Book me</span>
+						<span>Booking</span>
 					</div>
 					<div class="booking__timer-wrapper" :class="{'highlighted': bookingStore.reservationTTL <= 60}"  v-if="bookingStore.reservationTTL != null" @click="openTimerModal()">
 						<ph-clock :size="23" color="#fff" /><span>{{formattedTimer}}</span>
@@ -341,7 +343,7 @@
 		&__logo {
 			margin: auto;
 			width: 150px;
-			&>img{
+			img{
 				width: 100%;
 				height: auto;
 			}

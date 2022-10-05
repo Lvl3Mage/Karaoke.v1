@@ -4,6 +4,11 @@
 			<img :src="imageLink" alt="">
 		</div>
 		<div class="item__content">
+			<div class="item__popup-wrapper" :class="{'open': popup}">
+				<div class="item__popup" >
+					Order added to cart!
+				</div>
+			</div>
 			<div class="item__title">
 				<slot name="title">title</slot>
 			</div>
@@ -38,7 +43,7 @@
 				selectedCount: 1,
 				descriptionInvalid: false,
 
-				// popup: false,
+				popup: false,
 				// popupText: '',
 				// popupError: false,
 			}
@@ -66,14 +71,18 @@
 				if(!this.orderRef.active){
 					if(this.description){
 						if(this.orderRef.description.length > 0 ){
-							this.orderRef.active = true
+							this.orderRef.active = true;
+							this.popup = true;
+							this.removePopupAsync();
 						}
 						else{
-							this.descriptionInvalid = true
+							this.descriptionInvalid = true;
 						}
 					}
 					else{
 						this.orderRef.active = true;
+						this.popup = true;
+						this.removePopupAsync();
 					}
 					
 				}
@@ -105,11 +114,11 @@
 			// 	// this.popup = true;
 			// 	// this.removePopupAsync();
 			// },
-			// removePopupAsync: function(){
-			// 	setTimeout(function(){
-			// 		this.popup = false;
-			// 	}.bind(this), 1500);
-			// },
+			removePopupAsync: function(){
+				setTimeout(function(){
+					this.popup = false;
+				}.bind(this), 1500);
+			},
 		},
 		computed: {
 			OrderDescription: function(){
@@ -152,6 +161,7 @@
 		}
 	}
 	&__content {
+		position: relative;
 		transition: all 0.5s;
 		flex-grow: 1;
 		background: #3A3838;
@@ -277,7 +287,7 @@
 	}
 	&__popup-wrapper{
 		position: absolute;
-		bottom: 65%;
+		top: -25px;
 		left: -50px;
 		right: -50px;
 		display: flex;

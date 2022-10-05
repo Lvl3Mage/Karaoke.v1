@@ -58,12 +58,14 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
 	if(to.meta.minCompletion){
+
 		const bookingStore = useBookingStore();
 		if(bookingStore.stepCompletion >= to.meta.minCompletion){
 			return true; 
 		}
 		else{
 			if(to.meta.prevStepRoute){ // if prev redirect exists
+
 				return to.meta.prevStepRoute; // redirect to prev step
 			}
 			return false;

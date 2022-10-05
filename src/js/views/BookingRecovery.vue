@@ -10,6 +10,10 @@
 	export default{
 		data() {
 			return {
+				selectedDate: null,
+				selectedRange: null,	
+				itemOrders: null,
+				packOrders: null,
 			}
 		},
 		watch: {
@@ -28,32 +32,35 @@
 			}
 			let data = new FormData();
 			data.append('action', 'recoverReservationData');
+			data.append('token', token);
 			axios
 				.post(api.baseURL,data)
 				.then(response => {
-
+					console.log(response);
 					this.recoverRoomData();
 					this.recoverItemData();
+					this.bookingStore.reservationToken = token;
+					this.bookingStore.selectedRoomID = response.data.roomID;
+					this.bookingStore.selectedPeopleCount = response.data.peopleCount;
+					this.bookingStore.orderDescription = response.data.orderDescription;
 
-					this.bookingStore.selectedRoomID = response.roomID;
-					this.bookingStore.selectedPeopleCount = response.peopleCount;
-					this.bookingStore.orderDescription = response.orderDescription;
+					this.bookingStore.reservationTTL = response.data.ttl;
 
-					this.bookingStore.reservationTTL = response.ttl;
+					let recoveryData = JSON.parse(response.data.recoveryData.replace(/\\/g, ''));
+					this.selectedDate = new Date(recoveryData.selectedDate);
 
-					this.bookingStore.selectedDate = Date.parse(response.recoveryData.selectedDate);
-
-					this.bookingStore.selectedRange = response.recoveryData.selectedRange;
+					this.selectedRange = recoveryData.selectedRange;
 					
-					this.bookingStore.itemOrders = response.recoveryData.itemOrders;
+					this.itemOrders = recoveryData.itemOrders;
 
-					this.bookingStore.packOrders = response.recoveryData.packOrders;
+					this.packOrders = recoveryData.packOrders;
 
-					for (var i = 0; i < response.recoveryData.contactFields.length; i++) {
-						this.bookingStore.contactFields[i].value = response.recoveryData.contactFields[i]
+					for (var i = 0; i < recoveryData.contactFields.length; i++) {
+						this.bookingStore.contactFields[i].value = recoveryData.contactFields[i]
 					}
 				})
 				.catch((err) => {
+					console.log(err);
 					this.recoveryFailed();
 				});
 		},
@@ -76,6 +83,7 @@
 						this.checkDataValidity();
 					})
 					.catch((err) => {
+						console.log(err);
 						this.recoveryFailed();
 					});
 			},
@@ -98,6 +106,15 @@
 				let itemData = this.bookingStore.itemData;
 				let packData = this.bookingStore.packData;
 				if(Object.keys(roomData).length != 0 && itemData != null && packData.length > 0){
+
+					this.bookingStore.selectedDate = this.selectedDate;
+
+					this.bookingStore.selectedRange = this.selectedRange;
+					
+					this.bookingStore.itemOrders = this.itemOrders;
+
+					this.bookingStore.packOrders = this.packOrders;
+
 					this.errorModalStore.OpenModal("Payment failed.", "Please try again.");
 					this.$router.replace({ name: 'booking-step-3'  });
 				}
