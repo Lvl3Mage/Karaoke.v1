@@ -1,6 +1,7 @@
 
 <script setup>
-	import { PhClock} from "phosphor-vue";
+	import IconPeople from '../components/IconPeople.vue'
+
 	const bookingStore = useBookingStore()
 	const errorModalStore = useErrorModalStore();
 </script>
@@ -159,7 +160,7 @@
 						<span>Booking</span>
 					</div>
 					<div class="booking__timer-wrapper" :class="{'highlighted': bookingStore.reservationTTL <= 60}"  v-if="bookingStore.reservationTTL != null" @click="openTimerModal()">
-						<ph-clock :size="23" color="#fff" /><span>{{formattedTimer}}</span>
+						<IconClock :size="23" color="#fff" /><span>{{formattedTimer}}</span>
 					</div>	
 				</div>
 				

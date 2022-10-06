@@ -6,7 +6,7 @@
 					Start time
 				</div>
 				<div class="input-field">
-					<ph-clock :size="14" color="#fff" />
+					<IconClock :size="14" color="#fff" />
 					<span>
 						{{startTimeFormatted}}
 					</span>
@@ -17,7 +17,7 @@
 					End time
 				</div>
 				<div class="input-field">
-					<ph-clock :size="14" color="#fff" />
+					<IconClock :size="14" color="#fff" />
 					<span>
 						{{endTimeFormatted}}
 					</span>
@@ -54,7 +54,7 @@
 	</div>
 </template>
 <script setup>
-	import { PhClock} from "phosphor-vue";
+	import IconClock from '../components/IconClock.vue'
 </script>
 <script>
 	let Selector = {

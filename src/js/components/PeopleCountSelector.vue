@@ -11,13 +11,13 @@
 		</div>
 		<div class="people-selector__selector">
 			<div v-for="index in maxCount" :key="index" class="people-selector__icon" @click="changeCount(index)">
-				<ph-user :size="28" :color="index <= count ? highlightColor : '#fff' " :weight="index <= count ? 'fill' : 'regular' "/>
+				<IconPeople :size="28" :color="index <= count ? highlightColor : '#fff' " :weight="index <= count ? 'fill' : 'regular' "/>
 			</div>
 		</div>	
 	</div>
 </template>
 <script setup>
-	import { PhUser} from "phosphor-vue";
+	import IconPeople from '../components/IconPeople.vue'
 </script>
 <script>
 	export default {
