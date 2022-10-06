@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let api = {};
-api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php"; // const axios = require(["axios"]).default;
+api.baseURL = "/wp-admin/admin-ajax.php"; // const axios = require(["axios"]).default;
 
 
 const __default__ = {
@@ -1568,7 +1568,6 @@ __webpack_require__.r(__webpack_exports__);
 const __default__ = {
   data() {
     return {
-      // nextRoute: {name:"booking-step-3"},
       prevRoute: {
         name: 'booking-step-2'
       },
@@ -3471,7 +3470,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     class: "pay-submit-button",
     onClick: _cache[4] || (_cache[4] = $event => $options.submitBooking())
-  }, "Confirm Payment"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" correct to booking data later "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, "Confirm Payment"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "hidden",
     value: $data.bookingData,
     name: "bookinData"

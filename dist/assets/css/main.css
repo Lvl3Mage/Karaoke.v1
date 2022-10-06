@@ -3447,6 +3447,9 @@ body {
 .text--center {
   text-align: center;
 }
+.text--right {
+  text-align: right;
+}
 
 .input:not(.input--styled) {
   color: inherit !important;
@@ -8103,6 +8106,11 @@ p {
     width: 100%;
 }
 }
+@media screen and (max-width: 1200px) {
+.item-select__item-window[data-v-40df0570] {
+    order: 1;
+}
+}
 .item-select__item-list-category[data-v-40df0570] {
   font-family: "Playfair Display";
   font-style: normal;
@@ -8123,6 +8131,7 @@ p {
 }
 @media screen and (max-width: 1200px) {
 .item-select__order-list-window[data-v-40df0570] {
+    order: 0;
     width: 100%;
     margin-top: 0;
 }
