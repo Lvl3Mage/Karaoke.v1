@@ -21,9 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let api = {};
-api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php"; // api.baseURL = "/wp-admin/admin-ajax.php";
+let api = {}; // api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php";
 
+api.baseURL = "/wp-admin/admin-ajax.php";
 
 const __default__ = {
   data: () => ({}),
