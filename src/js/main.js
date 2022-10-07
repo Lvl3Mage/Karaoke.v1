@@ -149,3 +149,34 @@ $(document).ready(function(){
 });
 
 //READMORE END
+
+
+//Item accordeon
+$(window).resize(function(){
+	UpdateItemLists();
+});
+$(document).on('click', '.item-category', function(event) {
+	let isOpen = $(this).closest('.item-list-wrapper').hasClass('open');
+	$('.item-list-wrapper').removeClass('open');
+	$(this).closest('.item-list-wrapper').toggleClass('open',!isOpen);
+	UpdateItemLists();
+});
+function UpdateItemLists(){
+	$(".item-list-wrapper").each(function(){
+		AnimateListCategory($(this));
+	})
+}
+function AnimateListCategory(listWrapper){
+	let category = listWrapper.find('.item-category');
+	let list = listWrapper.find('.item-list');
+
+	let targetHeight = category.outerHeight(true)
+	if(listWrapper.hasClass('open')){
+		targetHeight += list.outerHeight(true);
+	}
+	listWrapper.stop().animate({
+		height: targetHeight+"px"
+	}, 500, function() {
+		// Animation complete.
+	});
+}
