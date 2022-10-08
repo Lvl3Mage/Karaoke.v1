@@ -47,13 +47,16 @@
 						this.bookingStore.reservationTTL = response.data.ttl;
 					}
 					else{
-						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						console.log("Reservation returned status "+ response.data.status);
+						this.errorModalStore.OpenModal("Something went wrong.", "Please try again. amogus");
 						this.$router.push(this.prevRoute);
-						//display error that redirects to step 1
 					}
-					
-
-			});
+				})
+				.catch((err) => {
+					console.log(err);
+					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+					this.$router.push(this.prevRoute);
+				});
 			
 			if(this.bookingStore.itemData == null && this.bookingStore.itemOrders == null){
 				let itemData = new FormData();
@@ -83,11 +86,12 @@
 							}
 						}
 						this.bookingStore.packData = response.data.packageData;
-						for(pack of this.bookingStore.packData){
+						for(let pack of this.bookingStore.packData){
 							pack.forceClose = false;
 						}
 					})			
 					.catch((err) => {
+						console.log(err);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 						this.$router.push(this.prevRoute);
 					});
@@ -286,6 +290,7 @@
 		min-width: 350px;
 		min-height: 350px;
 		width: calc(100% * 1/3 - 30px);
+		z-index: 0;
 		@media screen and (max-width: $phoneWidth) {
 			width: 100%;
 			min-width: 0;
@@ -294,6 +299,7 @@
 			@media not all and (hover:none) {
 				.package__inner{
 					transform: rotateY(180deg);
+					z-index: 0;
 				}
 			}
 		}
@@ -306,7 +312,7 @@
 		}
 
 		&__inner {
-			
+			z-index: 0;
 			width: 100%;
 			height: 100%;
 			position: relative;

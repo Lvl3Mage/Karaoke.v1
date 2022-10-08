@@ -1,6 +1,6 @@
 
 <script setup>
-	import IconPeople from '../components/IconPeople.vue'
+	import IconClock from '../components/IconClock.vue'
 
 	const bookingStore = useBookingStore()
 	const errorModalStore = useErrorModalStore();

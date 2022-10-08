@@ -1428,9 +1428,14 @@ const __default__ = {
         this.bookingStore.reservationToken = response.data.token;
         this.bookingStore.reservationTTL = response.data.ttl;
       } else {
-        this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
-        this.$router.push(this.prevRoute); //display error that redirects to step 1
+        console.log("Reservation returned status " + response.data.status);
+        this.errorModalStore.OpenModal("Something went wrong.", "Please try again. amogus");
+        this.$router.push(this.prevRoute);
       }
+    }).catch(err => {
+      console.log(err);
+      this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+      this.$router.push(this.prevRoute);
     });
 
     if (this.bookingStore.itemData == null && this.bookingStore.itemOrders == null) {
@@ -1463,10 +1468,11 @@ const __default__ = {
 
         this.bookingStore.packData = response.data.packageData;
 
-        for (pack of this.bookingStore.packData) {
+        for (let pack of this.bookingStore.packData) {
           pack.forceClose = false;
         }
       }).catch(err => {
+        console.log(err);
         this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
         this.$router.push(this.prevRoute);
       });
@@ -1772,7 +1778,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stores_BookingStore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../stores/BookingStore.js */ "./src/js/stores/BookingStore.js");
 /* harmony import */ var _stores_ErrorModalStore_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../stores/ErrorModalStore.js */ "./src/js/stores/ErrorModalStore.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../App.vue */ "./src/js/App.vue");
-/* harmony import */ var _components_IconPeople_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/IconPeople.vue */ "./src/js/components/IconPeople.vue");
+/* harmony import */ var _components_IconClock_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/IconClock.vue */ "./src/js/components/IconClock.vue");
 
 
 
@@ -1928,7 +1934,7 @@ const __default__ = {
       useErrorModalStore: _stores_ErrorModalStore_js__WEBPACK_IMPORTED_MODULE_1__.useErrorModalStore,
       axios: _App_vue__WEBPACK_IMPORTED_MODULE_2__.axios,
       api: _App_vue__WEBPACK_IMPORTED_MODULE_2__.api,
-      IconPeople: _components_IconPeople_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+      IconClock: _components_IconClock_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -2031,7 +2037,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDate.getDate()) + "/", 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDate.getMonth()) + "/", 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDate.getMonth() + 1) + "/", 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.selectedDate.getFullYear()), 1
   /* TEXT */
@@ -3859,8 +3865,6 @@ const _hoisted_43 = {
   class: "alert-modal__buttons"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_IconClock = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("IconClock");
-
   const _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   const _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
@@ -3880,7 +3884,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'highlighted': $setup.bookingStore.reservationTTL <= 60
     }]),
     onClick: _cache[0] || (_cache[0] = $event => $options.openTimerModal())
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_IconClock, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["IconClock"], {
     size: 23,
     color: "#fff"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.formattedTimer), 1
@@ -4095,9 +4099,9 @@ function RatioW() {
 
     if (ratioMultiplier == "undefined") {
       ratioMultiplier = 1;
-    }
+    } //console.log(ratioMultiplier);
 
-    console.log(ratioMultiplier);
+
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).css("height", (parseFloat(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).css("width")) * ratioMultiplier).toString() + "px");
   });
 }
@@ -4108,9 +4112,9 @@ function RatioH() {
 
     if (ratioMultiplier == "undefined") {
       ratioMultiplier = 1;
-    }
+    } //console.log(ratioMultiplier);
 
-    console.log(ratioMultiplier);
+
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).css("width", (parseFloat(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).css("height")) * ratioMultiplier).toString() + "px");
   });
 }
@@ -4137,7 +4141,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sidebar-lang__item').on('click',
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', function () {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.sidebar-lang__list').removeClass('active');
 }); // $(document).on('tap',document, function(){
-// 	console.log('move');
+// 	//console.log('move');
 // });
 ///MODAL
 
