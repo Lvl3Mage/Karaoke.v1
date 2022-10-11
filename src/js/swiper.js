@@ -8,6 +8,7 @@ new Swiper('.image-slider', {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
     },
+    loop: true,
     grabCursor: true,
     // Change slide by click on
     slideToClickedSlides: true,
