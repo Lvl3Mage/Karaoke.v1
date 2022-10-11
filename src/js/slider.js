@@ -39,4 +39,20 @@ $(document).ready(function(){
             }
         ]
     });
+    $('.menu-slider').slick({
+        dots: true,
+        arrows: true,
+        speed: 1000,
+        rows:2,
+        slidesPerRow:3,
+        responsive:[
+            {
+                breakpoint:768,
+                settings:{
+                    rows:4,
+                    slidesPerRow:2,
+                }
+            }
+        ]
+    });
 });
