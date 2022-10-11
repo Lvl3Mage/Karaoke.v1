@@ -85,7 +85,7 @@
 		</div>
 		<div class="cart__price">
 			<span class="cart__price-title">Total Price</span>
-			<span class="cart__price-total price-underline">{{bookingStore.totalPrice}}</span>
+			<span class="cart__price-total price-underline">{{bookingStore.totalPrice.toFixed(2)}}</span>
 		</div>
 		
 	</div>

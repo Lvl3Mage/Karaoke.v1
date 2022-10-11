@@ -5,7 +5,7 @@
 			<!-- <ph-calendar :size="26" color="#ffffff" /> -->
 			<span class="p--x-5">{{weekDays_EN[selectedDate.getDay()]}}</span>
 			<span class="">{{selectedDate.getDate()}}/</span>
-			<span class="">{{selectedDate.getMonth()}}/</span>
+			<span class="">{{selectedDate.getMonth()+1}}/</span>
 			<span class="">{{selectedDate.getFullYear()}}</span>
 		</div>
 		<div class="calendar noise-overlay__wrapper" :class="{'open': calendarOpen}">

@@ -47,13 +47,16 @@
 						this.bookingStore.reservationTTL = response.data.ttl;
 					}
 					else{
-						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+						console.log("Reservation returned status "+ response.data.status);
+						this.errorModalStore.OpenModal("Something went wrong.", "Please try again. amogus");
 						this.$router.push(this.prevRoute);
-						//display error that redirects to step 1
 					}
-					
-
-			});
+				})
+				.catch((err) => {
+					console.log(err);
+					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+					this.$router.push(this.prevRoute);
+				});
 			
 			if(this.bookingStore.itemData == null && this.bookingStore.itemOrders == null){
 				let itemData = new FormData();
@@ -83,8 +86,12 @@
 							}
 						}
 						this.bookingStore.packData = response.data.packageData;
+						for(let pack of this.bookingStore.packData){
+							pack.forceClose = false;
+						}
 					})			
 					.catch((err) => {
+						console.log(err);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 						this.$router.push(this.prevRoute);
 					});
@@ -97,6 +104,7 @@
 		},
 		methods: {
 			togglePack: function(id){
+				this.bookingStore.packData[id].forceClose = !this.bookingStore.packData[id].forceClose;
 				if(this.openPackID == id){
 					this.openPackID = -1;
 				}
@@ -176,7 +184,7 @@
 			We have three Celebration Packs for you. You can choose any one you like.
 		</div>
 		<div class="packages" v-if="stepLoaded">
-			<div class="package" v-for="(pack, i) in bookingStore.packData" :key="i" @click="togglePack(i)" :class="{'mobile-open': openPackID == i}">
+			<div class="package " v-for="(pack, i) in bookingStore.packData" :key="i" @click="togglePack(i)" :class="{'mobile-open': openPackID == i,'force-close': pack.forceClose}" @mouseleave="pack.forceClose = false">
 				<div class="package__inner">
 					<div class="package__front">
 						<img :src="pack.image" alt="preview">
@@ -209,11 +217,11 @@
 		</div>
 		<div class="item-select" v-if="stepLoaded">
 			<div class="item-select__item-window">
-				<div class="item-select__item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
-					<div class="item-select__item-list-category">
+				<div class="item-select__item-list-wrapper item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
+					<div class="item-select__item-list-category item-category">
 						<span>{{category.title}}</span>
 					</div>
-					<div class="item-select__item-list">
+					<div class="item-select__item-list item-list">
 						<Item v-for="(item, j) in category.items" :key="j" 
 							:maxCount="item.maxCount ? item.maxCount : 10"
 							:description="item.description"
@@ -282,14 +290,16 @@
 		min-width: 350px;
 		min-height: 350px;
 		width: calc(100% * 1/3 - 30px);
+		z-index: 0;
 		@media screen and (max-width: $phoneWidth) {
 			width: 100%;
 			min-width: 0;
 		}
-		&:hover{
+		&:not(.force-close):hover{
 			@media not all and (hover:none) {
 				.package__inner{
 					transform: rotateY(180deg);
+					z-index: 0;
 				}
 			}
 		}
@@ -302,7 +312,7 @@
 		}
 
 		&__inner {
-			
+			z-index: 0;
 			width: 100%;
 			height: 100%;
 			position: relative;
@@ -496,8 +506,29 @@
 				order: 1;	
 			}
 		}
-		&__item-list-wrapper {}
+		&__item-list-wrapper {
+			overflow: hidden;
+			position: relative;	
+			&.open{
+				.item-select__item-list-category{
+					&:after{
+						transform: translateY(5px) rotate(225deg);
+					}
+				}
+			}
+		}
 		&__item-list-category {
+			// &:active{
+			// 	background: #666;
+			// }
+			// border-radius: 5px;
+			// transition: all 0.2s;
+			border-bottom: 1px dashed #777;
+			padding: 10px 0;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			// margin-left: 15px;
 			font-family: 'Playfair Display';
 			font-style: normal;
@@ -505,8 +536,20 @@
 			font-size: 20px;
 			line-height: 40px;
 			margin-bottom: 30px;
+			&:after{
+				content: '';
+				width: 30px;
+				height: 30px;
+				border-bottom: 5px solid #fff;
+				border-right: 5px solid #fff;
+				border-radius: 0 0 2px 0;
+				transform: translateY(-5px) rotate(45deg) ;
+				margin-right: 35px;
+				transition: all 0.5s;
+			}
 		}
 		&__item-list {
+			position: absolute;
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
