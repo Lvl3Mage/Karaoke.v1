@@ -41,7 +41,7 @@ $(document).ready(function(){
     });
     $('.menu-slider').slick({
         dots: true,
-        arrows: true,
+        arrows: false,
         speed: 1000,
         rows:2,
         slidesPerRow:3,
@@ -49,8 +49,16 @@ $(document).ready(function(){
             {
                 breakpoint:768,
                 settings:{
-                    rows:4,
+                    rows:2,
                     slidesPerRow:2,
+                }
+            },{
+                breakpoint:568,
+                settings:{
+                    rows:1,
+                    slidesPerRow:1,
+                    slidesToShow:1,
+                    centerMode: true,
                 }
             }
         ]
