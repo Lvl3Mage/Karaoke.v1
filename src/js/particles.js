@@ -152,6 +152,13 @@ function UpdateParticleSystem(system, tick){
 	//Update particle velocity, position & ttl
 	let acceleration = system.info.acceleration.Scale(tick);
 	let drag = system.info.drag;
+	let containerPosition = simContainer.offset();
+	let relCoor = new Vector2(
+		containerPosition.left,
+		containerPosition.top
+	);
+	relCoor = Vector2.Sub(relCoor,mousePos);
+
 	for (let i = 0; i < system.particles.length; i++) {
 		let particle = system.particles[i];
 		// console.log(system.info.acceleration.Scale(0.01),tick)
@@ -161,7 +168,7 @@ function UpdateParticleSystem(system, tick){
 		// console.log(particle.velocity);
 		particle.velocity = Vector2.Sub(particle.velocity, dragSubstraction);
 		if(system.info.cursorPull && !isMobileDevice()){
-			ParticleCursorPull(particle, 700, 1.5, tick);
+			ParticleCursorPull(particle, 700, 1.5, tick, relCoor);
 		}
 
 		particle.rotation += particle.angularVelocity;
@@ -196,30 +203,25 @@ function UpdateParticleSystem(system, tick){
 		}
 	}
 }
-function ParticleCursorPull(particle, force, minDistance, tick){
-	if(particle.relCoor === undefined || particle.relCoorAge > 0.2){
-		particle.relCoorAge = 0;
+function ParticleCursorPull(particle, force, minDistance, tick, containerRelMousePos){
+	// let particleObj = $(particle.ref);
+	// let particleOffset = particleObj.offset();
 
-		particle.relCoor = new Vector2(
-			$(particle.ref).offset().left + $(particle.ref).width()/2,
-			$(particle.ref).offset().top + $(particle.ref).height()/2
-		);
-		particle.relCoor = Vector2.Sub(particle.relCoor,mousePos).Scale(0.01);
-		// var length = particle.relCoor.Length();
-		// particle.relCoor = particle.relCoor.Scale(force/(length**2));
-
-		var length = particle.relCoor.Length();
-		particle.relCoor = particle.relCoor.Normalized().Scale((force*tick)/(length*length + minDistance));
-		// let power = 2/(length + (1/(1000*1000*length)));
-		// particle.relCoor = particle.relCoor.Normalized();
-		// particle.relCoor = particle.relCoor.Scale(power*tick);
+	let relCoor = Vector2.Add(containerRelMousePos, particle.position);
+	// let relCoor = new Vector2(
+	// 	particleObj.offset().left + particleObj.width()/2,
+	// 	particleObj.offset().top + particleObj.height()/2
+	// );
+	// relCoor = Vector2.Sub(relCoor,mousePos);
+	if((relCoor.x**2 + relCoor.y**2) > 40000){
+		// particle.ref.style.backgroundColor = 'transparent'; 
+		return;
 	}
-
-	particle.relCoorAge += tick;
-	let relCoor = particle.relCoor;
-	
-	particle.position = Vector2.Add(particle.position, relCoor);
-	particle.velocity = Vector2.Add(particle.velocity, relCoor);
+	// particle.ref.style.backgroundColor = 'green'; 
+	var length = relCoor.Length()/100;
+	let pushVector = relCoor.Normalized().Scale((force*tick)/(length*length + minDistance));
+	particle.position = Vector2.Add(particle.position, pushVector);
+	particle.velocity = Vector2.Add(particle.velocity, pushVector);
 }
 
 $(document).ready(function(){
@@ -228,9 +230,11 @@ $(document).ready(function(){
 		particleSystems.push(newParticleSystem(system));
 		// newParticle(particleSystems[0]);
 	}
-
+	if(systems.length > 0){
+		UpdateLoop();
+	}
 	// console.log(newParticle(particleSystems[0]));
-	UpdateLoop();
+	
 });
 
 function Timeout(time) {

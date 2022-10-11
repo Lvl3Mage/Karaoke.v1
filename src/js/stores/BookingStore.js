@@ -67,6 +67,9 @@ const useBookingStore = defineStore({
 
 		reservationToken: null,
 		reservationTTL: null,
+
+
+		scrollToRoomSelection: false,
 	}),
 	getters: {
 		roomPrice: function(){
