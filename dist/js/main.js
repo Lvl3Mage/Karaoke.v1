@@ -4014,14 +4014,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_scss_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/scss/main.scss */ "./src/assets/scss/main.scss");
-/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
-/* harmony import */ var _js_VueSetup_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/VueSetup.js */ "./src/js/VueSetup.js");
-/* harmony import */ var _js_popup_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/popup.js */ "./src/js/popup.js");
-/* harmony import */ var _js_popup_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_js_popup_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _js_swiper_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/swiper.js */ "./src/js/swiper.js");
+/* harmony import */ var _js_libs_Mathf_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/libs/Mathf.js */ "./src/js/libs/Mathf.js");
+/* harmony import */ var _js_libs_Vector2_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/libs/Vector2.js */ "./src/js/libs/Vector2.js");
+/* harmony import */ var _js_main_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/main.js */ "./src/js/main.js");
+/* harmony import */ var _js_VueSetup_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/VueSetup.js */ "./src/js/VueSetup.js");
+/* harmony import */ var _js_popup_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/popup.js */ "./src/js/popup.js");
+/* harmony import */ var _js_popup_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_js_popup_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _js_swiper_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/swiper.js */ "./src/js/swiper.js");
+/* harmony import */ var _js_particles_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./js/particles.js */ "./src/js/particles.js");
  // SCSS
 
  // JS
+
+
+
 
 
 
@@ -4055,6 +4061,216 @@ app.use(pinia);
 app.use(_router__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.mount("#app");
 
+
+/***/ }),
+
+/***/ "./src/js/libs/Mathf.js":
+/*!******************************!*\
+  !*** ./src/js/libs/Mathf.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Mathf)
+/* harmony export */ });
+class Mathf {
+  static Clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max));
+  }
+
+  static Lerp(a, b, t) {
+    return (1 - t) * a + t * b;
+  }
+
+  static TransformRange(OldMin, OldMax, NewMin, NewMax, value) {
+    let OldRange = OldMax - OldMin;
+    let NewRange = NewMax - NewMin;
+    return (value - OldMin) * NewRange / OldRange + NewMin;
+  }
+
+  static Deg2Rad(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  static Rad2Deg(rad) {
+    return rad * (180 / Math.PI);
+  }
+
+  static WrapAngle(angle) {
+    if (angle > 180) {
+      angle -= 360;
+    } else if (angle <= -180) {
+      angle += 360;
+    }
+
+    return angle;
+  }
+
+}
+
+/***/ }),
+
+/***/ "./src/js/libs/Vector2.js":
+/*!********************************!*\
+  !*** ./src/js/libs/Vector2.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Vector2)
+/* harmony export */ });
+/* harmony import */ var libs_Mathf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libs/Mathf */ "./src/js/libs/Mathf.js");
+
+class Vector2 {
+  x = 0;
+  y = 0;
+
+  constructor(x, y) {
+    if (typeof x != "number" || typeof y != "number") {
+      console.error("Could not construct a Vector2 because one ar both of the parameters passed is not of type 'Number'. The parameter types were: x - " + typeof x + ", y - " + typeof y + ".");
+    }
+
+    this.x = x;
+    this.y = y;
+  }
+
+  static Add(vectorA, vectorB) {
+    return new Vector2(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
+  }
+
+  static Sub(vectorA, vectorB) {
+    return new Vector2(vectorA.x - vectorB.x, vectorA.y - vectorB.y);
+  }
+
+  Scale(scaleFactor) {
+    var result = new Vector2(this.x, this.y);
+    result.x *= scaleFactor;
+    result.y *= scaleFactor;
+    return result;
+  }
+
+  Normalized() {
+    var result = new Vector2(this.x, this.y);
+    var vectorLength = result.Length();
+    result.x /= vectorLength;
+    result.y /= vectorLength;
+    return result;
+  }
+
+  static Normalized(vector) {
+    var vectorLength = vector.Length();
+    vector.x /= vectorLength;
+    vector.y /= vectorLength;
+    return vectorLength;
+  }
+
+  Length() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
+
+  ClampLength(min, max) {
+    let result = new Vector2(this.x, this.y);
+    var vectorLength = result.Length();
+
+    if (vectorLength == 0) {
+      return Vector2.zero;
+    }
+
+    result.x /= vectorLength;
+    result.y /= vectorLength;
+    var newLength = libs_Mathf__WEBPACK_IMPORTED_MODULE_0__["default"].Clamp(min, vectorLength, max);
+    result.x *= newLength;
+    result.y *= newLength;
+    return result;
+  }
+
+  PerpendicularLeft() {
+    return new Vector2(-this.y, this.x);
+  }
+
+  PerpendicularRight() {
+    return new Vector2(this.y, -this.x);
+  }
+
+  isZero(epsilon) {
+    let sqLength = this.x * this.x + this.y * this.y;
+    return sqLength <= epsilon * epsilon;
+  }
+
+  Equal(otherVector) {
+    return this.x == otherVector.x && this.y == otherVector.y;
+  }
+
+  Clone() {
+    return new Vector2(this.x, this.y);
+  }
+
+  Rotate(angle) {
+    let sin = Math.sin(libs_Mathf__WEBPACK_IMPORTED_MODULE_0__["default"].Deg2Rad(angle));
+    let cos = Math.cos(libs_Mathf__WEBPACK_IMPORTED_MODULE_0__["default"].Deg2Rad(angle));
+    let tx = this.x;
+    let ty = this.y;
+    return new Vector2(cos * tx - sin * ty, sin * tx + cos * ty);
+  }
+
+  static Lerp(startVector, endVector, t) {
+    return Vector2.Add(startVector.Scale(1 - t), endVector.Scale(t));
+  }
+
+  static Distance(vectorA, vectorB) {
+    return Vector2.Sub(vectorA, vectorB).Length;
+  }
+
+  static FromJSObject(JSObject) {
+    return new Vector2(JSObject.x, JSObject.y);
+  }
+
+  static CrossProduct(vectorA, vectorB) {
+    return vectorA.x * vectorB.y - vectorA.y * vectorB.x;
+  }
+
+  static DotProduct(vectorA, vectorB) {
+    return vectorA.x * vectorB.x + vectorA.y * vectorB.y;
+  }
+
+  static Angle(vectorA, vectorB) {
+    let angle = libs_Mathf__WEBPACK_IMPORTED_MODULE_0__["default"].Rad2Deg(Math.atan2(vectorB.y, vectorB.x) - Math.atan2(vectorA.y, vectorA.x));
+    return libs_Mathf__WEBPACK_IMPORTED_MODULE_0__["default"].WrapAngle(angle);
+  }
+
+  static PerpendicularLeft(vector) {
+    return new Vector2(-vector.y, vector.x);
+  }
+
+  static PerpendicularRight(vector) {
+    return new Vector2(vector.y, -vector.x);
+  }
+
+  static get zero() {
+    return new Vector2(0, 0);
+  }
+
+  static get up() {
+    return new Vector2(0, 1);
+  }
+
+  static get down() {
+    return new Vector2(0, -1);
+  }
+
+  static get left() {
+    return new Vector2(-1, 0);
+  }
+
+  static get right() {
+    return new Vector2(1, 0);
+  }
+
+}
 
 /***/ }),
 
@@ -4255,6 +4471,311 @@ function AnimateListCategory(listWrapper) {
   }, 500, function () {// Animation complete.
   });
 }
+
+/***/ }),
+
+/***/ "./src/js/particles.js":
+/*!*****************************!*\
+  !*** ./src/js/particles.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var libs_Mathf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! libs/Mathf */ "./src/js/libs/Mathf.js");
+/* harmony import */ var libs_Vector2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! libs/Vector2 */ "./src/js/libs/Vector2.js");
+
+
+ // {
+// 	particlePrototype: null,
+// 	simContainer: null, //reference to DOM
+// 	info: {
+// 		"acceleration": [0,-9],
+// 		"startingVelocity": [0,0],
+// 		"drag": 2,
+// 		"edgeBegavior": {
+// 			"bottom": "delete"
+// 		},
+// 		"spawnBehavior": {
+// 			"rect": {
+// 				"top": 0,
+// 				"right": 0,
+// 				"bottom": 0.9,
+// 				"left": 0
+// 			},
+// 			"particlesPerSec": 5
+// 		},
+// 		"maxLifetime": 15
+// 	},
+// 	particles: [
+// 		{
+// 			position: {
+// 				x: 0,
+// 				y: 0,
+// 			},
+// 			velocity: {
+// 				x: 0,
+// 				y: 0,
+// 			},
+// 			ref: null, // reference to DOM
+// 		}
+// 	],
+// },
+
+let particleSystems = [];
+
+function randomRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function newParticleSystem(particleDOM) {
+  let info = jquery__WEBPACK_IMPORTED_MODULE_0___default()(particleDOM).data("sim-info");
+
+  if (typeof info == "string") {
+    info = JSON.parse(info);
+  }
+
+  let pSystem = {
+    particlePrototypes: jquery__WEBPACK_IMPORTED_MODULE_0___default()(particleDOM).find(".particle-preview"),
+    simContainer: jquery__WEBPACK_IMPORTED_MODULE_0___default()(particleDOM).find(".particle-sim-container")[0],
+    info: info,
+    particles: []
+  };
+  pSystem.accumulatedParticles = 0;
+  pSystem.info.acceleration = new libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"](pSystem.info.acceleration.x, pSystem.info.acceleration.y);
+  return pSystem;
+}
+
+function newParticle(pSystem) {
+  let simContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(pSystem.simContainer);
+  let width = simContainer.width();
+  let height = simContainer.height();
+  let particlePrototype = pSystem.particlePrototypes[Math.floor(Math.random() * pSystem.particlePrototypes.length)];
+  let particleDOM = jquery__WEBPACK_IMPORTED_MODULE_0___default()(particlePrototype).clone().appendTo(simContainer);
+  particleDOM.removeClass('particle-preview');
+  particleDOM.addClass('particle');
+  let spawnRect = pSystem.info.spawnBounds;
+  let xPosition = randomRange(spawnRect.left, spawnRect.right);
+  let yPosition = randomRange(spawnRect.top, spawnRect.bottom);
+  let startingVelocity = pSystem.info.startingVelocity;
+  let vel = new libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"](0, 0);
+
+  if (startingVelocity.magnitude) {
+    var angle = Math.random() * Math.PI * 2;
+    vel.x = Math.cos(angle) * startingVelocity.magnitude;
+    vel.y = Math.sin(angle) * startingVelocity.magnitude;
+  } else {
+    if (startingVelocity.x) {
+      vel.x = startingVelocity.x;
+    } else if (startingVelocity.minX && startingVelocity.maxX) {
+      vel.x = randomRange(startingVelocity.minX, startingVelocity.maxX);
+    }
+
+    if (startingVelocity.y) {
+      vel.y = startingVelocity.y;
+    } else if (startingVelocity.minY && startingVelocity.maxY) {
+      vel.y = randomRange(startingVelocity.minY, startingVelocity.maxY);
+    }
+  }
+
+  let startingRotation = pSystem.info.startingRotation;
+  let rotation = 0;
+
+  if (startingRotation.angle) {
+    rotation = startingRotation.angle;
+  } else if (startingRotation.min && startingRotation.max) {
+    rotation = randomRange(startingRotation.min, startingRotation.max);
+  }
+
+  let startingAngularVelocity = pSystem.info.startingAngularVelocity;
+  let angularVelocity = 0;
+
+  if (startingAngularVelocity.velocity) {
+    angularVelocity = startingAngularVelocity.velocity;
+  } else if (startingAngularVelocity.min && startingAngularVelocity.max) {
+    angularVelocity = randomRange(startingAngularVelocity.min, startingAngularVelocity.max);
+  } // console.log(particleDOM);
+
+
+  let particle = {
+    position: new libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"](xPosition * width, yPosition * height),
+    velocity: vel,
+    rotation: rotation,
+    angularVelocity: angularVelocity,
+    ref: particleDOM[0],
+    ttl: pSystem.info.maxLifetime
+  };
+  pSystem.particles.push(particle);
+  return particle;
+}
+
+function UpdateSystems(tick) {
+  for (let system of particleSystems) {
+    UpdateParticleSystem(system, tick);
+  }
+}
+
+function UpdateParticleSystem(system, tick) {
+  let simContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(system.simContainer);
+  let width = simContainer.width();
+  let height = simContainer.height(); //Spawn particles
+
+  if (system.particles.length < system.info.maxParticles) {
+    let spawnRate = system.info.spawnRate;
+
+    if (system.info.spawnRateMode == "areaRelative") {
+      spawnRate *= width * (system.info.spawnBounds.right - system.info.spawnBounds.left) * height * (system.info.spawnBounds.bottom - system.info.spawnBounds.top);
+    }
+
+    system.accumulatedParticles += tick * spawnRate;
+    system.accumulatedParticles = Math.min(system.info.maxParticles - system.particles.length, system.accumulatedParticles);
+
+    while (system.accumulatedParticles >= 1) {
+      system.accumulatedParticles--;
+      newParticle(system);
+    }
+  } //Update particle velocity, position & ttl
+
+
+  let acceleration = system.info.acceleration.Scale(tick);
+  let drag = system.info.drag;
+
+  for (let i = 0; i < system.particles.length; i++) {
+    let particle = system.particles[i]; // console.log(system.info.acceleration.Scale(0.01),tick)
+
+    particle.velocity = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Add(particle.velocity, acceleration);
+    let dragSubstraction = particle.velocity.Scale(1 - 1 / (1 + drag * tick)); // console.log(particle.velocity);
+
+    particle.velocity = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Sub(particle.velocity, dragSubstraction);
+
+    if (system.info.cursorPull && !isMobileDevice()) {
+      ParticleCursorPull(particle, 700, 1.5, tick);
+    }
+
+    particle.rotation += particle.angularVelocity;
+    particle.position = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Add(particle.position, particle.velocity.Scale(tick));
+    particle.ttl -= tick;
+    particle.ref.style.left = particle.position.x + "px";
+    particle.ref.style.top = particle.position.y + "px";
+    particle.ref.style.transform = "translate(-50%, -50%) rotate(" + particle.rotation + "deg)";
+  }
+
+  let eliminationBounds = system.info.eliminationBounds;
+  let realBounds = {
+    top: eliminationBounds.top * height,
+    bottom: eliminationBounds.bottom * height,
+    right: eliminationBounds.right * width,
+    left: eliminationBounds.left * width
+  }; //Delete particles
+
+  for (let i = 0; i < system.particles.length; i++) {
+    let particle = system.particles[i];
+    let xBounds = particle.position.x >= realBounds.left && particle.position.x <= realBounds.right;
+    let yBounds = particle.position.y >= realBounds.top && particle.position.y <= realBounds.bottom;
+
+    if (!(xBounds && yBounds) || particle.ttl <= 0) {
+      // console.log(particle.position, realBounds)
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(particle.ref).remove();
+      system.particles.splice(i, 1);
+      i--;
+    }
+  }
+}
+
+function ParticleCursorPull(particle, force, minDistance, tick) {
+  if (particle.relCoor === undefined || particle.relCoorAge > 0.2) {
+    particle.relCoorAge = 0;
+    particle.relCoor = new libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"](jquery__WEBPACK_IMPORTED_MODULE_0___default()(particle.ref).offset().left + jquery__WEBPACK_IMPORTED_MODULE_0___default()(particle.ref).width() / 2, jquery__WEBPACK_IMPORTED_MODULE_0___default()(particle.ref).offset().top + jquery__WEBPACK_IMPORTED_MODULE_0___default()(particle.ref).height() / 2);
+    particle.relCoor = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Sub(particle.relCoor, mousePos).Scale(0.01); // var length = particle.relCoor.Length();
+    // particle.relCoor = particle.relCoor.Scale(force/(length**2));
+
+    var length = particle.relCoor.Length();
+    particle.relCoor = particle.relCoor.Normalized().Scale(force * tick / (length * length + minDistance)); // let power = 2/(length + (1/(1000*1000*length)));
+    // particle.relCoor = particle.relCoor.Normalized();
+    // particle.relCoor = particle.relCoor.Scale(power*tick);
+  }
+
+  particle.relCoorAge += tick;
+  let relCoor = particle.relCoor;
+  particle.position = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Add(particle.position, relCoor);
+  particle.velocity = libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"].Add(particle.velocity, relCoor);
+}
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
+  let systems = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.particle-system');
+
+  for (let system of systems) {
+    particleSystems.push(newParticleSystem(system)); // newParticle(particleSystems[0]);
+  } // console.log(newParticle(particleSystems[0]));
+
+
+  UpdateLoop();
+});
+
+function Timeout(time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, time);
+  });
+}
+
+async function UpdateLoop() {
+  const fixedDeltaTime = 0.02;
+  const maxDeltaTime = 0.6;
+  let lastFrameTime = performance.now();
+  let deltaTime = fixedDeltaTime;
+
+  while (true) {
+    let startFrameTime = performance.now();
+    console.log(deltaTime);
+    deltaTime = Math.min(maxDeltaTime, deltaTime);
+    UpdateSystems(deltaTime); // ComponentEventHandler.CallBuiltinEvents();
+
+    let endFrameTime = performance.now();
+    let frameTime = (endFrameTime - startFrameTime) / 1000;
+    let timeLeft = fixedDeltaTime - frameTime;
+    timeLeft = Math.max(0, timeLeft);
+    let deltaTime_ms = endFrameTime - lastFrameTime;
+    deltaTime = deltaTime_ms / 1000;
+    lastFrameTime = endFrameTime;
+    await Timeout(timeLeft * 1000);
+  }
+}
+
+let mousePos = new libs_Vector2__WEBPACK_IMPORTED_MODULE_2__["default"](0, 0);
+
+function FindMousePos() {
+  mousePos.x = event.pageX;
+  mousePos.y = event.pageY;
+}
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function (event) {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("mousemove", function (event) {
+    if (event.pageX !== 'undefined') {
+      FindMousePos();
+    }
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("mousewheel", function (event) {
+    if (event.pageX !== 'undefined') {
+      FindMousePos();
+    }
+  });
+});
+
+function isMobileDevice() {
+  var check = false;
+
+  (function (a) {
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+  })(navigator.userAgent || navigator.vendor || window.opera);
+
+  return check;
+}
+
+;
 
 /***/ }),
 

@@ -6314,6 +6314,70 @@ p {
   margin-left: 30px;
   color: #ccc;
 }
+
+@-webkit-keyframes appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.note-particle-system {
+  z-index: -1;
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+  margin-top: -300px;
+  margin-bottom: -300px;
+  height: 700px;
+}
+@media screen and (max-width: 768px) {
+  .note-particle-system {
+    margin-top: -175px;
+    margin-bottom: -200px;
+    height: 350px;
+  }
+}
+.note-particle-system .particle-sim-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.note-particle-system .note {
+  z-index: -5;
+  filter: drop-shadow(0px 0px 4px #fff);
+  filter: drop-shadow(0px 0px 4px var(--highlightColor, #fff));
+}
+.note-particle-system .note svg {
+  -webkit-animation: appear 0.3s cubic-bezier(0.72, 0.08, 0.58, 2.5);
+          animation: appear 0.3s cubic-bezier(0.72, 0.08, 0.58, 2.5);
+}
+.note-particle-system .particle-preview {
+  display: none;
+}
+.note-particle-system .particle {
+  width: 40px;
+  position: absolute;
+}
+@media screen and (max-width: 768px) {
+  .note-particle-system .particle {
+    width: 60px;
+  }
+}
+.note-particle-system .particle svg {
+  width: 100%;
+  height: auto;
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-2.use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/dist/index.js??ruleSet[0]!./src/js/App.vue?vue&type=style&index=0&id=3ea74058&scoped=true&lang=css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -8844,6 +8908,7 @@ input[data-v-680fe91c] {
 .payment-selection__methods[data-v-55b9171e] {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .payment-selection__method[data-v-55b9171e] {
   flex: 0 0 25%;

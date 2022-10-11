@@ -538,3 +538,56 @@ p {
 		color: #ccc;
 	}
 }
+@keyframes appear{
+  0%{
+    transform: scale(0);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+.note-particle-system{
+	z-index:-1;
+	overflow: hidden;
+	width: 100%;
+	margin: auto;
+	margin-top: -300px;
+	margin-bottom: -300px;
+	height: 700px;
+	@media screen and (max-width: $smTabletWidth) {
+		margin-top: -175px;
+		margin-bottom: -200px;
+		height: 350px;
+	}
+	.particle-sim-container{
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+	.note {
+		svg{
+			animation: appear 0.3s cubic-bezier(.72,.08,.58,2.5);
+		}
+		
+		z-index: -5;
+		filter: drop-shadow(0px 0px 4px var(--highlightColor, #fff));
+	}
+	.particle-preview{
+		display: none;
+	}
+	.particle{
+		// z-index: -4;
+		width: 40px;
+		@media screen and (max-width: $smTabletWidth) {
+			width: 60px;
+		}
+
+		svg{
+			width: 100%;
+			height: auto;
+		}
+		
+		position: absolute;
+	}
+}
+
