@@ -281,9 +281,7 @@ def-slider {
     left: 20%;
   }
 }
-.slider-gallery,
-.menu-slider,
-.menu-slider .slick-dots {
+.slider-gallery .slick-dots {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -291,18 +289,15 @@ def-slider {
   padding: 0;
   flex-wrap: nowrap;
 }
-.slider-gallery,
-.menu-slider .slick-dots li {
+.slider-gallery .slick-dots li {
   list-style: none;
 }
 /* Активная точка */
-.slider-gallery,
-.menu-slider .slick-dots li.slick-active {
+.slider-gallery .slick-dots li.slick-active {
   border-color: $flamingo-color;
 }
 /* Элемент точки */
-.slider-gallery,
-.menu-slider .slick-dots li button {
+.slider-gallery .slick-dots li button {
   position: relative;
   padding: 0;
   margin: 0 15px;
@@ -318,8 +313,7 @@ def-slider {
 	margin: 0 10px;
   }
 }
-.slider-gallery,
-.menu-slider .slick-dots li.slick-active button {
+.slider-gallery .slick-dots li.slick-active button {
   background: $flamingo-color;
 }
 
