@@ -13,6 +13,7 @@
 	export default{
 		data() {
 			return {
+				popupList: [],
 				nextRoute: {name:"booking-step-3"},
 				prevRoute: {name:'booking-step-1'},
 				openPackID: -1,
@@ -88,6 +89,7 @@
 						this.bookingStore.packData = response.data.packageData;
 						for(let pack of this.bookingStore.packData){
 							pack.forceClose = false;
+							this.popupList.push(false);
 						}
 					})			
 					.catch((err) => {
@@ -103,6 +105,11 @@
 
 		},
 		methods: {
+			removePopupAsync: function(id){
+				setTimeout(function(id){
+					this.popupList[id] = false;
+				}.bind(this), 1500, id);
+			},
 			togglePack: function(id){
 				this.bookingStore.packData[id].forceClose = !this.bookingStore.packData[id].forceClose;
 				if(this.openPackID == id){
@@ -112,7 +119,8 @@
 					this.openPackID = id;
 				}
 			},
-			addPack: function(pack){
+			addPack: function(packID){
+				let pack = this.bookingStore.packData[packID];
 				this.bookingStore.packOrders.push({
 					title: pack.title,
 					list: pack.list,
@@ -120,6 +128,9 @@
 					description: '',
 					innerID: pack.innerID,
 				});
+				this.popupList[packID] = true;
+				this.removePopupAsync(packID);
+
 			},
 			changeOrder: function(categoryID, itemID, itemOrder){
 				let item = this.bookingStore.itemData[categoryID].items[itemID];
@@ -181,7 +192,7 @@
 <template>
 	<div class="container">
 		<div class="section-description" v-if="stepLoaded">
-			We have three Celebration Packs for you. You can choose any one you like.
+			We have three Celebration Packs for you. You can get them here.
 		</div>
 		<div class="packages" v-if="stepLoaded">
 			<div class="package " v-for="(pack, i) in bookingStore.packData" :key="i" @click="togglePack(i)" :class="{'mobile-open': openPackID == i,'force-close': pack.forceClose}" @mouseleave="pack.forceClose = false">
@@ -205,7 +216,12 @@
 						<div class="package__price">
 							{{pack.price}} KD
 						</div>
-						<div class="package__button" @click="addPack(pack)">
+						<div class="package__button" @click.stop="addPack(i)">
+							<div class="pack__popup-wrapper" :class="{'open': popupList[i]}">
+								<div class="pack__popup" >
+									Order added to cart!
+								</div>
+							</div>
 							Add
 						</div>
 					</div>
@@ -213,7 +229,7 @@
 			</div>
 		</div>
 		<div class="section-description" v-if="stepLoaded">
-			Please select additional services if you need
+			Please select any additional food/beverages/decorations.
 		</div>
 		<div class="item-select" v-if="stepLoaded">
 			<div class="item-select__item-window">
@@ -272,6 +288,47 @@
 </template>
 <style scoped lang="scss">
 	@import 'styles/utils/vars.scss';
+	.pack{
+		&__popup-wrapper{
+			position: absolute;
+			top: -45px;
+			left: -50px;
+			right: -50px;
+			display: flex;
+			justify-content: center;
+			transition: all 0.3s;
+			opacity: 0;
+			transform: scale(0);
+			&.open{
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+		&__popup{
+			padding: 5px;
+			font-size: 14px;
+			background: #3eed4f;
+			border-radius: 5px;
+			position: relative;
+			color: #fff;
+
+			&:before{
+				// z-index: -1;
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				margin-left: auto;
+				margin-right: auto;
+				bottom: -4px;
+				width: 10px;
+				height: 10px;
+				background: #3eed4f;
+				transform: rotate(45deg);
+			}
+
+		}
+	}
 	.section-description{
 		font-family: 'Chivo';
 		font-style: normal;
@@ -418,6 +475,7 @@
 			margin-bottom: 15px;
 		}
 		&__button {
+			position: relative;
 			background: #FFFFFF;
 			border-radius: 8px;
 			padding: 15px;

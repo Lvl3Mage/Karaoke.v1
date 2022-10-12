@@ -16,7 +16,7 @@
 						{{selectedRoom.name}} Room
 					</div>
 					<div class="cart__room-price price-underline">
-						{{bookingStore.roomPrice}} KD
+						{{bookingStore.roomPrice.toFixed(2)}} KD
 					</div>
 				</div>
 				<div class="cart__room-row">
@@ -53,7 +53,7 @@
 						<div class="cart__order-cross"></div>
 					</div>
 					<div class="cart__order-price price-underline">
-						{{order.count*order.price}} KD
+						{{(order.count*order.price).toFixed(2)}} KD
 					</div>
 				</div>
 				<div class="cart__order-details" v-if="order.description">
@@ -70,7 +70,7 @@
 						<div class="cart__order-cross"></div>
 					</div>
 					<div class="cart__order-price price-underline">
-						{{order.price}} KD
+						{{order.price.toFixed(2)}} KD
 					</div>
 				</div>
 				<div class="cart__order-details" >

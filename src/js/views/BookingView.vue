@@ -59,7 +59,8 @@
 								this.bookingStore.selectedRoomID = roomID;
 								break;
 							}
-						}				
+						}
+						this.bookingStore.scrollToRoomSelection = true;
 					}
 
 					this.$router.replace({ name: 'booking'  });

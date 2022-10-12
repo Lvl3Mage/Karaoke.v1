@@ -341,6 +341,7 @@
 		&__methods {
 			display: flex;
 			flex-wrap: wrap;
+			justify-content: center;
 		}
 		&__method {
 			flex: 0 0 25%;

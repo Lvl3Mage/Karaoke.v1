@@ -5,6 +5,7 @@
 	const bookingStore = useBookingStore()
 </script>
 <script>
+	import $ from "jquery";
 	import {axios, api} from '../App.vue';
 	import {useBookingStore} from '../stores/BookingStore.js'
 
@@ -41,11 +42,26 @@
 			this.bookingStore.openStep = 1;
 		},
 		mounted(){
-
+			if(this.bookingStore.scrollToRoomSelection){
+				this.scrollToAsync('.booking__rooms');
+				this.bookingStore.scrollToRoomSelection = false;
+			}
+			
 			this.requestSelectedSchedule();
 			this.dayRefreshCycle();
 		},
 		methods: {
+			scrollToAsync: async function(targetSelector){
+				while(!this.bookingDataAvailable){
+					await delay(100);
+				}
+				this.$nextTick(function(){
+					$('.page-content-wrapper').stop().animate(
+						{
+							scrollTop:$(targetSelector).offset().top + $('.page-content-wrapper').scrollTop() -60
+						}, 500, 'swing');
+				});
+			},
 			dayRefreshCycle: async function(){
 				this.dayRefreshActive = true;
 				let timer = 0;
@@ -73,6 +89,7 @@
 			selectRoom: function(roomID){
 				this.bookingStore.selectedRoomID = roomID;
 				this.requestSelectedSchedule();
+				this.scrollToAsync('.booking__calendar-column');
 			},
 			
 			loadScheduleForDates: async function(startDate, endDate, targetDate, targetRoom){
