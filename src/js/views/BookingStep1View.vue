@@ -20,6 +20,7 @@
 
 
 			return {
+				testCount: 15,
 				pendingDateRequests:pendingDateRequests,
 				nextRoute: {name:"booking-step-2"},
 				countAmogus: 0,
@@ -144,8 +145,17 @@
 				}
 				
 			},
-			checkRangeIntegrity: function(){
-				
+			getTimeSegmentColor: function(segmentID){
+				if(this.selectedOccupancyData[segmentID].state == 'occupied'){
+					return '#979797';
+				}
+				else if(this.bookingStore.selectedRange != null){
+					let range = this.bookingStore.selectedRange;
+					if(range.startIndex <= segmentID && range.endIndex >= segmentID){
+						return this.selectedRoomColor;
+					}
+				}
+				return '#FFF'
 			},
 		},
 
@@ -214,6 +224,24 @@
 			<div class="booking__calendar-column">
 				<div class="font--prim-text text--700 text--S m--b-10 text--center">Date</div>
 				<Calendar :highlightColor="selectedRoomColor" v-model="bookingStore.selectedDate" ></Calendar>
+				<div class="microphone">
+					<div class="microphone__outer-wrapper">
+						<!-- transformAxisRotation is a little innacturate but it's accurate enough to look good so I'm going to leave it here -->
+						<!-- I've added a 7 to the total rotation to reduce the size a little (this way there's a gap) -->
+						<div v-for="(hour, i) in selectedOccupancyData" :key="i" class="microphone__circle-section" 
+						:style="'--transformAxisRotation:' + (Math.acos((4/(selectedOccupancyData.length))) * 180/Math.PI + 7) +'deg' + '; --offset:' + ((i/(selectedOccupancyData.length))*360 + 270 + 180/selectedOccupancyData.length) + 'deg ; --color:'+getTimeSegmentColor(i)+ ';'">
+							
+						</div>
+						<!-- <div v-for="(hour, i) in selectedOccupancyData" :key="i" class="microphone__circle-section" :style="'--transformAxisRotation:' + Math.acos(1/selectedOccupancyData.length)+'rad' + '; --offset:' + (i/selectedOccupancyData.length)*360 + 'deg ; --color:' + getTimeSegmentColor(i) + ';'">
+							
+						</div> -->
+						<div class="microphone__inner-wrapper">
+							<div class="microphone__image rotate-to-mouse" data-lerp-speed="0.1">
+								<img :src="require('assetDir/images/svg/microphone.svg')" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="booking__time-selector">
 				<TimeRangeSelector :highlightColor="selectedRoomColor" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" v-model="bookingStore.selectedRange"></TimeRangeSelector>
@@ -248,6 +276,61 @@
 			padding: 0 15px;
 		}
 	}
+	.microphone {
+		position: relative;
+		z-index: -1;
+		width: 100%;
+		aspect-ratio: 1/1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&__outer-wrapper {
+			width: 80%;
+			height: 80%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			overflow: hidden;
+			border-radius: 50%;
+			// border: 15px solid var(--highlight-color, #FFF);
+			// background: var(--highlight-color, #FFF);
+			// box-shadow: 4px 4px 15px var(--highlight-color, #FFF);
+		}
+		&__circle-section{
+			z-index: 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			transition: all 0.4s;
+			background: var(--color);
+			transform: rotate(var(--offset)) translateX(70%) rotate3d(1, 0, 0, var(--transformAxisRotation)) rotate(45deg);
+
+		}
+		&__inner-wrapper {
+			z-index: 1;
+			width: calc(100% - 35px);
+			height: calc(100% - 35px);
+			border-radius: 50%;
+			background: $background-color;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		&__image {
+			// transition: all 0.5s;
+			// transform: rotate(var(--desired-rotation));
+			width: 60%;
+			height: 60%;
+			img{
+				height: 100%;
+				width: 100%;
+				object-fit:contain;
+				transform: translateX(9%);
+			}
+		}
+	}
+
 	.booking {
 		display: flex;
 		justify-content: space-around;

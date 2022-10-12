@@ -1,4 +1,7 @@
 import $ from "jquery";
+import Vector2 from "libs/Vector2"
+import Mathf from "libs/Mathf"
+import mouseCoords from "libs/MouseCoords"
 
 $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
@@ -176,7 +179,40 @@ function AnimateListCategory(listWrapper){
 	}
 	listWrapper.stop().animate({
 		height: targetHeight+"px"
-	}, 500, function() {
-		// Animation complete.
+	}, 500);
+}
+$(document).ready(function(){
+	RotateToMouse();
+});
+async function RotateToMouse(){
+	while(true){
+		$('.rotate-to-mouse').each(function(){
+			let rotatedObject = $(this);
+			let offset = rotatedObject.offset()
+			var relCoor = new Vector2(
+				offset.left + rotatedObject.width()/2,
+				offset.top + rotatedObject.height()/2
+			);
+			relCoor = Vector2.Sub(relCoor,mouseCoords);
+			let desiredRotation = Vector2.Angle(Vector2.up,relCoor);
+			// console.log(desiredRotation);
+			let curRotation = rotatedObject.data('cur-rotation');
+			if(!curRotation){
+				curRotation = desiredRotation;
+			}
+			curRotation = Mathf.LerpRotation(curRotation,desiredRotation,rotatedObject.data('lerp-speed'));
+
+			rotatedObject.css("transform", 'rotate(' + curRotation + 'deg)');
+			rotatedObject.data('cur-rotation', curRotation);
+		});
+		await Timeout(20)
+	}
+	
+}
+function Timeout(time) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve('resolved');
+		}, time);
 	});
 }

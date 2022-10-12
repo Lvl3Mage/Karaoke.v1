@@ -6,6 +6,15 @@ export default class Mathf
 	static Lerp(a, b, t) {
 		return (1 - t) * a + t * b;
 	}
+	static LerpRotation(a,b,t) {
+		let delta = b-a;
+		if(Math.abs(delta) > 180){ // offseting the angles by 180, this way the breakpoint happens in a different place and they can be safely lerped
+			a = Mathf.WrapAngle(a+180);
+			b = Mathf.WrapAngle(b+180);
+			return Mathf.WrapAngle(Mathf.Lerp(a,b,t) - 180);
+		}
+		return Mathf.Lerp(a,b,t);
+	}
 	static TransformRange(OldMin, OldMax,NewMin,NewMax, value){
 		let OldRange = (OldMax - OldMin);
 		let NewRange = (NewMax - NewMin);
