@@ -28,29 +28,33 @@ $(document).ready(function(){
         arrows: true,
         speed: 1000,
         rows:2,
-        slidesPerRow:4,
+        slidesPerRow:1,
+        slidesToShow:4,
         responsive:[
             {
                 breakpoint:768,
                 settings:{
                     rows:4,
-                    slidesPerRow:2,
+                    slidesPerRow:1,
+                    slidesToShow:2,
                 }
             }
         ]
     });
     $('.menu-slider').slick({
+        infinite: false,
         dots: true,
         arrows: false,
         speed: 1000,
         rows:2,
-        slidesPerRow:3,
+        slidesPerRow:1,
+        slidesToShow:3,
         responsive:[
             {
                 breakpoint:768,
                 settings:{
                     rows:2,
-                    slidesPerRow:2,
+                    slidesToShow:2,
                 }
             },{
                 breakpoint:568,

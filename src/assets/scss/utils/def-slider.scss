@@ -1,6 +1,6 @@
 // Default slider styles
 
-def-slider {
+.def-slider {
   min-width: 0;
   position: relative;
   display: flex;
@@ -22,7 +22,7 @@ def-slider {
   .slick-list {
     overflow: hidden;
     flex: 1 1;
-    height: 100%;
+    // height: 100%;
   }
   /* Лента слайдов */
   .slick-track {
