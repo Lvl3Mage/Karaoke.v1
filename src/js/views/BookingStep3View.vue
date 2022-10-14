@@ -30,13 +30,28 @@
 			this.bookingStore.openStep = 3;
 		},
 		mounted(){
+			let data = new FormData();
+			data.append('action', 'isStaff');
+			axios
+				.post(api.baseURL,data)
+				.then(response => {
+					if(response.data.status == 200){
+						this.bookingStore.isStaff = response.data.isStaff;
+					}
+				})
+				.catch(function(error){
+					console.log(error)
+					this.$router.push(this.prevRoute);
+					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
+				}.bind(this));
+
 			this.$nextTick(function(){
 				$('.page-content-wrapper').scrollTop(0);
 			});
 			
 		},
 		methods: {
-			attemptSubmit: function(){
+			validateFields: function(){
 				let valid = true;
 				for (var i = 0; i < this.bookingStore.contactFields.length; i++) {
 					let invalid = !this.bookingStore.contactFields[i].regex.test(this.bookingStore.contactFields[i].value);
@@ -45,7 +60,11 @@
 						this.bookingStore.contactFields[i].invalid = invalid;	
 					}
 				}
-				if(valid){
+				return valid;
+			},
+			attemptSubmit: function(){
+				
+				if(validateFields()){
 					let data = new FormData();
 					data.append('action', 'getPaymentMethods');
 					data.append('price', this.bookingStore.totalPrice);
@@ -72,6 +91,11 @@
 			},
 			prevView: function(){
 				this.$router.push(this.prevRoute);
+			},
+			manualSubmit: function(){
+				if(validateFields()){
+					this.submitBooking();
+				}
 			},
 			submitBooking: function(){
 				let contactFields = [];
@@ -158,10 +182,11 @@
 						:prevEnabled="true"
 						:nextEnabled="isStepComplete"
 						@prev-clicked="prevView()"
-						@next-clicked="attemptSubmit()"
+						@next-clicked="bookingStore.isStaff ? manualSubmit() : attemptSubmit()"
 					>
 						<template v-slot:next-text>
-							Pay
+							<span class="" v-if="bookingStore.isStaff">Book Manually</span>
+							<span class="" v-if="!bookingStore.isStaff">Pay</span>
 						</template>
 						<template v-slot:prev-text>
 							Back
@@ -195,12 +220,12 @@
 									</div>
 								</div>
 								<button class="pay-submit-button" @click="submitBooking()">Confirm Payment</button>
-								<form action="/payment" method="POST" class="pay-submit-form" name="payment-submit-form">
+								<form :action="bookingStore.isStaff ? '/manual-book' : '/payment'" method="POST" class="pay-submit-form" name="payment-submit-form">
 									<input type="hidden" :value="bookingData" name="bookinData"> 
 									<input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod">
 									<input type="hidden" :value="recoveryData" name="recoveryData">
 									<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
-								</form>	
+								</form>
 							</div>
 							<div class="payment-selection__loader" v-if="bookingStore.paymentMethods == null">
 								<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>

@@ -65,7 +65,6 @@
 				axios
 					.post(api.baseURL,itemData)
 					.then(response => {
-
 						console.log(response.data);
 						this.bookingStore.itemData = response.data.itemData;
 						this.bookingStore.itemOrders = [];
@@ -91,7 +90,7 @@
 							pack.forceClose = false;
 							this.popupList.push(false);
 						}
-					})			
+					})
 					.catch((err) => {
 						console.log(err);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
