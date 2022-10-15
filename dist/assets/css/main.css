@@ -4030,7 +4030,7 @@ body {
 }
 
 .image-slider__slide {
-  margin: 0 25px;
+  padding: 0 10px;
 }
 
 .image-slider__image {
@@ -4127,11 +4127,18 @@ body {
   position: relative;
 }
 
+.slider-gallery-item {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
 .slider-gallery-item > img {
   filter: grayscale(1);
   display: block;
   width: 100%;
   height: 100%;
+  -o-object-position: center;
+     object-position: center;
   -o-object-fit: cover;
      object-fit: cover;
   transition: all 0.5s;

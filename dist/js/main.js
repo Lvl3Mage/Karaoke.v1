@@ -21,9 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let api = {};
-api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php"; // api.baseURL = "/wp-admin/admin-ajax.php";
+let api = {}; // api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php";
 
+api.baseURL = "/wp-admin/admin-ajax.php";
 
 const __default__ = {
   data: () => ({}),
@@ -1711,7 +1711,7 @@ const __default__ = {
       return valid;
     },
     attemptSubmit: function () {
-      if (validateFields()) {
+      if (this.validateFields()) {
         let data = new FormData();
         data.append('action', 'getPaymentMethods');
         data.append('price', this.bookingStore.totalPrice);
@@ -1738,7 +1738,7 @@ const __default__ = {
       this.$router.push(this.prevRoute);
     },
     manualSubmit: function () {
-      if (validateFields()) {
+      if (this.validateFields()) {
         this.submitBooking();
       }
     },
@@ -1775,6 +1775,10 @@ const __default__ = {
   },
   computed: {
     selectedPaymentId: function () {
+      if (!this.bookingStore.paymentMethods) {
+        return null;
+      }
+
       if (this.bookingStore.paymentMethods.length - 1 < this.bookingStore.selectedPaymentMethod) {
         return null;
       }
@@ -3614,17 +3618,22 @@ const _hoisted_14 = {
 
 const _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Back ");
 
-const _hoisted_16 = {
+const _hoisted_16 = ["action"];
+const _hoisted_17 = ["value"];
+const _hoisted_18 = ["value"];
+const _hoisted_19 = ["value"];
+const _hoisted_20 = ["value"];
+const _hoisted_21 = {
   class: "def-modal__outer-container container"
 };
-const _hoisted_17 = {
+const _hoisted_22 = {
   class: "def-modal__inner-container def-modal__inner-container--50"
 };
-const _hoisted_18 = {
+const _hoisted_23 = {
   class: "def-modal__top"
 };
 
-const _hoisted_19 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+const _hoisted_24 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "def-modal__title"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   class: "modal-title"
@@ -3632,39 +3641,34 @@ const _hoisted_19 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK
 /* HOISTED */
 ));
 
-const _hoisted_20 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+const _hoisted_25 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "def-modal__cross-line def-modal__cross-line--1"
 }, null, -1
 /* HOISTED */
 ));
 
-const _hoisted_21 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+const _hoisted_26 = /*#__PURE__*/_withScopeId(() => /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   class: "def-modal__cross-line def-modal__cross-line--2"
 }, null, -1
 /* HOISTED */
 ));
 
-const _hoisted_22 = [_hoisted_20, _hoisted_21];
-const _hoisted_23 = {
+const _hoisted_27 = [_hoisted_25, _hoisted_26];
+const _hoisted_28 = {
   class: "def-modal__content-wrapper def-modal-class-name modal-content-wrapper"
 };
-const _hoisted_24 = {
+const _hoisted_29 = {
   key: 0,
   class: ""
 };
-const _hoisted_25 = {
+const _hoisted_30 = {
   class: "payment-selection"
 };
-const _hoisted_26 = {
+const _hoisted_31 = {
   class: "payment-selection__methods"
 };
-const _hoisted_27 = ["onClick"];
-const _hoisted_28 = ["src"];
-const _hoisted_29 = ["action"];
-const _hoisted_30 = ["value"];
-const _hoisted_31 = ["value"];
-const _hoisted_32 = ["value"];
-const _hoisted_33 = ["value"];
+const _hoisted_32 = ["onClick"];
+const _hoisted_33 = ["src"];
 const _hoisted_34 = {
   key: 1,
   class: "payment-selection__loader"
@@ -3718,18 +3722,50 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["nextEnabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  , ["nextEnabled"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    action: $setup.bookingStore.isStaff ? '/manual-book' : '/payment',
+    method: "POST",
+    class: "pay-submit-form",
+    name: "payment-submit-form"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "hidden",
+    value: $data.bookingData,
+    name: "bookinData"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_17), !$setup.bookingStore.isStaff ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+    key: 0,
+    type: "hidden",
+    value: $options.selectedPaymentId,
+    name: "selectedPaymentMethod"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "hidden",
+    value: $data.recoveryData,
+    name: "recoveryData"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_19), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "hidden",
+    value: this.bookingStore.reservationToken,
+    name: "token"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_20)], 8
+  /* PROPS */
+  , _hoisted_16), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["def-modal", {
       'modal-active': $data.paymentModalOpen
     }]),
     onClick: _cache[6] || (_cache[6] = $event => $data.paymentModalOpen = false)
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     class: "def-modal__wrapper",
     onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(() => {}, ["stop"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     class: "def-modal__cross",
     onClick: _cache[3] || (_cache[3] = $event => $data.paymentModalOpen = false)
-  }, _hoisted_22)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [$setup.bookingStore.paymentMethods != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.bookingStore.paymentMethods, (method, i) => {
+  }, _hoisted_27)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [$setup.bookingStore.paymentMethods != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.bookingStore.paymentMethods, (method, i) => {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["payment-selection__method", {
         'active': i == $setup.bookingStore.selectedPaymentMethod
@@ -3742,46 +3778,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       alt: ""
     }, null, 8
     /* PROPS */
-    , _hoisted_28)], 14
+    , _hoisted_33)], 14
     /* CLASS, STYLE, PROPS */
-    , _hoisted_27);
+    , _hoisted_32);
   }), 128
   /* KEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     class: "pay-submit-button",
     onClick: _cache[4] || (_cache[4] = $event => $options.submitBooking())
-  }, "Confirm Payment"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    action: $setup.bookingStore.isStaff ? '/manual-book' : '/payment',
-    method: "POST",
-    class: "pay-submit-form",
-    name: "payment-submit-form"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "hidden",
-    value: $data.bookingData,
-    name: "bookinData"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_30), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "hidden",
-    value: $options.selectedPaymentId,
-    name: "selectedPaymentMethod"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_31), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "hidden",
-    value: $data.recoveryData,
-    name: "recoveryData"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_32), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "hidden",
-    value: this.bookingStore.reservationToken,
-    name: "token"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_33)], 8
-  /* PROPS */
-  , _hoisted_29)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.bookingStore.paymentMethods == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_34, _hoisted_36)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])], 2
+  }, "Confirm Payment")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.bookingStore.paymentMethods == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_34, _hoisted_36)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])], 2
   /* CLASS */
   )]);
 }
@@ -4829,7 +4834,9 @@ function newParticle(pSystem) {
 
 function UpdateSystems(tick) {
   for (let system of particleSystems) {
-    UpdateParticleSystem(system, tick);
+    if (checkVisible(system.simContainer)) {
+      UpdateParticleSystem(system, tick);
+    }
   }
 }
 
@@ -4939,6 +4946,12 @@ function Timeout(time) {
   });
 }
 
+function checkVisible(elm) {
+  var rect = elm.getBoundingClientRect();
+  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+}
+
 async function UpdateLoop() {
   const fixedDeltaTime = 0.02;
   const maxDeltaTime = 0.6;
@@ -4946,8 +4959,8 @@ async function UpdateLoop() {
   let deltaTime = fixedDeltaTime;
 
   while (true) {
-    let startFrameTime = performance.now();
-    console.log(deltaTime);
+    let startFrameTime = performance.now(); // console.log(deltaTime);
+
     deltaTime = Math.min(maxDeltaTime, deltaTime);
     UpdateSystems(deltaTime); // ComponentEventHandler.CallBuiltinEvents();
 

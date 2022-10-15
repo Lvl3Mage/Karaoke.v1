@@ -124,7 +124,10 @@ function newParticle(pSystem){
 }
 function UpdateSystems(tick){
 	for(let system of particleSystems){
-		UpdateParticleSystem(system, tick);
+		if(checkVisible(system.simContainer)){
+			UpdateParticleSystem(system, tick);
+		}
+		
 	}
 }
 function UpdateParticleSystem(system, tick){
@@ -236,6 +239,11 @@ function Timeout(time) {
 		}, time);
 	});
 }
+function checkVisible(elm) {
+  var rect = elm.getBoundingClientRect();
+  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+}
 
 async function UpdateLoop(){
 	const fixedDeltaTime = 0.02;
@@ -246,7 +254,7 @@ async function UpdateLoop(){
 	while(true){
 		let startFrameTime = performance.now();
 
-		console.log(deltaTime);
+		// console.log(deltaTime);
 		deltaTime = Math.min(maxDeltaTime, deltaTime);
 		UpdateSystems(deltaTime);
 		// ComponentEventHandler.CallBuiltinEvents();

@@ -64,7 +64,7 @@
 			},
 			attemptSubmit: function(){
 				
-				if(validateFields()){
+				if(this.validateFields()){
 					let data = new FormData();
 					data.append('action', 'getPaymentMethods');
 					data.append('price', this.bookingStore.totalPrice);
@@ -93,7 +93,7 @@
 				this.$router.push(this.prevRoute);
 			},
 			manualSubmit: function(){
-				if(validateFields()){
+				if(this.validateFields()){
 					this.submitBooking();
 				}
 			},
@@ -129,6 +129,9 @@
 
 		computed: {
 			selectedPaymentId: function(){
+				if(!this.bookingStore.paymentMethods){
+					return null;
+				}
 				if(this.bookingStore.paymentMethods.length-1 < this.bookingStore.selectedPaymentMethod){
 					return null;
 				}
@@ -196,7 +199,12 @@
 
 			</div>
 		</div>
-		
+		<form :action="bookingStore.isStaff ? '/manual-book' : '/payment'" method="POST" class="pay-submit-form" name="payment-submit-form">
+			<input type="hidden" :value="bookingData" name="bookinData"> 
+			<input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod" v-if="!bookingStore.isStaff">
+			<input type="hidden" :value="recoveryData" name="recoveryData">
+			<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
+		</form>
 		<div class="def-modal" :class="{'modal-active': paymentModalOpen}" @click="paymentModalOpen = false">
 			<div class="def-modal__outer-container container">
 				<div class="def-modal__inner-container def-modal__inner-container--50">
@@ -220,12 +228,6 @@
 									</div>
 								</div>
 								<button class="pay-submit-button" @click="submitBooking()">Confirm Payment</button>
-								<form :action="bookingStore.isStaff ? '/manual-book' : '/payment'" method="POST" class="pay-submit-form" name="payment-submit-form">
-									<input type="hidden" :value="bookingData" name="bookinData"> 
-									<input type="hidden" :value="selectedPaymentId" name="selectedPaymentMethod">
-									<input type="hidden" :value="recoveryData" name="recoveryData">
-									<input type="hidden" :value="this.bookingStore.reservationToken" name="token">
-								</form>
 							</div>
 							<div class="payment-selection__loader" v-if="bookingStore.paymentMethods == null">
 								<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
