@@ -84,6 +84,13 @@
     border-color: transparent;
     width: 16px;
     height: 16px;
+    @media screen and(max-width: $phoneWidth ) {
+      margin: 0 10px;
+  }
+  @media screen and(max-width: $smPhoneWidth ) {
+    width: 12px;
+    height: 12px;
+}
   }
   .slick-dots li.slick-active button {
     background: $flamingo-color;

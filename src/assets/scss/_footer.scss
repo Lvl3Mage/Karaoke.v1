@@ -45,6 +45,10 @@
                 width: 150px;
                 height: 150px;
             }
+            @media screen and(max-width: $phoneWidth ) {
+                width: 100px;
+                height: 100px;
+            }
 		}
 
 		// .footer__nav
@@ -56,6 +60,9 @@
             justify-content: flex-start;
             @media screen and(max-width: 680px) {
                 flex: 0 0 45%;
+            }
+            @media screen and(max-width: $smPhoneWidth) {
+                flex: 0 0 50%;
             }
 		}
 
@@ -107,6 +114,12 @@
     flex-wrap: wrap;
         &__item{
             margin: 10px 20px;
+            @media screen and(max-width: $phoneWidth ) {
+                margin: 10px 10px;
+            }
+            @media screen and(max-width: $smPhoneWidth ) {
+                margin: 10px 5px;
+            }
         }
 		// .nav__link
 
