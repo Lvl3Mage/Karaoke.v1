@@ -98,6 +98,7 @@
 
 				let data = new FormData();
 				data.append('action', 'getScheduleData');
+
 				data.append('room-id', targetRoom);
 				data.append('start-date', this.bookingStore.formatDictDate(startDate));
 				data.append('end-date', this.bookingStore.formatDictDate(endDate));
@@ -107,7 +108,6 @@
 				}
 				data.append('token', token);
 				data.append('clientTimeZone', (new Date()).getTimezoneOffset());
-
 				axios
 					.post(api.baseURL,data)
 					.then(response => {
@@ -226,7 +226,7 @@
 			<div class="booking__calendar-column">
 				<div class="font--prim-text text--700 text--S m--b-10 text--center">Date</div>
 				<Calendar :highlightColor="selectedRoomColor" v-model="bookingStore.selectedDate" ></Calendar>
-				<div class="microphone">
+				<div class="microphone microphone--desktop">
 					<div class="microphone__outer-wrapper">
 						<!-- transformAxisRotation is a little innacturate but it's accurate enough to look good so I'm going to leave it here -->
 						<!-- I've added a 7 to the total rotation to reduce the size a little (this way there's a gap) -->
@@ -234,9 +234,6 @@
 						:style="'--transformAxisRotation:' + (Math.acos((4/(selectedOccupancyData.length))) * 180/Math.PI + 7) +'deg' + '; --offset:' + ((i/(selectedOccupancyData.length))*360 + 270 + 180/selectedOccupancyData.length) + 'deg ; --color:'+getTimeSegmentColor(i)+ ';'">
 							
 						</div>
-						<!-- <div v-for="(hour, i) in selectedOccupancyData" :key="i" class="microphone__circle-section" :style="'--transformAxisRotation:' + Math.acos(1/selectedOccupancyData.length)+'rad' + '; --offset:' + (i/selectedOccupancyData.length)*360 + 'deg ; --color:' + getTimeSegmentColor(i) + ';'">
-							
-						</div> -->
 						<div class="microphone__inner-wrapper">
 							<div class="microphone__image rotate-to-mouse" data-lerp-speed="0.1">
 								<img :src="require('assetDir/images/svg/microphone.svg')" alt="">
@@ -259,7 +256,21 @@
 						<span>Next</span>
 					</div>
 				</div>
-				
+				<div class="microphone microphone--mobile">
+					<div class="microphone__outer-wrapper">
+						<!-- transformAxisRotation is a little innacturate but it's accurate enough to look good so I'm going to leave it here -->
+						<!-- I've added a 7 to the total rotation to reduce the size a little (this way there's a gap) -->
+						<div v-for="(hour, i) in selectedOccupancyData" :key="i" class="microphone__circle-section" 
+						:style="'--transformAxisRotation:' + (Math.acos((4/(selectedOccupancyData.length))) * 180/Math.PI + 7) +'deg' + '; --offset:' + ((i/(selectedOccupancyData.length))*360 + 270 + 180/selectedOccupancyData.length) + 'deg ; --color:'+getTimeSegmentColor(i)+ ';'">
+							
+						</div>
+						<div class="microphone__inner-wrapper">
+							<div class="microphone__image rotate-to-mouse" data-lerp-speed="0.1">
+								<img :src="require('assetDir/images/svg/microphone.svg')" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="loader" v-if="!bookingDataAvailable">
@@ -279,6 +290,16 @@
 		}
 	}
 	.microphone {
+		&--desktop{
+			@media screen and (max-width: $smTabletWidth) {
+				display: none;
+			}
+		}
+		&--mobile{
+			@media screen and (min-width: $smTabletWidth) {
+				display: none;
+			}
+		}
 		position: relative;
 		z-index: -1;
 		width: 100%;
@@ -286,6 +307,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@media screen and (max-width: $smTabletWidth) {
+			margin: auto;
+			width: 70%;
+		}
 		&__outer-wrapper {
 			width: 80%;
 			height: 80%;
@@ -413,6 +438,8 @@
 		&__calendar-column {
 			z-index: 5;
 			flex: 0 0 255px;
+			display: flex;
+			flex-direction: column;
 			margin-right: 50px;
 			@media screen and (max-width: $smDesktopWidth) {
 				margin-right: 15px;
