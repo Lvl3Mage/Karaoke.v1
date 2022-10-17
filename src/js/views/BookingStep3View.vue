@@ -40,7 +40,7 @@
 					}
 				})
 				.catch(function(error){
-					console.log(error)
+					//console.log(error)
 					this.$router.push(this.prevRoute);
 					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 				}.bind(this));
@@ -82,7 +82,7 @@
 							}
 						})
 						.catch(function(error){
-							console.log(error)
+							//console.log(error)
 							this.paymentModalOpen = false;
 							this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 						}.bind(this));
