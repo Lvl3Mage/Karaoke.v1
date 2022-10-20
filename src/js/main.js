@@ -2,6 +2,15 @@ import $ from "jquery";
 import Vector2 from "libs/Vector2"
 import Mathf from "libs/Mathf"
 import mouseCoords from "libs/MouseCoords"
+$('.menu-slider-item').click(function(){
+	if(!$(this).find('.menu-slider__description').hasClass('hide')){
+		$('.menu-slider__description.hide').removeClass('hide')
+		$(this).find('.menu-slider__description').addClass('hide')
+	}
+	else{
+		$(this).find('.menu-slider__description').removeClass('hide')
+	};
+});
 
 $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
