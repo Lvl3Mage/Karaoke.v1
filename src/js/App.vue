@@ -3,7 +3,7 @@
 	import {useBookingStore} from './stores/BookingStore.js'
 	import axios from 'axios';
 	let api = {};
-	// api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php";
+	//api.baseURL = "https://karaoke.marmadot.com/wp-admin/admin-ajax.php";
 	
 	api.baseURL = "/wp-admin/admin-ajax.php";
 	export {axios, api};

@@ -42,19 +42,19 @@
 				.post(api.baseURL,reservationData)
 				.then(response => {
 
-					console.log(response.data);
+					////console.log(response.data);
 					if(response.data.status == 200){
 						this.bookingStore.reservationToken = response.data.token;
 						this.bookingStore.reservationTTL = response.data.ttl;
 					}
 					else{
-						console.log("Reservation returned status "+ response.data.status);
+						////console.log("Reservation returned status "+ response.data.status);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again. amogus");
 						this.$router.push(this.prevRoute);
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					////console.log(err);
 					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 					this.$router.push(this.prevRoute);
 				});
@@ -65,7 +65,7 @@
 				axios
 					.post(api.baseURL,itemData)
 					.then(response => {
-						console.log(response.data);
+						////console.log(response.data);
 						this.bookingStore.itemData = response.data.itemData;
 						this.bookingStore.itemOrders = [];
 						for (var i = 0; i < this.bookingStore.itemData.length; i++) {
@@ -92,7 +92,7 @@
 						}
 					})
 					.catch((err) => {
-						console.log(err);
+						////console.log(err);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 						this.$router.push(this.prevRoute);
 					});
@@ -191,7 +191,7 @@
 <template>
 	<div class="container">
 		<div class="section-description" v-if="stepLoaded">
-			We have three Celebration Packs for you. You can get them here.
+			We have three Celebration Packages for you. You can get them here. If you require more letter balloons please write them down in the comment box below (each additional letter balloon is 2 KD)
 		</div>
 		<div class="packages" v-if="stepLoaded">
 			<div class="package " v-for="(pack, i) in bookingStore.packData" :key="i" @click="togglePack(i)" :class="{'mobile-open': openPackID == i,'force-close': pack.forceClose}" @mouseleave="pack.forceClose = false">
@@ -227,11 +227,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="section-description" v-if="stepLoaded">
-			Please select any additional food/beverages/decorations.
-		</div>
 		<div class="item-select" v-if="stepLoaded">
 			<div class="item-select__item-window">
+				<div class="section-description" v-if="stepLoaded">
+					Please select any additional food/beverages/decorations.
+				</div>
 				<div class="item-select__item-list-wrapper item-list-wrapper" v-for="(category, i) in bookingStore.itemData" :key="i">
 					<div class="item-select__item-list-category item-category">
 						<span>{{category.title}}</span>

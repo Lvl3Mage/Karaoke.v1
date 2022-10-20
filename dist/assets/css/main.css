@@ -3954,6 +3954,8 @@ body {
   margin: 20px 0 0;
   padding: 0;
   flex-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
 }
 .def-slider .slick-dots li {
   list-style: none;
@@ -3971,6 +3973,17 @@ body {
   border-color: transparent;
   width: 16px;
   height: 16px;
+}
+@media screen and (max-width: 576px) {
+  .def-slider .slick-dots li button {
+    margin: 0 10px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .def-slider .slick-dots li button {
+    width: 12px;
+    height: 12px;
+  }
 }
 .def-slider .slick-dots li.slick-active button {
   background: #F569A3;
@@ -4347,6 +4360,10 @@ body {
   font-style: normal;
   font-weight: 700;
   color: #fc4f53;
+}
+.menu-slider__price-type {
+  color: #000000;
+  margin-right: 20px;
 }
 
 /* Slider */
@@ -4841,6 +4858,12 @@ body {
     height: 150px;
   }
 }
+@media screen and (max-width: 576px) {
+  .footer__logo {
+    width: 100px;
+    height: 100px;
+  }
+}
 .footer__nav {
   display: flex;
   flex: 0 0 30%;
@@ -4850,6 +4873,11 @@ body {
 @media screen and (max-width: 680px) {
   .footer__nav {
     flex: 0 0 45%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .footer__nav {
+    flex: 0 0 50%;
   }
 }
 .footer__social {
@@ -4900,6 +4928,16 @@ body {
 }
 .nav__item {
   margin: 10px 20px;
+}
+@media screen and (max-width: 576px) {
+  .nav__item {
+    margin: 10px 10px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .nav__item {
+    margin: 10px 5px;
+  }
 }
 .nav__link:not(:last-child) {
   margin-bottom: 16px;
@@ -7739,6 +7777,22 @@ p {
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 768px) {
+.microphone--desktop[data-v-a6cad322] {
+    display: none;
+}
+}
+@media screen and (min-width: 768px) {
+.microphone--mobile[data-v-a6cad322] {
+    display: none;
+}
+}
+@media screen and (max-width: 768px) {
+.microphone[data-v-a6cad322] {
+    margin: auto;
+    width: 70%;
+}
+}
 .microphone__outer-wrapper[data-v-a6cad322] {
   width: 80%;
   height: 80%;
@@ -7862,6 +7916,8 @@ p {
 .booking__calendar-column[data-v-a6cad322] {
   z-index: 5;
   flex: 0 0 255px;
+  display: flex;
+  flex-direction: column;
   margin-right: 50px;
 }
 @media screen and (max-width: 1200px) {

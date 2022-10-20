@@ -112,7 +112,7 @@
 				totalMinutes = totalMinutes % 1440; // ensures the time is limited to 1 day
 
 				let minutes = totalMinutes % 60;
-				// console.log(minutes);
+				// //console.log(minutes);
 				let hours = Math.round((totalMinutes - minutes) / 60);
 
 
