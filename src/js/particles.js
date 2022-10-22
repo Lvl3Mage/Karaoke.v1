@@ -110,7 +110,7 @@ function newParticle(pSystem){
 		angularVelocity = randomRange(startingAngularVelocity.min, startingAngularVelocity.max);
 	}
 
-	// console.log(particleDOM);
+	// //console.log(particleDOM);
 	let particle = {
 		position: new Vector2(xPosition*width, yPosition*height),
 		velocity: vel,
@@ -164,11 +164,11 @@ function UpdateParticleSystem(system, tick){
 
 	for (let i = 0; i < system.particles.length; i++) {
 		let particle = system.particles[i];
-		// console.log(system.info.acceleration.Scale(0.01),tick)
+		// //console.log(system.info.acceleration.Scale(0.01),tick)
 		particle.velocity = Vector2.Add(particle.velocity, acceleration)
 
 		let dragSubstraction = particle.velocity.Scale(1 - 1/(1+drag * tick));
-		// console.log(particle.velocity);
+		// //console.log(particle.velocity);
 		particle.velocity = Vector2.Sub(particle.velocity, dragSubstraction);
 		if(system.info.cursorPull && !isMobileDevice()){
 			ParticleCursorPull(particle, 700, 1.5, tick, relCoor);
@@ -199,7 +199,7 @@ function UpdateParticleSystem(system, tick){
 		let xBounds = particle.position.x >= realBounds.left && particle.position.x <= realBounds.right;
 		let yBounds = particle.position.y >= realBounds.top && particle.position.y <= realBounds.bottom;
 		if(!(xBounds && yBounds) || particle.ttl <= 0) {
-			// console.log(particle.position, realBounds)
+			// //console.log(particle.position, realBounds)
 			$(particle.ref).remove();
 			system.particles.splice(i,1);
 			i--;
@@ -228,7 +228,7 @@ $(document).ready(function(){
 	if(systems.length > 0){
 		UpdateLoop();
 	}
-	// console.log(newParticle(particleSystems[0]));
+	// //console.log(newParticle(particleSystems[0]));
 	
 });
 
@@ -254,7 +254,7 @@ async function UpdateLoop(){
 	while(true){
 		let startFrameTime = performance.now();
 
-		// console.log(deltaTime);
+		// //console.log(deltaTime);
 		deltaTime = Math.min(maxDeltaTime, deltaTime);
 		UpdateSystems(deltaTime);
 		// ComponentEventHandler.CallBuiltinEvents();

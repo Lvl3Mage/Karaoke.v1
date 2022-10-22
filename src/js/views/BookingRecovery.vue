@@ -36,7 +36,7 @@
 			axios
 				.post(api.baseURL,data)
 				.then(response => {
-					console.log(response);
+					//console.log(response);
 					this.recoverRoomData();
 					this.recoverItemData();
 					this.bookingStore.reservationToken = token;
@@ -60,7 +60,7 @@
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					//console.log(err);
 					this.recoveryFailed();
 				});
 		},
@@ -83,7 +83,7 @@
 						this.checkDataValidity();
 					})
 					.catch((err) => {
-						console.log(err);
+						//console.log(err);
 						this.recoveryFailed();
 					});
 			},

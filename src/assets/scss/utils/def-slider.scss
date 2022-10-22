@@ -344,6 +344,7 @@
   position: relative;
   aspect-ratio: 0.8;
   padding: 15px;
+ 
   @media screen and(max-width:$smPhoneWidth) {
     aspect-ratio: 0.65;
 	padding: 7px;
@@ -359,6 +360,7 @@
 }
 
 .menu-slider__description {
+  opacity: 1;
   position: absolute;
   bottom: 15px;
   right: 15px;
@@ -370,6 +372,9 @@
   padding: 15px 20px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 0px 0px 20px 20px;
+  &.hide{
+    display: none;
+  }
   @media screen and(max-width:$smPhoneWidth) {
     bottom: 7px;
     right: 7px;

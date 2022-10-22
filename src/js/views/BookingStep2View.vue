@@ -42,19 +42,19 @@
 				.post(api.baseURL,reservationData)
 				.then(response => {
 
-					console.log(response.data);
+					////console.log(response.data);
 					if(response.data.status == 200){
 						this.bookingStore.reservationToken = response.data.token;
 						this.bookingStore.reservationTTL = response.data.ttl;
 					}
 					else{
-						console.log("Reservation returned status "+ response.data.status);
+						////console.log("Reservation returned status "+ response.data.status);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again. amogus");
 						this.$router.push(this.prevRoute);
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					////console.log(err);
 					this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 					this.$router.push(this.prevRoute);
 				});
@@ -65,7 +65,7 @@
 				axios
 					.post(api.baseURL,itemData)
 					.then(response => {
-						console.log(response.data);
+						////console.log(response.data);
 						this.bookingStore.itemData = response.data.itemData;
 						this.bookingStore.itemOrders = [];
 						for (var i = 0; i < this.bookingStore.itemData.length; i++) {
@@ -92,7 +92,7 @@
 						}
 					})
 					.catch((err) => {
-						console.log(err);
+						////console.log(err);
 						this.errorModalStore.OpenModal("Something went wrong.", "Please try again.");
 						this.$router.push(this.prevRoute);
 					});

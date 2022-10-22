@@ -77,7 +77,7 @@
 						timer = 0;
 					}
 				}
-				console.log('day refresh exit');
+				////console.log('day refresh exit');
 				
 				
 			},
@@ -112,7 +112,7 @@
 				axios
 					.post(api.baseURL,data)
 					.then(response => {
-						console.log(response.data);
+						////console.log(response.data);
 						delete this.pendingDateRequests[targetRoom][this.bookingStore.formatDictDate(targetDate)];
 						for(var date in response.data) {
 							var time = response.data[date].work_time.open.split(':');

@@ -2,6 +2,15 @@ import $ from "jquery";
 import Vector2 from "libs/Vector2"
 import Mathf from "libs/Mathf"
 import mouseCoords from "libs/MouseCoords"
+$('.menu-slider-item').click(function(){
+	if(!$(this).find('.menu-slider__description').hasClass('hide')){
+		$('.menu-slider__description.hide').removeClass('hide')
+		$(this).find('.menu-slider__description').addClass('hide')
+	}
+	else{
+		$(this).find('.menu-slider__description').removeClass('hide')
+	};
+});
 
 $('.burger-btn').on('click', function(){
 	$(this).toggleClass('active');
@@ -31,7 +40,7 @@ function RatioW(){
 		if(ratioMultiplier == "undefined"){
 			ratioMultiplier = 1;
 		}
-		//console.log(ratioMultiplier);
+		////console.log(ratioMultiplier);
 		$(this).css("height", (parseFloat($(this).css("width")) * ratioMultiplier).toString() + "px");
 	});
 }
@@ -41,7 +50,7 @@ function RatioH(){
 		if(ratioMultiplier == "undefined"){
 			ratioMultiplier = 1;
 		}
-		//console.log(ratioMultiplier);
+		////console.log(ratioMultiplier);
 		$(this).css("width", (parseFloat($(this).css("height")) * ratioMultiplier).toString() + "px");
 	});
 }
@@ -73,7 +82,7 @@ $(document).on('click', function(){
 	$('.sidebar-lang__list').removeClass('active');
 });
 // $(document).on('tap',document, function(){
-// 	//console.log('move');
+// 	////console.log('move');
 // });
 
 
@@ -195,7 +204,7 @@ async function RotateToMouse(){
 			);
 			relCoor = Vector2.Sub(relCoor,mouseCoords);
 			let desiredRotation = Vector2.Angle(Vector2.up,relCoor);
-			// console.log(desiredRotation);
+			// //console.log(desiredRotation);
 			let curRotation = rotatedObject.data('cur-rotation');
 			if(!curRotation){
 				curRotation = desiredRotation;

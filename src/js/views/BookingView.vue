@@ -22,7 +22,7 @@
 				}
 				if(val == null){
 					this.timerModalActive = false;
-					console.log(this.errorModalStore);
+					//console.log(this.errorModalStore);
 					this.errorModalStore.OpenModal("It seems your reservation time has expired.", 'You can attempt to reserve the same time again.');
 					this.$router.replace({name:'booking-step-1'});	
 
@@ -35,7 +35,7 @@
 			axios
 				.post(api.baseURL,data)
 				.then(response => {
-					console.log(response);
+					//console.log(response);
 					let roomIDs = Object.keys(response.data);
 					for (let roomID of roomIDs) {
 						let room = response.data[roomID];
@@ -54,7 +54,7 @@
 					}
 					else{
 						for(let roomID of roomIDs){
-							console.log(roomID)
+							//console.log(roomID)
 							if(this.bookingStore.roomData[roomID].default){
 								this.bookingStore.selectedRoomID = roomID;
 								break;
@@ -106,7 +106,7 @@
 				axios
 					.post(api.baseURL,data)
 					.then(response => {
-						console.log(response.data);
+						//console.log(response.data);
 						if(response.data.status == 200){
 							this.bookingStore.reservationTTL = response.data.ttl;
 						}
