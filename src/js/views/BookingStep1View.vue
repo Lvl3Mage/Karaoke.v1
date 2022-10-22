@@ -25,6 +25,7 @@
 				nextRoute: {name:"booking-step-2"},
 				countAmogus: 0,
 				dayRefreshActive: false,
+				priceModalOpen: false,
 			}
 		},
 		watch: {
@@ -244,6 +245,11 @@
 			</div>
 			<div class="booking__time-selector">
 				<TimeRangeSelector :highlightColor="selectedRoomColor" :occupancyData="selectedOccupancyData" :openTime="selectedSchedule.openTime" v-model="bookingStore.selectedRange"></TimeRangeSelector>
+				<div class="booking__view-price-button-wrapper">
+					<div class="booking__view-price-button" @click="priceModalOpen = true">
+						View schedule / prices
+					</div>	
+				</div>
 				<div class="booking__people-selector-row">
 					<PeopleCountSelector :minCount="selectedRoom.minCapacity" :maxCount="selectedRoom.maxCapacity" :highlightColor="selectedRoomColor" v-model="bookingStore.selectedPeopleCount"></PeopleCountSelector>
 					<div class="booking__price-wrapper">
@@ -271,6 +277,38 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="def-modal" :class="{'modal-active': priceModalOpen}" @click="priceModalOpen = false">
+			<div class="def-modal__outer-container container">
+				<div class="def-modal__inner-container def-modal__inner-container--75">
+					<div class="def-modal__wrapper" @click.stop>
+						<div class="def-modal__top m--b-15">
+							<div class="def-modal__title price-modal__title">
+								<span class="modal-title">Schedule information</span>
+							</div>
+							<div class="def-modal__cross" @click="priceModalOpen = false">
+								<div class="def-modal__cross-line def-modal__cross-line--1"></div>
+								<div class="def-modal__cross-line def-modal__cross-line--2"></div>
+							</div>
+						</div>
+						<div class="def-modal__content-wrapper def-modal-class-name modal-content-wrapper">
+							<div class="price-modal__elements">
+								<div class="price-modal__element" v-for="info in selectedRoom.scheduleInfo" :key="info">
+									<div class="price-modal__element-title">
+										{{info.title}}
+									</div>
+									<div class="price-modal__element-content">
+										{{info.content}}
+									</div>
+								</div>
+							</div>
+							<div class="price-modal__additional-info" v-for="info in selectedRoom.additionalInfo" :key="info">
+								{{info}}
+							</div>
+						</div>
+					</div>
+				</div>	
 			</div>
 		</div>
 		<div class="loader" v-if="!bookingDataAvailable">
@@ -461,6 +499,28 @@
 				max-width: 410px;
 			}
 		}
+		&__view-price-button-wrapper{
+			display: flex;
+			padding: 15px 0;
+			justify-content: flex-end;
+		}
+		&__view-price-button {
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 12px;
+			line-height: 15px;
+			color: #232020;
+			padding: 7px 10px;
+			background: #FFFFFF;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.3s;
+			@media screen and (max-width: $smTabletWidth) {
+				text-align: center;
+				width: 100%;
+			}
+		}
 		&__people-selector-row{
 			margin-top: 25px;
 			padding: 0 25px;
@@ -536,7 +596,46 @@
 		}
 
 	}
-
+	.price-modal {
+		&__title{
+			font-family: 'Roboto';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 24px;
+			color: #FC4F53;
+		}
+		&__elements {
+			margin-bottom: 25px;
+		}
+		&__element {
+			display: flex;
+			&-title{
+				flex: 0 0 50%;
+				font-weight: 700;
+				font-size: 16px;
+			}
+			&-content{
+				flex: 0 0 50%;
+				font-weight: 400;
+				font-size: 14px;
+			}
+			// &:before{
+			// 	content: '';
+			// 	flex: 0 0 4px;
+			// 	height: 4px;
+			// 	border-radius: 4px;
+			// 	background: #232020;
+			// 	align-self: center;
+			// 	margin-right: 10px;
+			// }
+		}
+		&__additional-info{
+			margin-bottom: 25px;
+			text-align: center;
+			font-weight: 700;
+			font-size: 14px;
+		}
+	}
 	.loader{
 		display: flex;
 		min-height: 50vh;

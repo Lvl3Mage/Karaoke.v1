@@ -304,6 +304,18 @@ p {
 	&--center{
 		left: 0;
 	}
+	&.modal-active{
+		transition: all 0.3s;
+		z-index: 450;
+		background: rgba(50,50,50,0.4);
+		&.important{
+			z-index: 600;
+		}
+		.def-modal__outer-container{
+			transition: all 0.8s;
+			transform: translateY(-100%);
+		}
+	}
 	&.light{
 		color: #232020;
 		.def-modal__wrapper{
@@ -320,18 +332,7 @@ p {
 		backdrop-filter: blur(0px);
 		background: transparent;
 	}
-	&.modal-active{
-		transition: all 0s;
-		z-index: 450;
-		background: rgba(50,50,50,0.4);
-		&.important{
-			z-index: 600;
-		}
-		.def-modal__outer-container{
-			transition: all 0.8s;
-			transform: translateY(-100%);
-		}
-	}
+	
 	&__outer-container {
 		position: relative;
 		display: flex;
@@ -382,12 +383,12 @@ p {
 		z-index: 10;
 		background: #3A3838;
 		border-radius: 10px;
-		padding: 40px 50px;
+		padding: 15px 25px;
 	}
 	&__top {
 		// min-width: 0;
 		// // width: 100%;
-		display: block;
+		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
@@ -396,19 +397,12 @@ p {
 	}
 
 	&__cross {
-		position: absolute;
-		top: 20px;
-		right: 20px;
 		justify-self: end;
 		cursor: pointer;
-		height: 24px;
-		width: 24px;
+		height: 20px;
+		width: 20px;
 		display: flex;
 		justify-content: center;
-		@media screen and (max-width:$phoneWidth){
-			height: 20px;
-			width: 20px;
-		}
 	}
 	&__cross-line {
 		height: 100%;
