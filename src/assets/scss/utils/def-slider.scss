@@ -109,9 +109,9 @@
 }
 .image-slider-big {
   margin-bottom: 30px;
-  @media screen and(max-width:$smTabletWidth) {
-    margin-bottom: 15px;
-  }
+  // @media screen and(max-width:$smTabletWidth) {
+  //   margin-bottom: 15px;
+  // }
 }
 .image-slider,
 .image-slider-big {
@@ -198,6 +198,9 @@
     height: 15px;
     border-right: 4px solid #fff;
     border-top: 4px solid #fff;
+  }
+  @media screen and(max-width:$smPhoneWidth) {
+    bottom: -20px;
   }
 }
 .image-slider-big .slick-arrow.slick-prev {

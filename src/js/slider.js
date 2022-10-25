@@ -17,7 +17,7 @@ $(document).ready(function(){
 		asNavFor:".image-slider",
 		responsive:[
 			{
-				breakpoint:768,
+				breakpoint:769,
 				settings:{
 					arrows:true,
 				}

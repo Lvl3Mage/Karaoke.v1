@@ -384,6 +384,9 @@ p {
 		background: #3A3838;
 		border-radius: 10px;
 		padding: 15px 25px;
+		@media screen and(max-width:$smPhoneWidth) {
+			padding: 5px 15px;
+		  }
 	}
 	&__top {
 		// min-width: 0;
