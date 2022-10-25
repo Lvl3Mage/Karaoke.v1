@@ -7,7 +7,8 @@ $(document).ready(function(){
 		slidesToShow: 3,
 		slidesToScroll: 1,
 		asNavFor:".image-slider-big",
-		centerMode: true,
+		centerMode:true,
+		focusOnSelect: true
 	});
 	$('.image-slider-big').slick({
 		arrows: false,
