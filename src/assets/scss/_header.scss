@@ -240,6 +240,9 @@
 		right: -25px;
 		margin: auto;
 		gap:15px;
+		@media screen and(max-width:$phoneWidth) {
+			bottom: -50px;
+		}
 
 		&.active{
 			display: flex;
