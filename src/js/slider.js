@@ -8,7 +8,7 @@ $(document).ready(function(){
 		slidesToScroll: 1,
 		asNavFor:".image-slider-big",
 		centerMode:true,
-		focusOnSelect: true
+		focusOnSelect: true,
 	});
 	$('.image-slider-big').slick({
 		arrows: false,
@@ -43,7 +43,7 @@ $(document).ready(function(){
 		]
 	});
 	$('.menu-slider').slick({
-		infinite: false,
+		infinite: true,
 		dots: true,
 		arrows: false,
 		speed: 1000,
@@ -68,4 +68,5 @@ $(document).ready(function(){
 			}
 		]
 	});
+	
 });

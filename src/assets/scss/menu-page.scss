@@ -4,9 +4,8 @@
 	padding: 50px 0;
 }
 .content-pretitle{
-	margin-bottom: 30px;
+	margin: 0 12% 30px;
 	align-self: flex-start;
-	margin-left: 12%;
 }
 .menu-section {
 	width: calc(100% - 240px);
@@ -20,13 +19,6 @@
 	@media screen and (max-width:$tabletWidth){
 		width: calc(100% - 10%);
 	}
-	// @media screen and (max-width: 1060px) {
-	// 	width: calc(100% - 160px);
-	// }
-	// @media screen and (max-width:$tabletWidth){
-	// 	width: calc(100% - 10%);
-
-	// }
 }
 .menu-page {
 
@@ -59,6 +51,7 @@
 			width: 50%;
 			aspect-ratio: 0.65;
 			position: relative;
+			margin-left: 30px;
 			@media screen and (min-width: $desktopWidth) {
 				width: 40%;
 				aspect-ratio: 0.65;
@@ -72,6 +65,7 @@
 				aspect-ratio: 0.70;
 			}
 			@media screen and (max-width: $smTabletWidth ){
+				margin-left: 0px;
 				width: 70%;
 				margin-bottom: 35px;
 			}
